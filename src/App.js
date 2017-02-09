@@ -13,9 +13,11 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         <p className="App-intro">
-          <Map/>
           <Places/>
         </p>
+       <div style={{width:500, height:600, background:'red'}}>
+          <Map/>
+      </div>
       </div>
     );
   }
