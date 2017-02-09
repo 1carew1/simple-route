@@ -1,5 +1,7 @@
 The purpose of this React App is to fullfil the requirements set out by the Assignment in the Enterprise Web Development Module for Msc. in Communication Software
 
+Google Maps Tutorial : https://www.youtube.com/watch?v=N1J7Q1qJPQM
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
