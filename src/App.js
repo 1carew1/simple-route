@@ -6,6 +6,11 @@ import Places from './components/Places';
 
 class App extends Component {
   render() {
+    const center = {
+      lat : 0,
+      lng : 0
+    };
+
     return (
       <div className="App">
         <div className="App-header">
@@ -16,7 +21,7 @@ class App extends Component {
           <Places/>
         </p>
        <div style={{width:500, height:600, background:'red'}}>
-          <Map/>
+          <Map center={center}/>
       </div>
       </div>
     );
