@@ -20,7 +20,7 @@ class Map extends Component {
     				defaultZoom={15}
     				defaultCenter={this.props.center}
     				// onDragend={this.mapMoved.bind(this)}
-    				options={{streetViewControl:false, mapTypeControl : false}}
+    				options={{streetViewControl:true, mapTypeControl : true}}
     			>
     			</GoogleMap>
     		}
