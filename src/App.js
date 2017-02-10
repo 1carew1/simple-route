@@ -13,7 +13,16 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    console.log('componentDidMount')
+    // console.log('componentDidMount')
+
+    //Address to Lat Lng
+
+    //https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ
+
+    //Lat Lng to Address
+
+    //https://maps.googleapis.com/maps/api/geocode/json?latlng=40.7575285,-73.9884469&key=AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ
+
 
     const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=40.7575285,-73.9884469&key=AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ'
     // Run Superagent to get API Requests e.g. Google Maps Geocoding
@@ -28,6 +37,7 @@ class App extends Component {
         const addresses = results.map((obj, i) => {
             return obj.formatted_address;
         });
+        console.log('componentDidMount : Got ' + addresses.length + ' addresses from Google');
         this.setState({
           addresses : addresses
         });
@@ -50,17 +60,17 @@ class App extends Component {
           }
         }
     ]
-    const addresses = null;
-
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+         <div className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h2>Welcome to React</h2>
+         </div>
+         <div style={{width:500, height:600, margin:10}}>
+            <Map center={location} markers={markers}/>
         </div>
+        <div>
           <Places addresses={this.state.addresses}/>
-       <div style={{width:500, height:600}}>
-          <Map center={location} markers={markers}/>
       </div>
       </div>
     );
