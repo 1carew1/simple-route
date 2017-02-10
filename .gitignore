@@ -16,3 +16,5 @@ npm-debug.log
 
 # API Key
 src/apiKey.txt
+apiKey.txt
+config.js
