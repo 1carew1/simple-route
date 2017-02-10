@@ -11,6 +11,16 @@ class App extends Component {
       lng : -73.9884469
     };
 
+    // Render an Array of Markers
+    const markers = [
+        {
+          location : {
+              lat : 40.7575285,
+              lng : -73.9884469
+          }
+        }
+    ]
+
     return (
       <div className="App">
         <div className="App-header">
@@ -20,8 +30,8 @@ class App extends Component {
         <p className="App-intro">
           <Places/>
         </p>
-       <div style={{width:500, height:600, background:'red'}}>
-          <Map center={location}/>
+       <div style={{width:500, height:600}}>
+          <Map center={location} markers={markers}/>
       </div>
       </div>
     );
