@@ -9,7 +9,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      addresses : []
+      addresses : [],
+      latlngs : []
     };
   }
   componentDidMount() {
@@ -38,8 +39,16 @@ class App extends Component {
             return obj.formatted_address;
         });
         console.log('componentDidMount : Got ' + addresses.length + ' addresses from Google');
+
+        const latlngs = results.map((obj, i) => {
+            const latlng = obj.geometry.location;
+            return latlng;
+        });
+        console.log('componentDidMount : Got ' + latlngs.length + ' latlngs from Google');
+
         this.setState({
-          addresses : addresses
+          addresses : addresses,
+          latlngs : latlngs
         });
         // console.log(addresses);
     })
@@ -51,15 +60,6 @@ class App extends Component {
       lng : -73.9884469
     };
 
-    // Render an Array of Markers
-    const markers = [
-        {
-          location : {
-              lat : 40.7575285,
-              lng : -73.9884469
-          }
-        }
-    ]
     return (
       <div className="App">
          <div className="App-header">
@@ -67,7 +67,7 @@ class App extends Component {
             <h2>Welcome to React</h2>
          </div>
          <div style={{width:500, height:600, margin:10}}>
-            <Map center={location} markers={markers}/>
+            <Map center={location} markers={this.state.latlngs}/>
         </div>
         <div>
           <Places addresses={this.state.addresses}/>
