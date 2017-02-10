@@ -6,6 +6,12 @@ import Places from './components/Places';
 import superagent from 'superagent';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      addresses : []
+    };
+  }
   componentDidMount() {
     console.log('componentDidMount')
 
@@ -20,11 +26,12 @@ class App extends Component {
         const results = response.body.results;
         // console.log(results);
         const addresses = results.map((obj, i) => {
-            return obj.formatted_address
+            return obj.formatted_address;
+        });
+        this.setState({
+          addresses : addresses
         });
         // console.log(addresses);
-        const mainAddress = addresses[0];
-        console.log( 'Main Address is : ' + mainAddress);
     })
   }
 
@@ -43,6 +50,7 @@ class App extends Component {
           }
         }
     ]
+    const addresses = null;
 
     return (
       <div className="App">
@@ -50,7 +58,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-          <Places/>
+          <Places addresses={this.state.addresses}/>
        <div style={{width:500, height:600}}>
           <Map center={location} markers={markers}/>
       </div>
