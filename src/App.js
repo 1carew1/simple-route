@@ -8,10 +8,6 @@ import superagent from 'superagent';
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      addresses : [],
-      latlngs : []
-    };
   }
   componentDidMount() {
     // console.log('componentDidMount')
@@ -45,11 +41,11 @@ class App extends Component {
             return latlng;
         });
         console.log('componentDidMount : Got ' + latlngs.length + ' latlngs from Google');
+        localStorage.setItem('latlngs', JSON.stringify(latlngs));
+        localStorage.setItem('addresses', JSON.stringify(addresses));
 
-        this.setState({
-          latlngs : latlngs,
-          addresses : addresses
-        });
+        // Reload the page
+        this.setState({});
         // console.log(addresses);
     })
   }
@@ -59,7 +55,8 @@ class App extends Component {
       lat : 40.7575285,
       lng : -73.9884469
     };
-
+    const addresses = JSON.parse(localStorage.getItem('addresses') || '[]');
+    const latlngs = JSON.parse(localStorage.getItem('latlngs') || '[]');
     return (
       <div className="App">
          <div className="App-header">
@@ -67,10 +64,10 @@ class App extends Component {
             <h2>Welcome to React</h2>
          </div>
          <div style={{width:500, height:600, margin:10}}>
-            <Map center={location} markers={this.state.latlngs}/>
+            <Map center={location} markers={latlngs}/>
         </div>
         <div>
-          <Places addresses={this.state.addresses}/>
+          <Places addresses={addresses}/>
       </div>
       </div>
     );
