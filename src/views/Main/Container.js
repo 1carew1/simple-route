@@ -18,7 +18,7 @@ export class Container extends React.Component {
     return (
       <Jumbotron>
         <h2 className={styles.mainTitle}>
-          <img src="https://cdn.auth0.com/styleguide/1.0.0/img/badge.svg" alt="auth0" />
+          <img src={require("../../../assets/images/simpleroute.png")} alt="auth0" width="204" height="166" />
         </h2>
         {children}
       </Jumbotron>

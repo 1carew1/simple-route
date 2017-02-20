@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Router } from 'react-router';
 
-import logo from './logo.svg';
+
 import './App.css';
 import Map from './components/Map';
 import Places from './components/Places';
@@ -75,12 +75,11 @@ class App extends Component {
     const latlngs = JSON.parse(localStorage.getItem('latlngs') || '[]');
     return (
       <div className="App">
+         <div style={{ height: '100%' }}>
+             {this.content}
+         </div>
          <div className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h2>Welcome to React</h2>
-              <div style={{ height: '100%' }}>
-                {this.content}
-              </div>
+            <h2>Welcome to Simple Route</h2>
          </div>
          <div style={{width:500, height:600, margin:10}}>
             <Map center={location} markers={latlngs}/>
