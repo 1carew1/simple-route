@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { Router } from 'react-router';
+
 import logo from './logo.svg';
 import './App.css';
 import Map from './components/Map';
@@ -6,9 +8,6 @@ import Places from './components/Places';
 import superagent from 'superagent';
 
 class App extends Component {
-  constructor() {
-    super();
-  }
   componentDidMount() {
     // console.log('componentDidMount')
 
@@ -50,6 +49,23 @@ class App extends Component {
     })
   }
 
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
+  static propTypes = {
+    history: PropTypes.object.isRequired,
+    routes: PropTypes.element.isRequired
+  };
+
+  get content() {
+    return (
+      <Router
+        routes={this.props.routes}
+        history={this.props.history} />
+    )
+  }
+
   render() {
     let location = {
       lat : 40.7575285,
@@ -62,6 +78,9 @@ class App extends Component {
          <div className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <h2>Welcome to React</h2>
+              <div style={{ height: '100%' }}>
+                {this.content}
+              </div>
          </div>
          <div style={{width:500, height:600, margin:10}}>
             <Map center={location} markers={latlngs}/>
