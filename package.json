@@ -9,8 +9,12 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-google-maps": "^4.11.0",
-    "bootstrap": "^3.3.6",
-    "superagent": "^3.4.1"
+    "bootstrap": "^3.3.7",
+    "superagent": "^3.4.1",
+    "react-router": "^2.8.0"
+    "classnames": "^2.2.5",
+    "jwt-decode": "^2.0.1",
+    "auth0-lock": "^10.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
