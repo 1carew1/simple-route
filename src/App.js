@@ -47,15 +47,15 @@ class App extends Component {
         console.log('componentDidMount : Got ' + latlngs.length + ' latlngs from Google');
 
         this.setState({
-          addresses : addresses,
-          latlngs : latlngs
+          latlngs : latlngs,
+          addresses : addresses
         });
         // console.log(addresses);
     })
   }
 
   render() {
-    const location = {
+    let location = {
       lat : 40.7575285,
       lng : -73.9884469
     };
