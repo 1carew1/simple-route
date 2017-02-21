@@ -85,18 +85,19 @@ export class Home extends React.Component {
     <div>
       <div className={styles.root}>
         <h2>Home</h2>
-        <p>Welcome {profile.name}!</p>
         <Button onClick={this.logout.bind(this)}>Logout</Button>
+        <br /><br />
+        <p>Welcome {profile.name}!</p>
       </div>
       <div>
-         <div style={{width:500, height:600, margin:10}}>
+         <div style={{height:'400px', width:'70%', 'margin-left':'15%', 'margin-top':'10px', 'margin-bottom':'10px'}}>
               <Map center={location} markers={latlngs}/>
           </div>
           <div>
             <Places addresses={addresses}/>
         </div>
       </div>
-      </div>
+    </div>
     )
   }
 }
