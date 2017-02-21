@@ -8,12 +8,15 @@ class Map extends Component {
   	const mapContainer = <div style={{height: '100%', width:'100%'}}></div>;
 
     const markers = this.props.markers.map((latlng, i) => {
+        // Look at https://github.com/tomchentw/react-google-maps for futher help
+        // And This : http://tomchentw.github.io/react-google-maps/
         const marker={
             position : {
                 lat : latlng.lat,
                 lng : latlng.lng
             },
-            onClick : function() { console.log('Marker Clicked')}
+            onClick : function() { console.log('Marker ' + i + ' Clicked')},
+            onDragStart : function() { console.log('Marker ' + i + ' Right Clicked')}
         }
         return <Marker key={i} {...marker} />
     } );
