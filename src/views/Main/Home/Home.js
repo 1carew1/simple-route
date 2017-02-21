@@ -43,12 +43,17 @@ export class Home extends React.Component {
                         lat: parseFloat(coords.latitude),
                         lng: parseFloat(coords.longitude)
                     }
-                })
+                });
+                this.obtainMarkers();
             })
     }
 
 
-    const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=40.7575285,-73.9884469&key=AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ'
+
+  }
+
+  obtainMarkers() {
+    const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.state.currentLocation.lat+ ',' + this.state.currentLocation.lng+ '&key=AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ'
     // Run Superagent to get API Requests e.g. Google Maps Geocoding
     superagent
     .get(url)
@@ -67,14 +72,17 @@ export class Home extends React.Component {
             const latlng = obj.geometry.location;
             return latlng;
         });
+        const latlngIdentifier = 'latlngs';
+        const addressIdentifier = 'addresses';
+        localStorage.removeItem(latlngIdentifier);
+        localStorage.removeItem(addressIdentifier);
         console.log('componentDidMount : Got ' + latlngs.length + ' latlngs from Google');
-        localStorage.setItem('latlngs', JSON.stringify(latlngs));
-        localStorage.setItem('addresses', JSON.stringify(addresses));
+        localStorage.setItem(latlngIdentifier, JSON.stringify(latlngs));
+        localStorage.setItem(addressIdentifier, JSON.stringify(addresses));
 
         // Reload the page
         this.setState({});
-        // console.log(addresses);
-    })
+     });
   }
 
   static contextTypes = {
@@ -93,7 +101,10 @@ export class Home extends React.Component {
   render(){
     const addresses = JSON.parse(localStorage.getItem('addresses') || '[]');
     const latlngs = JSON.parse(localStorage.getItem('latlngs') || '[]');
-    console.log("Current Lat Lng : " + this.state.currentLocation.lat);
+
+    console.log("Current Lat : " + this.state.currentLocation.lat);
+    console.log("Current Lng : " + this.state.currentLocation.lng);
+
     const { profile } = this.state
     return (
     <div>
