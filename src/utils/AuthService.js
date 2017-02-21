@@ -2,15 +2,24 @@ import { EventEmitter } from 'events'
 import { isTokenExpired } from './jwtHelper'
 import Auth0Lock from 'auth0-lock'
 import { browserHistory } from 'react-router'
+import LogoImg from '../../assets/images/simpleroute.png';
 
 export default class AuthService extends EventEmitter {
   constructor(clientId, domain) {
     super()
     // Configure Auth0
     this.lock = new Auth0Lock(clientId, domain, {
+      theme: {
+        logo: LogoImg,
+        primaryColor: "#222",
+        displayName : 'Simple Route'
+      },
       auth: {
         redirectUrl: `${window.location.origin}/login`,
         responseType: 'token'
+      }, 
+      languageDictionary: {
+         title: "Simple Route"
       }
     })
     // Add callback for lock `authenticated` event
