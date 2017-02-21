@@ -9,6 +9,20 @@ import Places from '../../../components/Places';
 import superagent from 'superagent';
 
 export class Home extends React.Component {
+    constructor(props, context) {
+      super(props, context);
+      this.state = {
+        profile: props.auth.getProfile(),
+        currentLocation: {
+                  lat: parseFloat(40.7575285),
+                  lng: parseFloat(-73.9884469)
+        }
+      };
+      props.auth.on('profile_updated', (newProfile) => {
+        this.setState({profile: newProfile})
+      });
+    }
+
     componentDidMount() {
     // console.log('componentDidMount')
 
@@ -19,6 +33,19 @@ export class Home extends React.Component {
     //Lat Lng to Address
 
     //https://maps.googleapis.com/maps/api/geocode/json?latlng=40.7575285,-73.9884469&key=AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ
+
+    // Get Current Location
+    if (navigator && navigator.geolocation) {
+           navigator.geolocation.getCurrentPosition((pos) => {
+                const coords = pos.coords;
+                this.setState({
+                    currentLocation: {
+                        lat: parseFloat(coords.latitude),
+                        lng: parseFloat(coords.longitude)
+                    }
+                })
+            })
+    }
 
 
     const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=40.7575285,-73.9884469&key=AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ'
@@ -58,28 +85,15 @@ export class Home extends React.Component {
     auth: T.instanceOf(AuthService)
   }
 
-  constructor(props, context) {
-    super(props, context)
-    this.state = {
-      profile: props.auth.getProfile()
-    }
-    props.auth.on('profile_updated', (newProfile) => {
-      this.setState({profile: newProfile})
-    })
-  }
-
   logout(){
     this.props.auth.logout()
     this.context.router.push('/login');
   }
 
   render(){
-    let location = {
-      lat : 40.7575285,
-      lng : -73.9884469
-    };
     const addresses = JSON.parse(localStorage.getItem('addresses') || '[]');
     const latlngs = JSON.parse(localStorage.getItem('latlngs') || '[]');
+    console.log("Current Lat Lng : " + this.state.currentLocation.lat);
     const { profile } = this.state
     return (
     <div>
@@ -90,8 +104,8 @@ export class Home extends React.Component {
         <p>Welcome {profile.name}!</p>
       </div>
       <div>
-         <div style={{height:'400px', width:'70%', 'margin-left':'15%', 'margin-top':'10px', 'margin-bottom':'10px'}}>
-              <Map center={location} markers={latlngs}/>
+         <div style={{height:'400px', width:'70%', 'marginLeft':'15%', 'marginTop':'10px', 'marginBottom':'10px'}}>
+              <Map center={this.state.currentLocation} markers={latlngs}/>
           </div>
           <div>
             <Places addresses={addresses}/>
