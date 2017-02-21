@@ -12,7 +12,8 @@ class Map extends Component {
             position : {
                 lat : latlng.lat,
                 lng : latlng.lng
-            }
+            },
+            onClick : function() { console.log('Marker Clicked')}
         }
         return <Marker key={i} {...marker} />
     } );
