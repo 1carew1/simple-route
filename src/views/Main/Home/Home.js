@@ -62,22 +62,19 @@ export class Home extends React.Component {
     .end((error, response) => {
         // console.log(JSON.stringify(response.body));
         const results = response.body.results;
-        // console.log(results);
+        console.log(results);
         const addresses = results.map((obj, i) => {
-            return obj.formatted_address;
+            let address = {
+              formatted_address : '',
+              location : {}
+            }
+            address.formatted_address = obj.formatted_address;
+            address.location = obj.geometry.location;
+            return address;
         });
         console.log('componentDidMount : Got ' + addresses.length + ' addresses from Google');
-
-        const latlngs = results.map((obj, i) => {
-            const latlng = obj.geometry.location;
-            return latlng;
-        });
-        const latlngIdentifier = 'latlngs';
         const addressIdentifier = 'addresses';
-        localStorage.removeItem(latlngIdentifier);
         localStorage.removeItem(addressIdentifier);
-        console.log('componentDidMount : Got ' + latlngs.length + ' latlngs from Google');
-        localStorage.setItem(latlngIdentifier, JSON.stringify(latlngs));
         localStorage.setItem(addressIdentifier, JSON.stringify(addresses));
 
         // Reload the page
@@ -100,7 +97,6 @@ export class Home extends React.Component {
 
   render(){
     const addresses = JSON.parse(localStorage.getItem('addresses') || '[]');
-    const latlngs = JSON.parse(localStorage.getItem('latlngs') || '[]');
 
     console.log("Current Lat : " + this.state.currentLocation.lat);
     console.log("Current Lng : " + this.state.currentLocation.lng);
@@ -116,7 +112,7 @@ export class Home extends React.Component {
       </div>
       <div>
          <div style={{height:'400px', width:'70%', 'marginLeft':'15%', 'marginTop':'10px', 'marginBottom':'10px'}}>
-              <Map center={this.state.currentLocation} markers={latlngs}/>
+              <Map center={this.state.currentLocation} markers={addresses}/>
           </div>
           <div>
             <Places addresses={addresses}/>

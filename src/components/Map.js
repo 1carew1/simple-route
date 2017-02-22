@@ -16,12 +16,18 @@ class Map extends Component {
   render() {
   	const mapContainer = <div style={{height: '100%', width:'100%'}}></div>;
 
-    let mapMarkers = this.props.markers.map((latlng, i) => {
-        const marker={
+    let mapMarkers = this.props.markers.map((address, i) => {
+        let marker={ };
+        if(address !== undefined ** address != null) {
+          marker={
               position : {
-                 lat : latlng.lat,
-                 lng : latlng.lng
+                 lat : address.location.lat,
+                 lng : address.location.lng
+              },
+              address : {
+                formatted_address : address.formatted_address
               }
+          };
         }
         return (
           <Marker
@@ -31,7 +37,7 @@ class Map extends Component {
             key={i}>
             {
                 <InfoWindow onCloseclick={(e) => { this.setState({ showInfoWindow: false }) }}>
-                      <p>Marker Lat : {marker.position.lat} Marker Lng : {marker.position.lng}</p>
+                      <p style={{fontSize:'14px'}}>{marker.address.formatted_address}</p>
                </InfoWindow>
             }
           </Marker>
