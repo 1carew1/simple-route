@@ -31,7 +31,7 @@ class Map extends Component {
             key={i}>
             {
                 <InfoWindow onCloseclick={(e) => { this.setState({ showInfoWindow: false }) }}>
-                      Marker Lat : {marker.position.lat} Marker Lng : {marker.position.lng}
+                      <p>Marker Lat : {marker.position.lat} Marker Lng : {marker.position.lng}</p>
                </InfoWindow>
             }
           </Marker>
