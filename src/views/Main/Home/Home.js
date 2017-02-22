@@ -70,7 +70,7 @@ export class Home extends React.Component {
             address.location = obj.geometry.location;
             return address;
         });
-        console.log('Got ' + addresses.length + ' addresses from Google');
+        console.log('componentDidMount : Got ' + addresses.length + ' addresses from Google');
         const addressIdentifier = 'addresses';
         localStorage.removeItem(addressIdentifier);
         localStorage.setItem(addressIdentifier, JSON.stringify(addresses));

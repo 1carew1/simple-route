@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {withGoogleMap, GoogleMapLoader, GoogleMap, Marker, InfoWindow} from 'react-google-maps';
+import {withGoogleMap, GoogleMap, Marker, InfoWindow} from 'react-google-maps';
 
 import MapMarkerIcon from '../../assets/images/blackmapmarker.png';
 
@@ -19,8 +19,6 @@ class Map extends Component {
     console.log('Dummy Method');
   }
   render() {
-  	const mapContainer = <div style={{height: '100%', width:'100%'}}></div>;
-
     let mapMarkers = this.props.markers.map((address, i) => {
         let marker={ };
         if(address !== undefined ** address !== null) {
@@ -54,31 +52,31 @@ class Map extends Component {
     // and name it GettingStartedGoogleMap
     const GettingStartedGoogleMap = withGoogleMap(props => (
       <GoogleMap
-        defaultZoom={3}
+        ref={props.onMapLoad}
+        defaultZoom={15}
+        center={this.props.center}
         defaultCenter={{ lat: -25.363882, lng: 131.044922 }}
-        onClick={_onClick}
-      >
-      </GoogleMap>
-    ));
-    return (
-    	<GoogleMapLoader
-    		containerElement={mapContainer}
-    		googleMapElement={
-    			<GoogleMap
-            onGoogleApiLoaded={({ map, maps }) => {
+        onGoogleApiLoaded={({ map, maps }) => {
               console.log('Map loaded from api loaded'); 
               this.setState({ map: map, maps:maps, mapLoaded: true }); 
               this.dummyMethod();
-            }}
-            onClick={_onClick}
-    				yesIWantToUseGoogleMapApiInternals={true}
-            defaultZoom={15}
-            center={this.props.center}
-    				options={{streetViewControl:true, mapTypeControl : true, scrollwheel: true}}>
-            { mapMarkers}
-    			</GoogleMap>
-    		}
-    	/>
+        }}
+        yesIWantToUseGoogleMapApiInternals={true}
+        options={{streetViewControl:true, mapTypeControl : true, scrollwheel: true}}
+        onClick={_onClick}
+      >
+        { mapMarkers }
+      </GoogleMap>
+    ));
+    return (
+        <GettingStartedGoogleMap
+          containerElement={
+            <div style={{ height: `100%` }} />
+          }
+          mapElement={
+            <div style={{ height: `100%` }} />
+          }
+        />
     );
   }
 }
