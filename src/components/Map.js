@@ -5,43 +5,34 @@ class Map extends Component {
   constructor() {
       super();
       this.state = {
-        markers : []
+        // No State for now
       };
   }
   componentDidMount() {
-   console.log('Got Markers');
-   this.generateMarkersFromIncomingLatLngs(this.props.markers);
-  }
-  generateMarkersFromIncomingLatLngs(incomMarkers)  {
-   const incomingMarkers = incomMarkers.map((latlng, i) => {
-        // Look at https://github.com/tomchentw/react-google-maps for futher help
-        // And This : http://tomchentw.github.io/react-google-maps/
-        const marker={
-            position : {
-                lat : latlng.lat,
-                lng : latlng.lng
-            },
-            onClick : function() { 
-                console.log('Removing Marker');
-                let markers = this.state.markers;
-                markers.splice(i, 1);
-                console.log('Markers left ' + markers.length);
-                this.setState = {
-                    markers : markers
-                };
-            }
-        }
-        return <Marker key={i} {...marker} />
-    } );
-
-    if(incomingMarkers !== undefined && incomingMarkers != null) {
-        this.setState({
-            markers : incomingMarkers
-        });
-    }
+   console.log('Map Did Mount');
   }
   render() {
   	const mapContainer = <div style={{height: '100%', width:'100%'}}></div>;
+
+    let mapMarkers = this.props.markers.map((latlng, i) => {
+        const marker={
+              position : {
+                 lat : latlng.lat,
+                 lng : latlng.lng
+              }
+        }
+        return (
+          <Marker
+            {...marker}
+            position={marker.position}
+            icon={buildIconObject(marker.type, marker.state)}
+            key={i}
+            ref={ref}
+            onClick={this.props.handleMarkerClick.bind(marker, marker.id)}
+            infoWindow={infoWindow}>
+          </Marker>
+        )
+    });
 
     return (
     	<GoogleMapLoader
@@ -51,7 +42,7 @@ class Map extends Component {
     				defaultZoom={15}
     				center={this.props.center}
     				options={{streetViewControl:true, mapTypeControl : true}}>
-                    { this.state.markers }
+            { mapMarkers}
     			</GoogleMap>
     		}
     	/>
