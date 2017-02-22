@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {GoogleMapLoader, GoogleMap, Marker, InfoWindow} from 'react-google-maps';
+import {withGoogleMap, GoogleMapLoader, GoogleMap, Marker, InfoWindow} from 'react-google-maps';
 
 import MapMarkerIcon from '../../assets/images/blackmapmarker.png';
 
@@ -49,6 +49,17 @@ class Map extends Component {
         )
     });
     let _onClick = ({x, y, lat, lng, event}) => console.log(x, y, lat, lng, event);
+
+    // Wrap all `react-google-maps` components with `withGoogleMap` HOC
+    // and name it GettingStartedGoogleMap
+    const GettingStartedGoogleMap = withGoogleMap(props => (
+      <GoogleMap
+        defaultZoom={3}
+        defaultCenter={{ lat: -25.363882, lng: 131.044922 }}
+        onClick={_onClick}
+      >
+      </GoogleMap>
+    ));
     return (
     	<GoogleMapLoader
     		containerElement={mapContainer}
@@ -63,7 +74,7 @@ class Map extends Component {
     				yesIWantToUseGoogleMapApiInternals={true}
             defaultZoom={15}
             center={this.props.center}
-    				options={{streetViewControl:true, mapTypeControl : true, scrollwheel: false}}>
+    				options={{streetViewControl:true, mapTypeControl : true, scrollwheel: true}}>
             { mapMarkers}
     			</GoogleMap>
     		}
