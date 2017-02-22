@@ -27,14 +27,13 @@ class Map extends Component {
           <Marker
             {...marker}
             position={marker.position}
-
+            icon={MapMarkerIcon}
             key={i}>
-                            { true ?
-                    <InfoWindow onCloseclick={(e) => { this.setState({ showInfoWindow: false }) }}>
-                        Anything
-                    </InfoWindow>
-                    : null
-                }
+            {
+                <InfoWindow onCloseclick={(e) => { this.setState({ showInfoWindow: false }) }}>
+                      Marker Lat : {marker.position.lat} Marker Lng : {marker.position.lng}
+               </InfoWindow>
+            }
           </Marker>
         )
     });
