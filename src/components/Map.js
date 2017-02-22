@@ -48,7 +48,7 @@ class Map extends Component {
           </Marker>
         )
     });
-
+    let _onClick = ({x, y, lat, lng, event}) => console.log(x, y, lat, lng, event);
     return (
     	<GoogleMapLoader
     		containerElement={mapContainer}
@@ -59,6 +59,7 @@ class Map extends Component {
               this.setState({ map: map, maps:maps, mapLoaded: true }); 
               this.dummyMethod();
             }}
+            onClick={_onClick}
     				yesIWantToUseGoogleMapApiInternals={true}
             defaultZoom={15}
             center={this.props.center}
