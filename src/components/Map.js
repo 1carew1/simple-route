@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import {GoogleMapLoader, GoogleMap, Marker} from 'react-google-maps';
+import {GoogleMapLoader, GoogleMap, Marker, InfoWindow} from 'react-google-maps';
+
+import MapMarkerIcon from '../../assets/images/blackmapmarker.png';
 
 class Map extends Component {
   constructor() {
@@ -25,11 +27,14 @@ class Map extends Component {
           <Marker
             {...marker}
             position={marker.position}
-            icon={buildIconObject(marker.type, marker.state)}
-            key={i}
-            ref={ref}
-            onClick={this.props.handleMarkerClick.bind(marker, marker.id)}
-            infoWindow={infoWindow}>
+
+            key={i}>
+                            { true ?
+                    <InfoWindow onCloseclick={(e) => { this.setState({ showInfoWindow: false }) }}>
+                        Anything
+                    </InfoWindow>
+                    : null
+                }
           </Marker>
         )
     });
