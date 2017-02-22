@@ -7,18 +7,23 @@ class Map extends Component {
   constructor() {
       super();
       this.state = {
-        // No State for now
+        map: null, 
+        maps:null, 
+        mapLoaded: false 
       };
   }
   componentDidMount() {
    console.log('Map Did Mount');
+  }
+  dummyMethod() {
+    console.log('Dummy Method');
   }
   render() {
   	const mapContainer = <div style={{height: '100%', width:'100%'}}></div>;
 
     let mapMarkers = this.props.markers.map((address, i) => {
         let marker={ };
-        if(address !== undefined ** address != null) {
+        if(address !== undefined ** address !== null) {
           marker={
               position : {
                  lat : address.location.lat,
@@ -49,9 +54,15 @@ class Map extends Component {
     		containerElement={mapContainer}
     		googleMapElement={
     			<GoogleMap
-    				defaultZoom={15}
-    				center={this.props.center}
-    				options={{streetViewControl:true, mapTypeControl : true}}>
+            onGoogleApiLoaded={({ map, maps }) => {
+              console.log('Map loaded from api loaded'); 
+              this.setState({ map: map, maps:maps, mapLoaded: true }); 
+              this.dummyMethod();
+            }}
+    				yesIWantToUseGoogleMapApiInternals={true}
+            defaultZoom={15}
+            center={this.props.center}
+    				options={{streetViewControl:true, mapTypeControl : true, scrollwheel: false}}>
             { mapMarkers}
     			</GoogleMap>
     		}

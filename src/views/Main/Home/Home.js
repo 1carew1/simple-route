@@ -60,9 +60,7 @@ export class Home extends React.Component {
     .query(null)
     .set('Accept', 'text/json')
     .end((error, response) => {
-        // console.log(JSON.stringify(response.body));
         const results = response.body.results;
-        console.log(results);
         const addresses = results.map((obj, i) => {
             let address = {
               formatted_address : '',
@@ -72,7 +70,7 @@ export class Home extends React.Component {
             address.location = obj.geometry.location;
             return address;
         });
-        console.log('componentDidMount : Got ' + addresses.length + ' addresses from Google');
+        console.log('Got ' + addresses.length + ' addresses from Google');
         const addressIdentifier = 'addresses';
         localStorage.removeItem(addressIdentifier);
         localStorage.setItem(addressIdentifier, JSON.stringify(addresses));
