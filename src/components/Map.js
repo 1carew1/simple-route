@@ -5,13 +5,16 @@ import MapMarkerIcon from '../../assets/images/blackmapmarker.png';
 
 import Button from 'react-bootstrap/lib/Button';
 
+import superagent from 'superagent';
+
 class Map extends Component {
   constructor() {
       super();
       this.state = {
         map: null, 
         mapLoaded: false,
-        centerLocation : { lat: -25.363882, lng: 131.044922 }
+        centerLocation : { lat: -25.363882, lng: 131.044922 },
+        desiredAddress : null
       };
   }
   handleMapLoad = this.handleMapLoad.bind(this);
@@ -55,21 +58,70 @@ class Map extends Component {
             defaultAnimation={2}
             key={i}>
             {
-                <InfoWindow onCloseclick={(e) => { this.setState({ showInfoWindow: false }) }}>
+                <InfoWindow 
+                  options={{disableAutoPan:true}}
+                  onCloseclick={(e) => { this.setState({ showInfoWindow: false }) }}>
                       <p style={{fontSize:'14px'}}>{marker.address.formatted_address}</p>
                </InfoWindow>
             }
           </Marker>
         )
     });
-    let _onClick = ({x, y, lat, lng, event}) => console.log(x, y, lat, lng, event);
+    let handleChange = (event) => {
+      this.state.desiredAddress = event.target.value;
+      console.log(this.state.desiredAddress + ' was entered');
+    };
+
+    let findDesiredAddress = () => {
+      let desiredAddress = this.state.desiredAddress;
+      if(desiredAddress) {
+      console.log('Going to try Find LatLng Information of : ' + desiredAddress);
+
+      desiredAddress = desiredAddress.replace(' ', '+');
+      let currentLocation = JSON.parse(localStorage.getItem('currentLocation') || '[]');
+      const url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + desiredAddress + '&key=AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ'
+      // Run Superagent to get API Requests e.g. Google Maps Geocoding
+      superagent
+      .get(url)
+      .query(null)
+      .set('Accept', 'text/json')
+      .end((error, response) => {
+          const results = response.body.results;
+          const addresses = results.map((obj, i) => {
+              let address = {
+                formatted_address : '',
+                location : {}
+              }
+              address.formatted_address = obj.formatted_address;
+              address.location = obj.geometry.location;
+              return address;
+          });
+          console.log('componentDidMount : Got ' + addresses.length + ' addresses from Google');
+          const addressIdentifier = 'addresses';
+          localStorage.removeItem(addressIdentifier);
+          localStorage.setItem(addressIdentifier, JSON.stringify(addresses));
+
+          // Reload the page
+          const address = addresses[0]
+          if(address) {
+            const newCenter = addresses[0].location;
+            if(newCenter) {
+              console.log('New Lat Lng is : ' + newCenter.lat + ' ' + newCenter.lng);
+              this.setState({centerLocation : addresses[0].location});           
+            }            
+          }
+       });
+      } else {
+        console.log("I'm Not Looking for a blank location");
+      }
+
+    }
 
     let centerMap = () => {
       let currentLocation = JSON.parse(localStorage.getItem('currentLocation') || '[]');
       console.log('Centring The Map around Lat ' + currentLocation.lat + ' , Lng : ' + currentLocation.lng);
-      //this.setState({ centerLocation : currentLocation}); 
-      this.state.map.panTo(currentLocation);
-      this.setState({});
+      //this.state.map.panTo(currentLocation);
+      this.setState({centerLocation : currentLocation});
     };
 
     // Wrap all `react-google-maps` components with `withGoogleMap` HOC
@@ -100,10 +152,14 @@ class Map extends Component {
           mapElement={
             <div style={{ height: `100%` }} />
           }
-          onMapClick={_onClick}
           onMapLoad={this.handleMapLoad}
         />
         <Button className="btn btn-primary" onClick={centerMap}>Center Map</Button>
+        <div className="form-group">
+            <label htmlFor="inputdefault">Location</label>
+            <input className="form-control" id="locationName" name="locationName" onChange={handleChange} type="text"/>
+        </div>
+        <Button className="btn btn-primary" onClick={findDesiredAddress}>Find Desired Address</Button>
       </div>  
     );
   }
