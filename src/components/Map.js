@@ -40,6 +40,7 @@ class Map extends Component {
             {...marker}
             position={marker.position}
             icon={MapMarkerIcon}
+            defaultAnimation={1}
             key={i}>
             {
                 <InfoWindow onCloseclick={(e) => { this.setState({ showInfoWindow: false }) }}>
@@ -54,16 +55,18 @@ class Map extends Component {
     let centerMap = () => {
       let currentLocation = JSON.parse(localStorage.getItem('currentLocation') || '[]');
       console.log('Centring The Map around Lat ' + currentLocation.lat + ' , Lng : ' + currentLocation.lng);
-      this.setState({ centerLocation : currentLocation}); 
+      //this.setState({ centerLocation : currentLocation}); 
+      //this.state.map.panTo(currentLocation);
     };
+
     // Wrap all `react-google-maps` components with `withGoogleMap` HOC
     // and name it GettingStartedGoogleMap
     const GettingStartedGoogleMap = withGoogleMap(props => (
       <GoogleMap
         ref={props.onMapLoad}
-        defaultZoom={15}
+        defaultZoom={17}
         center={this.state.centerLocation}
-        defaultCenter={{ lat: -25.363882, lng: 131.044922 }}
+        defaultCenter={{ lat: 52.2373524, lng: -7.1071411 }}
         onGoogleApiLoaded={({ map, maps }) => {
               console.log('Map loaded from api loaded'); 
               this.setState({ map: map, maps:maps, mapLoaded: true }); 
@@ -71,7 +74,6 @@ class Map extends Component {
         }}
         yesIWantToUseGoogleMapApiInternals={true}
         options={{streetViewControl:true, mapTypeControl : true, scrollwheel: true}}
-        onClick={_onClick}
       >
         { mapMarkers }
       </GoogleMap>
@@ -85,6 +87,7 @@ class Map extends Component {
           mapElement={
             <div style={{ height: `100%` }} />
           }
+          onMapClick={_onClick}
         />
         <Button className="btn btn-primary" onClick={centerMap}>Center Map</Button>
       </div>  
