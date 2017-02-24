@@ -10,11 +10,23 @@ class Map extends Component {
       super();
       this.state = {
         map: null, 
-        maps:null, 
         mapLoaded: false,
         centerLocation : { lat: -25.363882, lng: 131.044922 }
       };
   }
+  handleMapLoad = this.handleMapLoad.bind(this);
+  // Handle the loading of the map and get the map object
+  handleMapLoad(map) {
+    if (map) {
+      let mapLoaded = this.state.mapLoaded
+      if(!mapLoaded) {
+        this.setState({ map: map, mapLoaded: true });
+        console.log("Map has been loaded");
+      }
+    }
+  }
+
+
   componentDidMount() {
    console.log('Map Did Mount');
   }
@@ -40,7 +52,7 @@ class Map extends Component {
             {...marker}
             position={marker.position}
             icon={MapMarkerIcon}
-            defaultAnimation={1}
+            defaultAnimation={2}
             key={i}>
             {
                 <InfoWindow onCloseclick={(e) => { this.setState({ showInfoWindow: false }) }}>
@@ -56,7 +68,8 @@ class Map extends Component {
       let currentLocation = JSON.parse(localStorage.getItem('currentLocation') || '[]');
       console.log('Centring The Map around Lat ' + currentLocation.lat + ' , Lng : ' + currentLocation.lng);
       //this.setState({ centerLocation : currentLocation}); 
-      //this.state.map.panTo(currentLocation);
+      this.state.map.panTo(currentLocation);
+      this.setState({});
     };
 
     // Wrap all `react-google-maps` components with `withGoogleMap` HOC
@@ -88,6 +101,7 @@ class Map extends Component {
             <div style={{ height: `100%` }} />
           }
           onMapClick={_onClick}
+          onMapLoad={this.handleMapLoad}
         />
         <Button className="btn btn-primary" onClick={centerMap}>Center Map</Button>
       </div>  
