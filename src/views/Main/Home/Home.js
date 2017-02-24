@@ -4,7 +4,6 @@ import AuthService from '../../../utils/AuthService'
 import styles from './styles.module.css'
 
 import Map from '../../../components/Map';
-import Places from '../../../components/Places';
 
 import superagent from 'superagent';
 
@@ -12,11 +11,7 @@ export class Home extends React.Component {
     constructor(props, context) {
       super(props, context);
       this.state = {
-        profile: props.auth.getProfile(),
-        currentLocation: {
-                  lat: parseFloat(40.7575285),
-                  lng: parseFloat(-73.9884469)
-        }
+        profile: props.auth.getProfile()
       };
       props.auth.on('profile_updated', (newProfile) => {
         this.setState({profile: newProfile})
@@ -38,22 +33,21 @@ export class Home extends React.Component {
     if (navigator && navigator.geolocation) {
            navigator.geolocation.getCurrentPosition((pos) => {
                 const coords = pos.coords;
-                this.setState({
-                    currentLocation: {
+                let currentLocation = {
                         lat: parseFloat(coords.latitude),
                         lng: parseFloat(coords.longitude)
-                    }
-                });
+                };
+                const currentLocationIdentifier = 'currentLocation';
+                localStorage.removeItem(currentLocationIdentifier);
+                localStorage.setItem(currentLocationIdentifier, JSON.stringify(currentLocation));
                 this.obtainMarkers();
             })
     }
-
-
-
   }
 
   obtainMarkers() {
-    const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.state.currentLocation.lat+ ',' + this.state.currentLocation.lng+ '&key=AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ'
+    let currentLocation = JSON.parse(localStorage.getItem('currentLocation') || '[]');
+    const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + currentLocation.lat+ ',' + currentLocation.lng+ '&key=AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ'
     // Run Superagent to get API Requests e.g. Google Maps Geocoding
     superagent
     .get(url)
@@ -96,9 +90,6 @@ export class Home extends React.Component {
   render(){
     const addresses = JSON.parse(localStorage.getItem('addresses') || '[]');
 
-    console.log("Current Lat : " + this.state.currentLocation.lat);
-    console.log("Current Lng : " + this.state.currentLocation.lng);
-
     const { profile } = this.state
     return (
     <div>
@@ -110,11 +101,8 @@ export class Home extends React.Component {
       </div>
       <div>
          <div style={{height:'400px', width:'70%', 'marginLeft':'15%', 'marginTop':'10px', 'marginBottom':'10px'}}>
-              <Map center={this.state.currentLocation} markers={addresses}/>
+              <Map markers={addresses}/>
           </div>
-          <div>
-            <Places addresses={addresses}/>
-        </div>
       </div>
     </div>
     )
