@@ -28,7 +28,7 @@ class App extends Component {
          <div className="App-header">
             <h2>Welcome to Simple Route</h2>
          </div>
-         <div style={{ height: '100%' }}>
+         <div style={{ height: '100%', overflow: 'hidden' }}>
              {this.content}
          </div>
       </div>

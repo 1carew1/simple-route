@@ -30,6 +30,17 @@ class Map extends Component {
     }
   }
 
+  // Overriding this as we do not want reload when desiredAddress is changed
+  shouldComponentUpdate(nextProps, nextState) {
+    let shouldWeReRender = true;
+    let desiredAddress = this.state.desiredAddress;
+    let newAddress = nextState.desiredAddress;
+    if(newAddress !== desiredAddress) {
+      console.log("Desired Address Changed but we do not want to rerender");
+      shouldWeReRender = false;
+    }
+    return shouldWeReRender;
+  }
 
   componentDidMount() {
    console.log('Map Did Mount');
@@ -65,8 +76,7 @@ class Map extends Component {
         )
     });
     let handleChange = (event) => {
-      this.state.desiredAddress = event.target.value;
-      console.log(this.state.desiredAddress + ' was entered');
+      this.setState({desiredAddress : event.target.value});
     };
 
     let findDesiredAddress = () => {
@@ -75,7 +85,7 @@ class Map extends Component {
       console.log('Going to try Find LatLng Information of : ' + desiredAddress);
 
       desiredAddress = desiredAddress.replace(' ', '+');
-      let currentLocation = JSON.parse(localStorage.getItem('currentLocation') || '[]');
+      //let currentLocation = JSON.parse(localStorage.getItem('currentLocation') || '[]');
       const url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + desiredAddress + '&key=AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ'
       // Run Superagent to get API Requests e.g. Google Maps Geocoding
       superagent
@@ -126,7 +136,7 @@ class Map extends Component {
     const GettingStartedGoogleMap = withGoogleMap(props => (
       <GoogleMap
         ref={props.onMapLoad}
-        defaultZoom={17}
+        defaultZoom={15}
         center={this.state.centerLocation}
         defaultCenter={{ lat: 52.2373524, lng: -7.1071411 }}
         onGoogleApiLoaded={({ map, maps }) => {

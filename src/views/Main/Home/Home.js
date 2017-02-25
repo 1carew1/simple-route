@@ -100,7 +100,7 @@ export class Home extends React.Component {
         <p>Welcome {profile.name}!</p>
       </div>
       <div>
-         <div style={{height:'400px', width:'70%', 'marginLeft':'15%', 'marginTop':'10px', 'marginBottom':'10px'}}>
+         <div style={{height:'500px', width:'70%', 'marginLeft':'15%', 'marginTop':'10px', 'marginBottom':'10px'}}>
               <Map markers={addresses}/>
           </div>
       </div>
