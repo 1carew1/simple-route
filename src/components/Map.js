@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {withGoogleMap, GoogleMap, Marker, InfoWindow} from 'react-google-maps';
+import {withGoogleMap, GoogleMap, Marker} from 'react-google-maps';
+import CustomInfoWindow from './CustomInfoWindow';
 
 import MapMarkerIcon from '../../assets/images/blackmapmarker.png';
 
@@ -58,11 +59,7 @@ class Map extends Component {
             defaultAnimation={2}
             key={i}>
             {
-                <InfoWindow 
-                  options={{disableAutoPan:true}}
-                  onCloseclick={(e) => { this.setState({ showInfoWindow: false }) }}>
-                      <p style={{fontSize:'14px'}}>{marker.address.formatted_address}</p>
-               </InfoWindow>
+                <CustomInfoWindow  content={marker.address.formatted_address}/>
             }
           </Marker>
         )
