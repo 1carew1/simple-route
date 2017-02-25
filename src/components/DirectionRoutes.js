@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import {Jumbotron} from 'react-bootstrap'
 
 
 class DirectionRoutes extends Component {
   render() {
   	return (
-  			<div>
-  		  	     <Jumbotron>
+  			<div style={{background:'green', height:'400px'}}>
+  		  	     <p>
   		  	     	List of Previous Routes go here
-			     </Jumbotron>
+			     </p>
 			</div>
   	);
   }

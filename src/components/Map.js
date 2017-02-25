@@ -152,8 +152,11 @@ class Map extends Component {
       </GoogleMap>
     ));
     return (
-      <div style={{ height: '100%' }}>
-        <div style={{ height: '100%', width:'70%', display:'inline-block'}}>
+      <div style={{ height: '100%', width: '100%' }}>
+        <div style={{display:'inline-block', verticalAlign:'top', width:'20%'}}>
+          <DirectionRoutes />
+        </div>
+        <div style={{ height: '100%', marginLeft:'2%', width:'50%', display:'inline-block'}}>
             <GettingStartedGoogleMap
               containerElement={
                 <div style={{ height: '90%' }} />
@@ -173,9 +176,11 @@ class Map extends Component {
                   <input className="form-control" id="locationName" name="locationName" onChange={handleChange} type="text"/>
               </div>
               <Button className="btn btn-primary" onClick={findDesiredAddress}>Find Desired Address</Button>
+              <br />
+              <br />
            </div>
         </div>
-        <div style={{display:'inline-block', verticalAlign:'top', marginLeft:'2%'}}>
+        <div style={{display:'inline-block', verticalAlign:'top', marginLeft:'2%', width:'20%'}}>
           <DirectionRoutes />
         </div>
       </div>  
