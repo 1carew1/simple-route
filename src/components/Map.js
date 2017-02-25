@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {withGoogleMap, GoogleMap, Marker} from 'react-google-maps';
 import CustomInfoWindow from './CustomInfoWindow';
+import DirectionRoutes from './DirectionRoutes';
 
 import MapMarkerIcon from '../../assets/images/blackmapmarker.png';
 
@@ -136,7 +137,7 @@ class Map extends Component {
     const GettingStartedGoogleMap = withGoogleMap(props => (
       <GoogleMap
         ref={props.onMapLoad}
-        defaultZoom={15}
+        defaultZoom={14}
         center={this.state.centerLocation}
         defaultCenter={{ lat: 52.2373524, lng: -7.1071411 }}
         onGoogleApiLoaded={({ map, maps }) => {
@@ -151,22 +152,32 @@ class Map extends Component {
       </GoogleMap>
     ));
     return (
-      <div style={{ height: `100%` }}>
-        <GettingStartedGoogleMap
-          containerElement={
-            <div style={{ height: `90%` }} />
-          }
-          mapElement={
-            <div style={{ height: `100%` }} />
-          }
-          onMapLoad={this.handleMapLoad}
-        />
-        <Button className="btn btn-primary" onClick={centerMap}>Center Map</Button>
-        <div className="form-group">
-            <label htmlFor="inputdefault">Location</label>
-            <input className="form-control" id="locationName" name="locationName" onChange={handleChange} type="text"/>
+      <div style={{ height: '100%' }}>
+        <div style={{ height: '100%', width:'70%', display:'inline-block'}}>
+            <GettingStartedGoogleMap
+              containerElement={
+                <div style={{ height: '90%' }} />
+              }
+              mapElement={
+                <div style={{ height: '100%' }} />
+              }
+              onMapLoad={this.handleMapLoad}
+            />
+           <div>
+              <br />
+              <Button className="btn btn-primary" onClick={centerMap}>Center Map</Button>
+              <br />
+              <br />
+              <div className="form-group">
+                  <label htmlFor="inputdefault">Location</label>
+                  <input className="form-control" id="locationName" name="locationName" onChange={handleChange} type="text"/>
+              </div>
+              <Button className="btn btn-primary" onClick={findDesiredAddress}>Find Desired Address</Button>
+           </div>
         </div>
-        <Button className="btn btn-primary" onClick={findDesiredAddress}>Find Desired Address</Button>
+        <div style={{display:'inline-block', verticalAlign:'top', marginLeft:'2%'}}>
+          <DirectionRoutes />
+        </div>
       </div>  
     );
   }
