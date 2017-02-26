@@ -1,21 +1,33 @@
 import superagent from 'superagent';
 
 const apiKey = 'AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ';
+const geoCodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+const reverseGeoCodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
 
 export default class GoogleMapsService {
+  // Pass in a LatLng and a function to call once the work has been done
+  obtainAddressesNearLatLng(latlng, func){
+    if(latlng && latlng.lat && latlng.lng) {
+      const url = reverseGeoCodeUrl + latlng.lat+ ',' + latlng.lng+ '&key=' + apiKey;
+      // Run Superagent to get API Requests e.g. Google Maps Geocoding
+      this.useSuperagentToObtainResultsFromUrl(url, func);     
+    } else {
+       console.log('Not a valid lat lng');
+    }
+  }
+
+
+  // Pass in an address and a function to call once the work has been done
   obtainLatLngFromAddress(address, func) {
-    let addressObject = null;
     let desiredAddress = address;
     if(desiredAddress) {
       console.log('Going to try Find LatLng Information of : ' + desiredAddress);
       desiredAddress = desiredAddress.replace(' ', '+');
-      const url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + desiredAddress + '&key=' + apiKey;
-      const addressResult = this.useSuperagentToObtainResultsFromUrl(url, func);
-      addressObject = addressResult;
+      const url = geoCodeUrl + desiredAddress + '&key=' + apiKey;
+      this.useSuperagentToObtainResultsFromUrl(url, func);
     } else {
       console.log('Desired Address is blank so will not look for that');
     }
-    return addressObject;
   }
 
   // TODO : Pass a function into this that is called when a response is obtain and then this function can update the Google Map

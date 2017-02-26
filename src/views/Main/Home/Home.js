@@ -2,10 +2,12 @@ import React, { PropTypes as T } from 'react'
 import {Button} from 'react-bootstrap'
 import AuthService from '../../../utils/AuthService'
 import styles from './styles.module.css'
-
+import GoogleMapsService from '../../../utils/GoogleMapsService';
 import Map from '../GoogleMaps/Map';
 
 import superagent from 'superagent';
+
+const googleMapsService = new GoogleMapsService();
 
 export class Home extends React.Component {
     constructor(props, context) {
@@ -19,16 +21,6 @@ export class Home extends React.Component {
     }
 
     componentDidMount() {
-    // console.log('componentDidMount')
-
-    //Address to Lat Lng
-
-    //https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ
-
-    //Lat Lng to Address
-
-    //https://maps.googleapis.com/maps/api/geocode/json?latlng=40.7575285,-73.9884469&key=AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ
-
     // Get Current Location
     if (navigator && navigator.geolocation) {
            navigator.geolocation.getCurrentPosition((pos) => {
@@ -40,39 +32,23 @@ export class Home extends React.Component {
                 const currentLocationIdentifier = 'currentLocation';
                 localStorage.removeItem(currentLocationIdentifier);
                 localStorage.setItem(currentLocationIdentifier, JSON.stringify(currentLocation));
-                this.obtainMarkers();
+                // Use google maps service to communicate with Google Maps Api
+                googleMapsService.obtainAddressesNearLatLng(currentLocation, this.storeAddressesInLocalStorage.bind(this));
             })
     }
   }
 
-  obtainMarkers() {
-    let currentLocation = JSON.parse(localStorage.getItem('currentLocation') || '[]');
-    console.log('Trying to obtain markers');
-    const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + currentLocation.lat+ ',' + currentLocation.lng+ '&key=AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ'
-    // Run Superagent to get API Requests e.g. Google Maps Geocoding
-    superagent
-    .get(url)
-    .query(null)
-    .set('Accept', 'text/json')
-    .end((error, response) => {
-        const results = response.body.results;
-        const addresses = results.map((obj, i) => {
-            let address = {
-              formatted_address : '',
-              location : {}
-            }
-            address.formatted_address = obj.formatted_address;
-            address.location = obj.geometry.location;
-            return address;
-        });
-        console.log('componentDidMount : Got ' + addresses.length + ' addresses from Google');
+  storeAddressesInLocalStorage(addresses) {
+    if(addresses) {
         const addressIdentifier = 'addressesNearMe';
         localStorage.removeItem(addressIdentifier);
         localStorage.setItem(addressIdentifier, JSON.stringify(addresses));
-
         // Reload the page
-        this.setState({});
-     });
+        this.setState({});      
+      } else {
+        console.log('No addresses to store');
+      }
+
   }
 
   static contextTypes = {
