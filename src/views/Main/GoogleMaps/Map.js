@@ -102,6 +102,8 @@ class Map extends Component {
       this.setState({centerLocation : currentLocation});
     };
 
+    let directions = JSON.parse(localStorage.getItem('directions') || '[]');
+
     // Wrap all `react-google-maps` components with `withGoogleMap` HOC
     // and name it GettingStartedGoogleMap
     const GettingStartedGoogleMap = withGoogleMap(props => (
@@ -151,7 +153,7 @@ class Map extends Component {
            </div>
         </div>
         <div style={{display:'inline-block', verticalAlign:'top', marginLeft:'2%', width:'20%'}}>
-          <DirectionRoutes />
+          <DirectionRoutes directions={directions}/>
         </div>
       </div>  
     );

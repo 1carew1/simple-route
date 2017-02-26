@@ -5,7 +5,7 @@ class DirectionRoutes extends Component {
   render() {
   	const directions = this.props.directions;
   	let directionList = (<li>No Directions</li>);
-  	if(directions) {
+  	if(directions && directions.length > 0) {
 	  	directionList = directions.map((direction, i) => {
 	  		return <li key={i}>{direction}</li>
 	  	});

@@ -11,7 +11,7 @@ class DirectionsForm extends Component {
   obtainDirections() {
   	const startAddress = ReactDOM.findDOMNode(this.refs.startingAddress).value;
   	const endAddress = ReactDOM.findDOMNode(this.refs.endAddress).value;
-  	googleMapsService.testDirections(startAddress,endAddress);
+  	googleMapsService.obtainDirections(startAddress,endAddress);
   }
   render() {
   	return (

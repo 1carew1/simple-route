@@ -57,7 +57,8 @@ export default class GoogleMapsService {
        });
   }
 
-  testDirections(startAddress, endAddress){
+  obtainDirections(startAddress, endAddress){
+    let directions = [];
     let directionsFor = {
       origin: startAddress,
       destination: endAddress,
@@ -90,8 +91,12 @@ export default class GoogleMapsService {
         console.log('The simplestRoute has ' + simplestRouteLeg.steps.length + ' turns and will take ' + simplestRouteLeg.duration_in_traffic.text + ' with traffic, the distance is ' + simplestRouteLeg.distance.text);
 
         simplestRouteLeg.steps.forEach(function(step) {
+          directions.push(step.instructions + ' for ' + step.distance.text);
           console.log(step.instructions + ' for ' + step.distance.text);
         });
+        const directionsIdentifier = 'directions';
+        localStorage.removeItem(directionsIdentifier);
+        localStorage.setItem(directionsIdentifier, JSON.stringify(directions));
       } else {
         console.log('Did not get valid routes');
       }
