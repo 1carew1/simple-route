@@ -68,14 +68,16 @@ export default class GoogleMapsService {
         departureTime: new Date(/* now, or future date */),
         trafficModel: 'pessimistic'
       },
-      unitSystem: window.google.maps.UnitSystem.IMPERIAL
+      unitSystem: window.google.maps.UnitSystem.METRIC
     };
     let directionsService = new window.google.maps.DirectionsService();
     directionsService.route(directionsFor, function(result, status) {
       if (status === 'OK' && result.routes) {
         console.log('Routes :');
-        console.log(result.routes);
-        console.log(JSON.stringify(result.routes));
+        let routes = result.routes;
+        routes.forEach(function(route) {
+          console.log('This route has ' + route.legs[0].steps.length + ' turns');
+        });
       } else {
         console.log('Did not get valid routes');
       }
