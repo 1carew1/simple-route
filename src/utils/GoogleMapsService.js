@@ -60,7 +60,7 @@ export default class GoogleMapsService {
   testDirections(){
     let directionsFor = {
       origin: '49 Clonard Park Ballybeg',
-      destination: '12 Arbour Mount RockShire Road Ferrybank',
+      destination: 'Kingsley Hotel Victoria Cross Cork',
       waypoints: [],
       provideRouteAlternatives: true,
       travelMode: 'DRIVING',
@@ -77,7 +77,7 @@ export default class GoogleMapsService {
         let routes = result.routes;
         let simplestRoute = null;
         routes.forEach(function(route) {
-          console.log('This route has ' + route.legs[0].steps.length + ' turns');
+          console.log('This route has ' + route.legs[0].steps.length + ' turns and will take ' + route.legs[0].duration_in_traffic.text + ' with a distance of ' + route.legs[0].distance.text);
           if(!simplestRoute) {
             simplestRoute = route;
           } else if(route.legs[0].steps.length < simplestRoute.legs[0].steps.length) {
