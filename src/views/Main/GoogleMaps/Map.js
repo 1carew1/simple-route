@@ -45,6 +45,7 @@ class Map extends Component {
 
   componentDidMount() {
    console.log('Map Did Mount');
+   googleMapsService.testDirections();
   }
   dummyMethod() {
     console.log('Dummy Method');

@@ -56,4 +56,29 @@ export default class GoogleMapsService {
           }
        });
   }
+
+  testDirections(){
+    let directionsFor = {
+      origin: '49 Clonard Park Ballybeg',
+      destination: '12 Arbour Mount RockShire Road Ferrybank',
+      waypoints: [],
+      provideRouteAlternatives: true,
+      travelMode: 'DRIVING',
+      drivingOptions: {
+        departureTime: new Date(/* now, or future date */),
+        trafficModel: 'pessimistic'
+      },
+      unitSystem: window.google.maps.UnitSystem.IMPERIAL
+    };
+    let directionsService = new window.google.maps.DirectionsService();
+    directionsService.route(directionsFor, function(result, status) {
+      if (status === 'OK' && result.routes) {
+        console.log('Routes :');
+        console.log(result.routes);
+        console.log(JSON.stringify(result.routes));
+      } else {
+        console.log('Did not get valid routes');
+      }
+    });
+  }
 }

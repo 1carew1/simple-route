@@ -5,8 +5,6 @@ import styles from './styles.module.css'
 import GoogleMapsService from '../../../utils/GoogleMapsService';
 import Map from '../GoogleMaps/Map';
 
-import superagent from 'superagent';
-
 const googleMapsService = new GoogleMapsService();
 
 export class Home extends React.Component {
