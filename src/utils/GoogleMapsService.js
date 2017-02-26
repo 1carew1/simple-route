@@ -3,14 +3,14 @@ import superagent from 'superagent';
 const apiKey = 'AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ';
 
 export default class GoogleMapsService {
-  obtainLatLngFromAddress(address) {
+  obtainLatLngFromAddress(address, func) {
     let addressObject = null;
     let desiredAddress = address;
     if(desiredAddress) {
       console.log('Going to try Find LatLng Information of : ' + desiredAddress);
       desiredAddress = desiredAddress.replace(' ', '+');
       const url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + desiredAddress + '&key=' + apiKey;
-      const addressResult = this.useSuperagentToObtainResultsFromUrl(url);
+      const addressResult = this.useSuperagentToObtainResultsFromUrl(url, func);
       addressObject = addressResult;
     } else {
       console.log('Desired Address is blank so will not look for that');
@@ -18,8 +18,8 @@ export default class GoogleMapsService {
     return addressObject;
   }
 
-  useSuperagentToObtainResultsFromUrl(url) {
-      let addressResults = null;
+  // TODO : Pass a function into this that is called when a response is obtain and then this function can update the Google Map
+  useSuperagentToObtainResultsFromUrl(url, func) {
       superagent
       .get(url)
       .query(null)
@@ -37,11 +37,11 @@ export default class GoogleMapsService {
           });
           if(addresses) {
             console.log(addresses.length + ' addresses found');
-            addressResults = addresses;
+            // Call the function passed in using the addresses paramater
+            func(addresses);
           } else {
             console.log('No Addresses found');
           }
        });
-      return addressResults;
   }
 }

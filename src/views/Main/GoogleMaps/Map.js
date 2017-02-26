@@ -80,9 +80,8 @@ class Map extends Component {
       this.setState({desiredAddress : event.target.value});
     };
 
-    let findDesiredAddress = () => {
-      let desiredAddress = this.state.desiredAddress;
-      const addresses = googleMapsService.obtainLatLngFromAddress(desiredAddress);
+    // Take in a list of addresses and goes to the first one
+    let flyToAddress = (addresses) => {
       if(addresses) {
         const addressIdentifier = 'addresses';
         localStorage.removeItem(addressIdentifier);
@@ -102,8 +101,14 @@ class Map extends Component {
       } else {
         console.log('No addresses found');
       }
-
     }
+    
+    let findDesiredAddress = () => {
+      let desiredAddress = this.state.desiredAddress;
+      googleMapsService.obtainLatLngFromAddress(desiredAddress, flyToAddress);
+    }
+
+
 
     let centerMap = () => {
       let currentLocation = JSON.parse(localStorage.getItem('currentLocation') || '[]');
