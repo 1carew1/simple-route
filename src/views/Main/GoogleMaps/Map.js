@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {withGoogleMap, GoogleMap} from 'react-google-maps';
+import ReactDOM from 'react-dom';
 import CustomMarker from './CustomMarker';
 import DirectionRoutes from './DirectionRoutes';
+import DirectionsForm from './DirectionsForm';
 
 import Button from 'react-bootstrap/lib/Button';
 
@@ -15,8 +17,7 @@ class Map extends Component {
       this.state = {
         map: null, 
         mapLoaded: false,
-        centerLocation : { lat: -25.363882, lng: 131.044922 },
-        desiredAddress : null
+        centerLocation : { lat: -25.363882, lng: 131.044922 }
       };
   }
   handleMapLoad = this.handleMapLoad.bind(this);
@@ -31,21 +32,8 @@ class Map extends Component {
     }
   }
 
-  // Overriding this as we do not want reload when desiredAddress is changed
-  shouldComponentUpdate(nextProps, nextState) {
-    let shouldWeReRender = true;
-    let desiredAddress = this.state.desiredAddress;
-    let newAddress = nextState.desiredAddress;
-    if(newAddress !== desiredAddress) {
-      console.log("Desired Address Changed but we do not want to rerender");
-      shouldWeReRender = false;
-    }
-    return shouldWeReRender;
-  }
-
   componentDidMount() {
    console.log('Map Did Mount');
-   googleMapsService.testDirections();
   }
   dummyMethod() {
     console.log('Dummy Method');
@@ -77,10 +65,6 @@ class Map extends Component {
       console.log('Didn\'t get any markers');
     }
 
-    let handleChange = (event) => {
-      this.setState({desiredAddress : event.target.value});
-    };
-
     // Take in a list of addresses and goes to the first one
     let flyToAddress = (addresses) => {
       if(addresses) {
@@ -105,7 +89,7 @@ class Map extends Component {
     }
     
     let findDesiredAddress = () => {
-      let desiredAddress = this.state.desiredAddress;
+      let desiredAddress = ReactDOM.findDOMNode(this.refs.desiredAddress).value;
       googleMapsService.obtainLatLngFromAddress(desiredAddress, flyToAddress);
     }
 
@@ -140,7 +124,7 @@ class Map extends Component {
     return (
       <div style={{ height: '100%', width: '100%' }}>
         <div style={{display:'inline-block', verticalAlign:'top', width:'20%'}}>
-          <DirectionRoutes />
+          <DirectionsForm />
         </div>
         <div style={{ height: '100%', marginLeft:'2%', width:'50%', display:'inline-block'}}>
             <GettingStartedGoogleMap
@@ -159,9 +143,9 @@ class Map extends Component {
               <br />
               <div className="form-group">
                   <label htmlFor="inputdefault">Location</label>
-                  <input className="form-control" id="locationName" name="locationName" onChange={handleChange} type="text"/>
+                  <input className="form-control" id="desiredAddress" ref="desiredAddress" name="locationName" type="text"/>
               </div>
-              <Button className="btn btn-primary" onClick={findDesiredAddress}>Find Desired Address</Button>
+              <Button className="btn btn-primary" onClick={findDesiredAddress}>Fly to</Button>
               <br />
               <br />
            </div>

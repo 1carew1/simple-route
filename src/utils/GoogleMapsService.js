@@ -57,10 +57,10 @@ export default class GoogleMapsService {
        });
   }
 
-  testDirections(){
+  testDirections(startAddress, endAddress){
     let directionsFor = {
-      origin: '49 Clonard Park Ballybeg',
-      destination: 'Kingsley Hotel Victoria Cross Cork',
+      origin: startAddress,
+      destination: endAddress,
       waypoints: [],
       provideRouteAlternatives: true,
       travelMode: 'DRIVING',
