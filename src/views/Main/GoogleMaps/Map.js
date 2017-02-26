@@ -53,8 +53,8 @@ class Map extends Component {
   render() {
     let mapMarkers = null;
     if(this.props.markers) {
-      console.log('Trying to render markers');
-      this.props.markers.map((address, i) => {
+      console.log('Trying to render ' + this.props.markers.length  + ' markers');
+      mapMarkers = this.props.markers.map((address, i) => {
           let marker={ };
           if(address !== undefined &&  address !== null) {
             marker={
