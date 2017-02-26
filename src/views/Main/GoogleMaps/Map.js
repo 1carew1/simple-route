@@ -99,6 +99,8 @@ class Map extends Component {
         } else {
           console.log('Did not find an address from Google Maps');
         }        
+      } else {
+        console.log('No addresses found');
       }
 
     }

@@ -18,3 +18,7 @@ npm-debug.log
 src/apiKey.txt
 apiKey.txt
 config.js
+
+./idea
+.idea
+*.iml
