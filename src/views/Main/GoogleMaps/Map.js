@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import {withGoogleMap, GoogleMap, Marker} from 'react-google-maps';
-import CustomInfoWindow from './CustomInfoWindow';
+import {withGoogleMap, GoogleMap} from 'react-google-maps';
+import CustomMarker from './CustomMarker';
 import DirectionRoutes from './DirectionRoutes';
-
-import MapMarkerIcon from '../../../../assets/images/blackmapmarker.png';
 
 import Button from 'react-bootstrap/lib/Button';
 
-import superagent from 'superagent';
+import GoogleMapsService from '../../../utils/GoogleMapsService';
+
+const googleMapsService = new GoogleMapsService();
 
 class Map extends Component {
   constructor() {
@@ -49,78 +49,56 @@ class Map extends Component {
   dummyMethod() {
     console.log('Dummy Method');
   }
+  //TODO : Way too much logic in Render Method!!
   render() {
-    let mapMarkers = this.props.markers.map((address, i) => {
-        let marker={ };
-        if(address !== undefined &&  address !== null) {
-          marker={
-              position : {
-                 lat : address.location.lat,
-                 lng : address.location.lng
-              },
-              address : {
-                formatted_address : address.formatted_address
-              }
-          };
-        }
-        return (
-          <Marker
-            {...marker}
-            position={marker.position}
-            icon={MapMarkerIcon}
-            defaultAnimation={2}
-            key={i}>
-            {
-                <CustomInfoWindow  content={marker.address.formatted_address}/>
-            }
-          </Marker>
-        )
-    });
+    let mapMarkers = null;
+    if(this.props.markers) {
+      console.log('Trying to render markers');
+      this.props.markers.map((address, i) => {
+          let marker={ };
+          if(address !== undefined &&  address !== null) {
+            marker={
+                position : {
+                   lat : address.location.lat,
+                   lng : address.location.lng
+                },
+                address : {
+                  formatted_address : address.formatted_address
+                }
+            };
+            console.log('Marker was made successfully');
+          }
+          return (
+            <CustomMarker  marker={marker} key={i}/>
+          )
+      });      
+    } else {
+      console.log('Didn\'t get any markers');
+    }
+
     let handleChange = (event) => {
       this.setState({desiredAddress : event.target.value});
     };
 
     let findDesiredAddress = () => {
       let desiredAddress = this.state.desiredAddress;
-      if(desiredAddress) {
-      console.log('Going to try Find LatLng Information of : ' + desiredAddress);
+      const addresses = googleMapsService.obtainLatLngFromAddress(desiredAddress);
+      if(addresses) {
+        const addressIdentifier = 'addresses';
+        localStorage.removeItem(addressIdentifier);
+        localStorage.setItem(addressIdentifier, JSON.stringify(addresses));
 
-      desiredAddress = desiredAddress.replace(' ', '+');
-      //let currentLocation = JSON.parse(localStorage.getItem('currentLocation') || '[]');
-      const url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + desiredAddress + '&key=AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ'
-      // Run Superagent to get API Requests e.g. Google Maps Geocoding
-      superagent
-      .get(url)
-      .query(null)
-      .set('Accept', 'text/json')
-      .end((error, response) => {
-          const results = response.body.results;
-          const addresses = results.map((obj, i) => {
-              let address = {
-                formatted_address : '',
-                location : {}
-              }
-              address.formatted_address = obj.formatted_address;
-              address.location = obj.geometry.location;
-              return address;
-          });
-          console.log('componentDidMount : Got ' + addresses.length + ' addresses from Google');
-          const addressIdentifier = 'addresses';
-          localStorage.removeItem(addressIdentifier);
-          localStorage.setItem(addressIdentifier, JSON.stringify(addresses));
-
-          // Reload the page
-          const address = addresses[0]
-          if(address) {
+        // Reload the page
+        const address = addresses[0]
+        if(address) {
             const newCenter = addresses[0].location;
             if(newCenter) {
               console.log('New Lat Lng is : ' + newCenter.lat + ' ' + newCenter.lng);
               this.setState({centerLocation : addresses[0].location});           
             }            
-          }
-       });
-      } else {
-        console.log("I'm Not Looking for a blank location");
+        } else {
+          console.log('Did not find an address from Google Maps');
+        }        
       }
 
     }

@@ -47,6 +47,7 @@ export class Home extends React.Component {
 
   obtainMarkers() {
     let currentLocation = JSON.parse(localStorage.getItem('currentLocation') || '[]');
+    console.log('Trying to obtain markers');
     const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + currentLocation.lat+ ',' + currentLocation.lng+ '&key=AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ'
     // Run Superagent to get API Requests e.g. Google Maps Geocoding
     superagent
@@ -65,7 +66,7 @@ export class Home extends React.Component {
             return address;
         });
         console.log('componentDidMount : Got ' + addresses.length + ' addresses from Google');
-        const addressIdentifier = 'addresses';
+        const addressIdentifier = 'addressesNearMe';
         localStorage.removeItem(addressIdentifier);
         localStorage.setItem(addressIdentifier, JSON.stringify(addresses));
 
@@ -88,7 +89,7 @@ export class Home extends React.Component {
   }
 
   render(){
-    const addresses = JSON.parse(localStorage.getItem('addresses') || '[]');
+    const addresses = JSON.parse(localStorage.getItem('addressesNearMe') || '[]');
 
     const { profile } = this.state
     return (
