@@ -75,8 +75,22 @@ export default class GoogleMapsService {
       if (status === 'OK' && result.routes) {
         console.log('Routes :');
         let routes = result.routes;
+        let simplestRoute = null;
         routes.forEach(function(route) {
           console.log('This route has ' + route.legs[0].steps.length + ' turns');
+          if(!simplestRoute) {
+            simplestRoute = route;
+          } else if(route.legs[0].steps.length < simplestRoute.legs[0].steps.length) {
+            simplestRoute = route;
+          } else {
+            //Do nothing as it's already shorter
+          }
+        });
+        let simplestRouteLeg = simplestRoute.legs[0];
+        console.log('The simplestRoute has ' + simplestRouteLeg.steps.length + ' turns and will take ' + simplestRouteLeg.duration_in_traffic.text + ' with traffic, the distance is ' + simplestRouteLeg.distance.text);
+
+        simplestRouteLeg.steps.forEach(function(step) {
+          console.log(step.instructions + ' for ' + step.distance.text);
         });
       } else {
         console.log('Did not get valid routes');
