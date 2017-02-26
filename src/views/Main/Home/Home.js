@@ -3,7 +3,7 @@ import {Button} from 'react-bootstrap'
 import AuthService from '../../../utils/AuthService'
 import styles from './styles.module.css'
 
-import Map from '../../../components/Map';
+import Map from '../GoogleMaps/Map';
 
 import superagent from 'superagent';
 

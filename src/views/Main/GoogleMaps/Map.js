@@ -3,7 +3,7 @@ import {withGoogleMap, GoogleMap, Marker} from 'react-google-maps';
 import CustomInfoWindow from './CustomInfoWindow';
 import DirectionRoutes from './DirectionRoutes';
 
-import MapMarkerIcon from '../../assets/images/blackmapmarker.png';
+import MapMarkerIcon from '../../../../assets/images/blackmapmarker.png';
 
 import Button from 'react-bootstrap/lib/Button';
 
