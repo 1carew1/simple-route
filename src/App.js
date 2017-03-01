@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Router } from 'react-router';
-import CustomNavbar from './views/Main/Navigation/CustomNavbar';
-
 
 import './App.css';
 
@@ -26,7 +24,6 @@ class App extends Component {
   render() {
     return (
       <div style={{backgroundColor: '#222'}}>
-        <CustomNavbar />
            <div style={{ height: '100%'}}>
                {this.content}
            </div>

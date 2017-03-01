@@ -5,6 +5,8 @@ import CustomMarker from './CustomMarker';
 import DirectionRoutes from './DirectionRoutes';
 import DirectionsForm from './DirectionsForm';
 
+import CustomNavbar from '../Navigation/CustomNavbar';
+
 import Button from 'react-bootstrap/lib/Button';
 
 import GoogleMapsService from '../../../utils/GoogleMapsService';
@@ -125,10 +127,11 @@ class Map extends Component {
     ));
     return (
       <div style={{ height: '100%', width: '100%' }}>
+        <CustomNavbar />
         <div style={{display:'inline-block', verticalAlign:'top', width:'20%'}}>
           <DirectionsForm />
         </div>
-        <div style={{ height: '100%', marginLeft:'2%', width:'50%', display:'inline-block'}}>
+        <div style={{ height: '100%', marginLeft:'2%', width:'100%', display:'inline-block'}}>
             <GettingStartedGoogleMap
               containerElement={
                 <div style={{ height: '90%' }} />
