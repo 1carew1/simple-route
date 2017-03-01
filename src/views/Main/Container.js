@@ -1,6 +1,4 @@
 import React, { PropTypes as T } from 'react'
-import { Jumbotron } from 'react-bootstrap'
-import styles from './styles.module.css'
 
 export class Container extends React.Component {
   static contextTypes = {
@@ -16,13 +14,10 @@ export class Container extends React.Component {
     }
 
     return (
-      <Jumbotron>
-        <h2 className={styles.mainTitle}>
-          <img src={require("../../../assets/images/simpleroute.png")} alt="auth0" width="204" height="166" />
-        </h2>
-        {children}
-      </Jumbotron>
-    )
+        <div>
+          {children}
+        </div>
+    );
   }
 }
 

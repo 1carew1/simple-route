@@ -25,17 +25,11 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{backgroundColor: '#222'}}>
         <CustomNavbar />
-        <div className="App">
-           <div className="App-header">
-              <h2>Welcome to Simple Route</h2>
-              <p>The quickest way is not always the simplest way!</p>
-           </div>
            <div style={{ height: '100%'}}>
                {this.content}
            </div>
-        </div>
       </div>
     );
   }
