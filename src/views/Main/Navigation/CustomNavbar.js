@@ -16,10 +16,10 @@ class CustomNavbar extends Component {
 	  ]}
 	];
     return(
-		  <Navbar inverse collapseOnSelect>
+		  <Navbar fluid inverse fixedTop collapseOnSelect>
 		    <Navbar.Header>
 		      <Navbar.Brand>
-		        <a href="#">React-Bootstrap</a>
+		        Simple Route
 		      </Navbar.Brand>
 		      <Navbar.Toggle />
 		    </Navbar.Header>
@@ -34,10 +34,6 @@ class CustomNavbar extends Component {
 		          <MenuItem divider />
 		          <MenuItem eventKey={3.3}>Separated link</MenuItem>
 		        </NavDropdown>
-		      </Nav>
-		      <Nav pullRight>
-		        <NavItem eventKey={1} href="#">Link Right</NavItem>
-		        <NavItem eventKey={2} href="#">Link Right</NavItem>
 		      </Nav>
 		    </Navbar.Collapse>
 		  </Navbar>

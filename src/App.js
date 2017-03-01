@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Router } from 'react-router';
+import CustomNavbar from './views/Main/Navigation/CustomNavbar';
 
 
 import './App.css';
@@ -24,14 +25,17 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-         <div className="App-header">
-            <h2>Welcome to Simple Route</h2>
-            <p>The quickest way is not always the simplest way!</p>
-         </div>
-         <div style={{ height: '100%'}}>
-             {this.content}
-         </div>
+      <div>
+        <CustomNavbar />
+        <div className="App">
+           <div className="App-header">
+              <h2>Welcome to Simple Route</h2>
+              <p>The quickest way is not always the simplest way!</p>
+           </div>
+           <div style={{ height: '100%'}}>
+               {this.content}
+           </div>
+        </div>
       </div>
     );
   }

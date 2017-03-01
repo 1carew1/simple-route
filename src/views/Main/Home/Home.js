@@ -4,7 +4,6 @@ import AuthService from '../../../utils/AuthService'
 import styles from './styles.module.css'
 import GoogleMapsService from '../../../utils/GoogleMapsService';
 import Map from '../GoogleMaps/Map';
-import CustomerNavbar from '../Navbar';
 
 const googleMapsService = new GoogleMapsService();
 
@@ -69,7 +68,6 @@ export class Home extends React.Component {
     const { profile } = this.state
     return (
     <div>
-      <CustomerNavbar />
       <div className={styles.root}>
         <h2>Home</h2>
         <Button onClick={this.logout.bind(this)}>Logout</Button>
