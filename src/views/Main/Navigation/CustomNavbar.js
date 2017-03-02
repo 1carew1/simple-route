@@ -1,8 +1,16 @@
 import React, {Component} from 'react'
 import { Nav, Navbar, NavDropdown, MenuItem, NavItem } from 'react-bootstrap';
+import {Link} from 'react-router'
 
 // create classes
 class CustomNavbar extends Component {
+
+
+  logout(){
+    this.props.auth.logout()
+    this.context.router.push('/login');
+  }
+
   render() {
   	// set data
 	let myNavBarData = {};
@@ -10,11 +18,37 @@ class CustomNavbar extends Component {
 	myNavBarData.links = [
 	  {linkTo: "#", text: "Link 1"},
 	  {linkTo: "#", text: "Link 2"},
+	  {linkTo: "/login", text: "Logout"},
 	  {dropdown: true, text: "Dropdown", links: [
 	    {linkTo: "#", text: "Dropdown Link 1"},
 	    {linkTo: "#", text: "Dropdown Link 2", active: true}
 	  ]}
 	];
+	let navItems = null;
+	if(myNavBarData.links) {
+		navItems = myNavBarData.links.map((link, i) => {
+			let linkItem = null;
+			if(!link.dropdown) {
+				linkItem = (
+					<NavItem key={i} eventKey={i} ><Link to={link.linkTo}>{link.text}</Link></NavItem>
+				);
+			} else {	
+				//Its a DropDown Item
+				let dropDownItems = null;
+				dropDownItems = link.links.map((dropdownlink, j) => {
+					return (<MenuItem key={j} eventKey={i + '.' + j}>{dropdownlink.text}</MenuItem>
+					);
+				}, i);
+				linkItem = (
+					 <NavDropdown key={i}  eventKey={i} title={link.text} id="basic-nav-dropdown">
+					 {dropDownItems}
+					 </NavDropdown>
+				);
+			}
+			return linkItem;
+		})
+	}
+
     return(
 		  <Navbar fluid inverse fixedTop collapseOnSelect>
 		    <Navbar.Header>
@@ -25,15 +59,7 @@ class CustomNavbar extends Component {
 		    </Navbar.Header>
 		    <Navbar.Collapse>
 		      <Nav>
-		        <NavItem eventKey={1} href="#">Link</NavItem>
-		        <NavItem eventKey={2} href="#">Link</NavItem>
-		        <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-		          <MenuItem eventKey={3.1}>Action</MenuItem>
-		          <MenuItem eventKey={3.2}>Another action</MenuItem>
-		          <MenuItem eventKey={3.3}>Something else here</MenuItem>
-		          <MenuItem divider />
-		          <MenuItem eventKey={3.3}>Separated link</MenuItem>
-		        </NavDropdown>
+		      	{navItems}
 		      </Nav>
 		    </Navbar.Collapse>
 		  </Navbar>
