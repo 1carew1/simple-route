@@ -72,12 +72,7 @@ export class Home extends React.Component {
     return (
     <div style={{height:'100%', width:'100%'}}>
       <CustomNavbar />
-      <div className={styles.root}>
-        <h2>Home</h2>
-        <Button onClick={this.logout.bind(this)}>Logout</Button>
-        <br /><br />
-        <p>Welcome {profile.name}!</p>
-      </div>
+      <p>Welcome {profile.name}!</p>
       <div>
          <div style={{height:'800px', width:'100%'}}>
               <Map markers={addresses}/>

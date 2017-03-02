@@ -18,7 +18,7 @@ class CustomNavbar extends Component {
 	myNavBarData.links = [
 	  {linkTo: "#", text: "Link 1"},
 	  {linkTo: "#", text: "Link 2"},
-	  {linkTo: "/login", text: "Logout"},
+	  {linkTo: "/logout", text: "Logout"},
 	  {dropdown: true, text: "Dropdown", links: [
 	    {linkTo: "#", text: "Dropdown Link 1"},
 	    {linkTo: "#", text: "Dropdown Link 2", active: true}
@@ -36,7 +36,7 @@ class CustomNavbar extends Component {
 				//Its a DropDown Item
 				let dropDownItems = null;
 				dropDownItems = link.links.map((dropdownlink, j) => {
-					return (<MenuItem key={j} eventKey={i + '.' + j}>{dropdownlink.text}</MenuItem>
+					return (<MenuItem key={j} eventKey={i + '.' + j}><Link to={dropdownlink.linkTo}>{dropdownlink.text}</Link></MenuItem>
 					);
 				}, i);
 				linkItem = (
@@ -50,7 +50,7 @@ class CustomNavbar extends Component {
 	}
 
     return(
-		  <Navbar fluid inverse fixedTop collapseOnSelect>
+		  <Navbar fluid inverse collapseOnSelect>
 		    <Navbar.Header>
 		      <Navbar.Brand>
 		        Simple Route
