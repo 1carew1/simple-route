@@ -69,7 +69,7 @@ export class Home extends React.Component {
     <div style={{height:'100vh', width:'100%'}}>
       <CustomNavbar/>
       <div style={{height:'100%', width:'100%'}}>
-              <Map markers={addresses}/>
+              <Map />
       </div>
     </div>
     )
