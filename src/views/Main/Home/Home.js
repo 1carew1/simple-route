@@ -71,9 +71,8 @@ export class Home extends React.Component {
     const { profile } = this.state
     return (
     <div style={{height:'100vh', width:'100%'}}>
-      <CustomNavbar />
-      <p>Welcome {profile.name}!</p>
-      <div style={{height:'88%', width:'100%'}}>
+      <CustomNavbar/>
+      <div style={{height:'100%', width:'100%'}}>
               <Map markers={addresses}/>
       </div>
     </div>

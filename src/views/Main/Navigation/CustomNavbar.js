@@ -50,7 +50,7 @@ class CustomNavbar extends Component {
 	}
 
     return(
-		  <Navbar fluid inverse collapseOnSelect>
+		  <Navbar fluid inverse fixedTop collapseOnSelect>
 		    <Navbar.Header>
 		      <Navbar.Brand>
 		        Simple Route

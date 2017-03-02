@@ -118,14 +118,14 @@ class Map extends Component {
               this.dummyMethod();
         }}
         yesIWantToUseGoogleMapApiInternals={true}
-        options={{streetViewControl:true, mapTypeControl : true, scrollwheel: true}}
+        options={{streetViewControl:true, mapTypeControl : false, scrollwheel: true}}
       >
         { mapMarkers }
       </GoogleMap>
     ));
     return (
       <div style={{ height: '100%', width: '100%' }}>
-        <div style={{ height: '100%', width:'100%', display:'inline-block'}}>
+        <div style={{ height: '100%', width:'100%'}}>
             <GettingStartedGoogleMap
               containerElement={
                 <div style={{ height: '100%' }} />
@@ -134,6 +134,7 @@ class Map extends Component {
                 <div style={{ height: '100%' }} />
               }
               onMapLoad={this.handleMapLoad}
+              onClick={centerMap}
             />
         </div>
       </div>  
