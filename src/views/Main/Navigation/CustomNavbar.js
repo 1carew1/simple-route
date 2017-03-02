@@ -4,11 +4,13 @@ import {Link} from 'react-router'
 
 // create classes
 class CustomNavbar extends Component {
-
-
-  logout(){
-    this.props.auth.logout()
-    this.context.router.push('/login');
+  
+  generateLink(link) {
+  	let navItemName = link.text;
+	if(link.linkTo) {
+	    navItemName = <Link to={link.linkTo}>{link.text}</Link>;
+	}
+	return navItemName;
   }
 
   render() {
@@ -33,10 +35,7 @@ class CustomNavbar extends Component {
 		navItems = myNavBarData.links.map((link, i) => {
 			let linkItem = null;
 			if(!link.dropdown) {
-				let navItemName = link.text;
-				if(link.linkTo) {
-					navItemName = <Link to={link.linkTo}>{link.text}</Link>;
-				}
+				let navItemName = this.generateLink(link);
 				linkItem = (
 					<NavItem key={i} eventKey={i} active={link.active} onClick={link.onClick}>{navItemName}</NavItem>
 				);

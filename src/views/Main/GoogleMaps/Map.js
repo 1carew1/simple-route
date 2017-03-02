@@ -118,7 +118,7 @@ class Map extends Component {
               this.dummyMethod();
         }}
         yesIWantToUseGoogleMapApiInternals={true}
-        options={{streetViewControl:true, mapTypeControl : false, scrollwheel: true}}
+        options={{streetViewControl:false, mapTypeControl : false, scrollwheel: true}}
       >
         { mapMarkers }
       </GoogleMap>
