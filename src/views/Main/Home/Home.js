@@ -12,7 +12,8 @@ export class Home extends React.Component {
     constructor(props, context) {
       super(props, context);
       this.state = {
-        profile: props.auth.getProfile()
+        profile: props.auth.getProfile(),
+        location : null
       };
       props.auth.on('profile_updated', (newProfile) => {
         this.setState({profile: newProfile})
@@ -63,13 +64,21 @@ export class Home extends React.Component {
     this.context.router.push('/login');
   }
 
+  centerLocation(incomingLocation) {
+    console.log('About to Center Map from Home side');
+    console.log(incomingLocation);
+    this.setState({
+      location : incomingLocation
+    });
+  }
+
   render(){
     const addresses = JSON.parse(localStorage.getItem('addressesNearMe') || '[]');
     return (
     <div style={{height:'100vh', width:'100%'}}>
-      <CustomNavbar/>
+      <CustomNavbar centerLocation={this.centerLocation.bind(this)}/>
       <div style={{height:'100%', width:'100%'}}>
-              <Map />
+              <Map center={this.state.location}/>
       </div>
     </div>
     )

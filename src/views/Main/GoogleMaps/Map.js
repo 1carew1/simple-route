@@ -104,14 +104,18 @@ class Map extends Component {
 
     let directions = JSON.parse(localStorage.getItem('directions') || '[]');
 
+    let centerLocation = this.props.center;
+    if(!centerLocation) {
+      centerLocation = { lat: 52.2373524, lng: -7.1071411 };
+    }
     // Wrap all `react-google-maps` components with `withGoogleMap` HOC
     // and name it GettingStartedGoogleMap
     const GettingStartedGoogleMap = withGoogleMap(props => (
       <GoogleMap
         ref={props.onMapLoad}
         defaultZoom={14}
-        center={this.state.centerLocation}
         defaultCenter={{ lat: 52.2373524, lng: -7.1071411 }}
+        center={centerLocation}
         onGoogleApiLoaded={({ map, maps }) => {
               console.log('Map loaded from api loaded'); 
               this.setState({ map: map, maps:maps, mapLoaded: true }); 

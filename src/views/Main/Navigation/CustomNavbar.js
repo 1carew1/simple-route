@@ -13,6 +13,13 @@ class CustomNavbar extends Component {
 	return navItemName;
   }
 
+  centerMap() {
+	const location = JSON.parse(localStorage.getItem('currentLocation') || '{}');
+	if(location) {
+	   this.props.centerLocation(location);
+	}
+  }
+
   render() {
   	// set data
   	let mapOptionsDisabled = this.props.disableMapOptions;
@@ -24,7 +31,7 @@ class CustomNavbar extends Component {
 	  {linkTo: "/home", text: "Home"},
 	  {linkTo: "/about", text: "About"},
 	  {disabled:mapOptionsDisabled, dropdown: true, text: "Map Options", links: [
-	    {text: "Centre Map", onClick: function(){console.log('Centering Map')}},
+	    {text: "Centre Map", onClick: this.centerMap.bind(this)},
 	    {text: "Fly to Location", onClick: function(){console.log('Flying to Location')}},
 	    {text: "Get Directions", onClick: function(){console.log('Getting Directions')}}
 	  ]}, 
