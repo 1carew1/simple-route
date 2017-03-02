@@ -43,10 +43,7 @@ class CustomNavbar extends Component {
 				//Its a DropDown Item
 				let dropDownItems = null;
 				dropDownItems = link.links.map((dropdownlink, j) => {
-					let dropDownNavItemName = dropdownlink.text;
-					if(dropdownlink.linkTo) {
-						dropDownNavItemName = <Link to={dropdownlink.linkTo}>{dropdownlink.text}</Link>;
-					}
+					let dropDownNavItemName = this.generateLink(dropdownlink);
 					return (<MenuItem key={j} eventKey={i + '.' + j} active={dropdownlink.active} onClick={dropdownlink.onClick}>{dropDownNavItemName}</MenuItem>
 					);
 				}, i);
