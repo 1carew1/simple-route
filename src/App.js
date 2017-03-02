@@ -13,6 +13,8 @@ class App extends Component {
     routes: PropTypes.element.isRequired
   };
 
+
+
   get content() {
     return (
       <Router

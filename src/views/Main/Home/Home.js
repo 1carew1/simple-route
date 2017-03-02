@@ -5,6 +5,9 @@ import styles from './styles.module.css'
 import GoogleMapsService from '../../../utils/GoogleMapsService';
 import Map from '../GoogleMaps/Map';
 
+import CustomNavbar from '../Navigation/CustomNavbar';
+
+
 const googleMapsService = new GoogleMapsService();
 
 export class Home extends React.Component {
@@ -67,7 +70,8 @@ export class Home extends React.Component {
 
     const { profile } = this.state
     return (
-    <div>
+    <div style={{height:'100%', width:'100%'}}>
+      <CustomNavbar />
       <div className={styles.root}>
         <h2>Home</h2>
         <Button onClick={this.logout.bind(this)}>Logout</Button>
@@ -75,7 +79,7 @@ export class Home extends React.Component {
         <p>Welcome {profile.name}!</p>
       </div>
       <div>
-         <div style={{height:'600px', width:'90%', 'marginLeft':'5%', 'marginRight':'5%', 'marginTop':'10px', 'marginBottom':'300px'}}>
+         <div style={{height:'800px', width:'100%'}}>
               <Map markers={addresses}/>
           </div>
       </div>

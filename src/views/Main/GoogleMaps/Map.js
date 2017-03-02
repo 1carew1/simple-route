@@ -5,8 +5,6 @@ import CustomMarker from './CustomMarker';
 import DirectionRoutes from './DirectionRoutes';
 import DirectionsForm from './DirectionsForm';
 
-import CustomNavbar from '../Navigation/CustomNavbar';
-
 import Button from 'react-bootstrap/lib/Button';
 
 import GoogleMapsService from '../../../utils/GoogleMapsService';
@@ -127,11 +125,7 @@ class Map extends Component {
     ));
     return (
       <div style={{ height: '100%', width: '100%' }}>
-        <CustomNavbar />
-        <div style={{display:'inline-block', verticalAlign:'top', width:'20%'}}>
-          <DirectionsForm />
-        </div>
-        <div style={{ height: '100%', marginLeft:'2%', width:'100%', display:'inline-block'}}>
+        <div style={{ height: '100%', width:'100%', display:'inline-block'}}>
             <GettingStartedGoogleMap
               containerElement={
                 <div style={{ height: '90%' }} />
@@ -141,22 +135,6 @@ class Map extends Component {
               }
               onMapLoad={this.handleMapLoad}
             />
-           <div>
-              <br />
-              <Button className="btn btn-primary" onClick={centerMap}>Center Map</Button>
-              <br />
-              <br />
-              <div className="form-group">
-                  <label htmlFor="inputdefault">Location</label>
-                  <input className="form-control" id="desiredAddress" ref="desiredAddress" name="locationName" type="text"/>
-              </div>
-              <Button className="btn btn-primary" onClick={findDesiredAddress}>Fly to</Button>
-              <br />
-              <br />
-           </div>
-        </div>
-        <div style={{display:'inline-block', verticalAlign:'top', marginLeft:'2%', width:'20%'}}>
-          <DirectionRoutes directions={directions}/>
         </div>
       </div>  
     );
