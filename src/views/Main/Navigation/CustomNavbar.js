@@ -16,13 +16,13 @@ class CustomNavbar extends Component {
 	let myNavBarData = {};
 	myNavBarData.brand =  {linkTo: "#", text: "Simple Route"};
 	myNavBarData.links = [
-	  {linkTo: "#", text: "Link 1"},
+	  {linkTo: "#", text: "About"},
 	  {linkTo: "#", text: "Link 2"},
-	  {linkTo: "/logout", text: "Logout"},
-	  {dropdown: true, text: "Dropdown", links: [
+	  {dropdown: true, text: "Map Options", links: [
 	    {linkTo: "#", text: "Dropdown Link 1"},
 	    {linkTo: "#", text: "Dropdown Link 2", active: true}
-	  ]}
+	  ]},
+	  {linkTo: "/logout", text: "Logout"}
 	];
 	let navItems = null;
 	if(myNavBarData.links) {

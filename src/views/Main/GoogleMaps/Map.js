@@ -128,7 +128,7 @@ class Map extends Component {
         <div style={{ height: '100%', width:'100%', display:'inline-block'}}>
             <GettingStartedGoogleMap
               containerElement={
-                <div style={{ height: '90%' }} />
+                <div style={{ height: '100%' }} />
               }
               mapElement={
                 <div style={{ height: '100%' }} />
