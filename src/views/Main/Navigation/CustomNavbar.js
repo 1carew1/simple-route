@@ -13,16 +13,19 @@ class CustomNavbar extends Component {
 
   render() {
   	// set data
+  	let mapOptionsDisabled = this.props.disableMapOptions;
+
+  	console.log('Disable map options : ' + mapOptionsDisabled);
 	let myNavBarData = {};
 	myNavBarData.brand =  {linkTo: "#", text: "Simple Route"};
 	myNavBarData.links = [
-	  {linkTo: "#", text: "About", onClickItem: function(){console.log('Clicked Me')}},
-	  {linkTo: "#", text: "Link 2"},
-	  {dropdown: true, text: "Map Options", links: [
-	    {linkTo: "#", text: "Centre Map"},
-	    {linkTo: "#", text: "Fly to Location"},
-	    {linkTo: "#", text: "Get Directions"}
-	  ]},
+	  {linkTo: "/home", text: "Home"},
+	  {linkTo: "/about", text: "About"},
+	  {disabled:mapOptionsDisabled, dropdown: true, text: "Map Options", links: [
+	    {text: "Centre Map", onClick: function(){console.log('Centering Map')}},
+	    {text: "Fly to Location", onClick: function(){console.log('Flying to Location')}},
+	    {text: "Get Directions", onClick: function(){console.log('Getting Directions')}}
+	  ]}, 
 	  {linkTo: "/logout", text: "Logout"}
 	];
 	let navItems = null;
@@ -30,18 +33,26 @@ class CustomNavbar extends Component {
 		navItems = myNavBarData.links.map((link, i) => {
 			let linkItem = null;
 			if(!link.dropdown) {
+				let navItemName = link.text;
+				if(link.linkTo) {
+					navItemName = <Link to={link.linkTo}>{link.text}</Link>;
+				}
 				linkItem = (
-					<NavItem key={i} eventKey={i} active={link.active} onClick={link.onClickItem}><Link to={link.linkTo}>{link.text}</Link></NavItem>
+					<NavItem key={i} eventKey={i} active={link.active} onClick={link.onClick}>{navItemName}</NavItem>
 				);
 			} else {	
 				//Its a DropDown Item
 				let dropDownItems = null;
 				dropDownItems = link.links.map((dropdownlink, j) => {
-					return (<MenuItem key={j} eventKey={i + '.' + j} active={dropdownlink.active}><Link to={dropdownlink.linkTo}>{dropdownlink.text}</Link></MenuItem>
+					let dropDownNavItemName = dropdownlink.text;
+					if(dropdownlink.linkTo) {
+						dropDownNavItemName = <Link to={dropdownlink.linkTo}>{dropdownlink.text}</Link>;
+					}
+					return (<MenuItem key={j} eventKey={i + '.' + j} active={dropdownlink.active} onClick={dropdownlink.onClick}>{dropDownNavItemName}</MenuItem>
 					);
 				}, i);
 				linkItem = (
-					 <NavDropdown key={i}  eventKey={i} title={link.text} id="basic-nav-dropdown">
+					 <NavDropdown key={i}  eventKey={i} title={link.text} id="basic-nav-dropdown" disabled={link.disabled}>
 					 {dropDownItems}
 					 </NavDropdown>
 				);

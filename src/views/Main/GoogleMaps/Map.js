@@ -134,7 +134,6 @@ class Map extends Component {
                 <div style={{ height: '100%' }} />
               }
               onMapLoad={this.handleMapLoad}
-              onClick={centerMap}
             />
         </div>
       </div>  

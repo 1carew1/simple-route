@@ -4,6 +4,7 @@ import AuthService from '../../utils/AuthService'
 import Container from './Container'
 import Home from './Home/Home'
 import Login from './Login/Login'
+import About from './Info/About'
 
 const auth = new AuthService('a5zFT3PXpUFAzBb8d5KA9uYV0NhCiuls', '1carew1.eu.auth0.com');
 
@@ -26,6 +27,7 @@ export const makeMainRoutes = () => {
     <Route path="/" component={Container} auth={auth}>
       <IndexRedirect to="/home" />
       <Route path="home" component={Home} onEnter={requireAuth} />
+      <Route path="about" component={About} />
       <Route path="login" component={Login} />
       <Route path="logout" component={Login} onEnter={logout} />
     </Route>

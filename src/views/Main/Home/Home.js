@@ -1,7 +1,5 @@
 import React, { PropTypes as T } from 'react'
-import {Button} from 'react-bootstrap'
 import AuthService from '../../../utils/AuthService'
-import styles from './styles.module.css'
 import GoogleMapsService from '../../../utils/GoogleMapsService';
 import Map from '../GoogleMaps/Map';
 
@@ -67,8 +65,6 @@ export class Home extends React.Component {
 
   render(){
     const addresses = JSON.parse(localStorage.getItem('addressesNearMe') || '[]');
-
-    const { profile } = this.state
     return (
     <div style={{height:'100vh', width:'100%'}}>
       <CustomNavbar/>
