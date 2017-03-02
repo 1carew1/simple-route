@@ -16,11 +16,12 @@ class CustomNavbar extends Component {
 	let myNavBarData = {};
 	myNavBarData.brand =  {linkTo: "#", text: "Simple Route"};
 	myNavBarData.links = [
-	  {linkTo: "#", text: "About"},
+	  {linkTo: "#", text: "About", onClickItem: function(){console.log('Clicked Me')}},
 	  {linkTo: "#", text: "Link 2"},
 	  {dropdown: true, text: "Map Options", links: [
-	    {linkTo: "#", text: "Dropdown Link 1"},
-	    {linkTo: "#", text: "Dropdown Link 2", active: true}
+	    {linkTo: "#", text: "Centre Map"},
+	    {linkTo: "#", text: "Fly to Location"},
+	    {linkTo: "#", text: "Get Directions"}
 	  ]},
 	  {linkTo: "/logout", text: "Logout"}
 	];
@@ -30,13 +31,13 @@ class CustomNavbar extends Component {
 			let linkItem = null;
 			if(!link.dropdown) {
 				linkItem = (
-					<NavItem key={i} eventKey={i} ><Link to={link.linkTo}>{link.text}</Link></NavItem>
+					<NavItem key={i} eventKey={i} active={link.active} onClick={link.onClickItem}><Link to={link.linkTo}>{link.text}</Link></NavItem>
 				);
 			} else {	
 				//Its a DropDown Item
 				let dropDownItems = null;
 				dropDownItems = link.links.map((dropdownlink, j) => {
-					return (<MenuItem key={j} eventKey={i + '.' + j}><Link to={dropdownlink.linkTo}>{dropdownlink.text}</Link></MenuItem>
+					return (<MenuItem key={j} eventKey={i + '.' + j} active={dropdownlink.active}><Link to={dropdownlink.linkTo}>{dropdownlink.text}</Link></MenuItem>
 					);
 				}, i);
 				linkItem = (
