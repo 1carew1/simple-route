@@ -92,9 +92,9 @@ class CustomNavbar extends Component {
     );
     return(
     	<div>
-	    	<Modal show={this.state.showModal} onHide={this.close.bind(this)}>
+	    	<Modal show={this.state.showModal} onHide={this.close.bind(this)} style={{marginTop:'120px'}}>
 	          <Modal.Header closeButton>
-	            <Modal.Title>Modal heading</Modal.Title>
+	            <Modal.Title>Fly to Location</Modal.Title>
 	          </Modal.Header>
 	          <Modal.Body>
 	            <h4>Text in a modal</h4>
@@ -105,13 +105,9 @@ class CustomNavbar extends Component {
 
 	            <h4>Tooltips in a modal</h4>
 	            <p>there is a <OverlayTrigger overlay={tooltip}><a href="#">tooltip</a></OverlayTrigger> here</p>
-
-	            <hr />
-
-	            <h4>Overflowing text to show scroll behavior</h4>
-	            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
 	          </Modal.Body>
 	          <Modal.Footer>
+	            <Button bsStyle="primary">Go</Button>
 	            <Button onClick={this.close.bind(this)}>Close</Button>
 	          </Modal.Footer>
 	        </Modal>
