@@ -7,6 +7,7 @@ import CustomNavbar from '../Navigation/CustomNavbar';
 
 
 const googleMapsService = new GoogleMapsService();
+let directions = null;
 
 export class Home extends React.Component {
     constructor(props, context) {
@@ -80,14 +81,22 @@ export class Home extends React.Component {
     }
   }
 
+  setDirections(incomingdirections) {
+    directions = incomingdirections;
+    this.setState({});
+    directions = null;
+  }
+
+
+
   render(){
     const markers = JSON.parse(localStorage.getItem('markers') || '[]');
     localStorage.removeItem('markers');
     return (
     <div style={{height:'100vh', width:'100%'}}>
-      <CustomNavbar centerLocation={this.centerLocation.bind(this)}/>
+      <CustomNavbar centerLocation={this.centerLocation.bind(this)} setDirections={this.setDirections.bind(this)}/>
       <div style={{height:'100%', width:'100%'}}>
-          <Map center={this.state.location} markers={markers}/>
+          <Map center={this.state.location} markers={markers} directions={directions}/>
       </div>
     </div>
     )

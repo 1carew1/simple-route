@@ -31,7 +31,7 @@ class DirectionsForm extends Component {
 
 
   obtainDirections() {
-  	googleMapsService.obtainDirections(this.state.startAddress, this.state.endAddress);
+  	googleMapsService.obtainDirections(this.state.startAddress, this.state.endAddress, this.props.setDirections);
   	this.props.closeModal(); 
   }
   render() {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {withGoogleMap, GoogleMap} from 'react-google-maps';
+import {withGoogleMap, GoogleMap, DirectionsRenderer} from 'react-google-maps';
 import CustomMarker from './CustomMarker';
 
 class Map extends Component {
@@ -57,6 +57,16 @@ class Map extends Component {
     if(!centerLocation) {
       centerLocation = { lat: 52.2373524, lng: -7.1071411 };
     }
+
+    let directionsRender = null
+    if(this.props.directions) {
+      directionsRender = (
+        <DirectionsRenderer
+            options={{draggable:false}}
+            directions={this.props.directions} />
+        );
+    }
+
     // Wrap all `react-google-maps` components with `withGoogleMap` HOC
     // and name it GettingStartedGoogleMap
     const GettingStartedGoogleMap = withGoogleMap(props => (
@@ -69,6 +79,7 @@ class Map extends Component {
         options={{streetViewControl:false, mapTypeControl : false, scrollwheel: true}}
       >
         { mapMarkers }
+        { directionsRender }
       </GoogleMap>
     ));
     return (

@@ -29,7 +29,7 @@ class CustomNavbar extends Component {
 
   openDirectionsModal() {
   	modalBody = (
-		<DirectionsForm closeModal={this.closeModal.bind(this)}/>
+		<DirectionsForm closeModal={this.closeModal.bind(this)} map={this.props.map} setDirections={this.props.setDirections}/>
 	);
 	this.setState({ modalName: 'Directions' });
   	this.openModal();
