@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import {withGoogleMap, GoogleMap} from 'react-google-maps';
 import ReactDOM from 'react-dom';
 import CustomMarker from './CustomMarker';
-import DirectionRoutes from './DirectionRoutes';
-import DirectionsForm from './DirectionsForm';
-
-import Button from 'react-bootstrap/lib/Button';
 
 import GoogleMapsService from '../../../utils/GoogleMapsService';
 
@@ -33,11 +29,9 @@ class Map extends Component {
   }
 
   componentDidMount() {
-   console.log('Map Did Mount');
+   // Any logic for Did Mount
   }
-  dummyMethod() {
-    console.log('Dummy Method');
-  }
+
   //TODO : Way too much logic in Render Method!!
   render() {
     let mapMarkers = null;
@@ -55,14 +49,13 @@ class Map extends Component {
                   formatted_address : address.formatted_address
                 }
             };
-            console.log('Marker was made successfully');
           }
           return (
             <CustomMarker  marker={marker} key={i}/>
           )
       });      
     } else {
-      console.log('Didn\'t get any markers');
+      // Do Nothing
     }
 
     // Take in a list of addresses and goes to the first one
@@ -116,11 +109,6 @@ class Map extends Component {
         defaultZoom={14}
         defaultCenter={{ lat: 52.2373524, lng: -7.1071411 }}
         center={centerLocation}
-        onGoogleApiLoaded={({ map, maps }) => {
-              console.log('Map loaded from api loaded'); 
-              this.setState({ map: map, maps:maps, mapLoaded: true }); 
-              this.dummyMethod();
-        }}
         yesIWantToUseGoogleMapApiInternals={true}
         options={{streetViewControl:false, mapTypeControl : false, scrollwheel: true}}
       >

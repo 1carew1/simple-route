@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Nav, Navbar, NavDropdown, MenuItem, NavItem, Modal, Button, OverlayTrigger, Popover, Tooltip } from 'react-bootstrap';
 import {Link} from 'react-router'
+import FlyToLocationModal from '../GoogleMaps/FlyToLocationModal';
 
 // create classes
 class CustomNavbar extends Component {
@@ -19,12 +20,11 @@ class CustomNavbar extends Component {
   }
 
 
-  close() {
+  closeModal() {
     this.setState({ showModal: false });
   }
 
-  open() {
-  	console.log('Opening Modal');
+  openModal() {
     this.setState({ showModal: true });
   }
 
@@ -40,7 +40,6 @@ class CustomNavbar extends Component {
   	// set data
   	let mapOptionsDisabled = this.props.disableMapOptions;
 
-  	console.log('Disable map options : ' + mapOptionsDisabled);
 	let myNavBarData = {};
 	myNavBarData.brand =  {linkTo: "#", text: "Simple Route"};
 	myNavBarData.links = [
@@ -49,7 +48,7 @@ class CustomNavbar extends Component {
 	  {linkTo: "/logout", text: "Logout"},
 	  {disabled:mapOptionsDisabled, dropdown: true, text: "Map Options", links: [
 	    {text: "Centre Map", onClick: this.centerMap.bind(this)},
-	    {text: "Fly to Location", onClick: this.open.bind(this)},
+	    {text: "Fly to Location", onClick: this.openModal.bind(this)},
 	    {text: "Get Directions", onClick: function(){console.log('Getting Directions')}}
 	  ]}
 	];
@@ -92,25 +91,7 @@ class CustomNavbar extends Component {
     );
     return(
     	<div>
-	    	<Modal show={this.state.showModal} onHide={this.close.bind(this)} style={{marginTop:'120px'}}>
-	          <Modal.Header closeButton>
-	            <Modal.Title>Fly to Location</Modal.Title>
-	          </Modal.Header>
-	          <Modal.Body>
-	            <h4>Text in a modal</h4>
-	            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
-
-	            <h4>Popover in a modal</h4>
-	            <p>there is a <OverlayTrigger overlay={popover}><a href="#">popover</a></OverlayTrigger> here</p>
-
-	            <h4>Tooltips in a modal</h4>
-	            <p>there is a <OverlayTrigger overlay={tooltip}><a href="#">tooltip</a></OverlayTrigger> here</p>
-	          </Modal.Body>
-	          <Modal.Footer>
-	            <Button bsStyle="primary">Go</Button>
-	            <Button onClick={this.close.bind(this)}>Close</Button>
-	          </Modal.Footer>
-	        </Modal>
+    	  <FlyToLocationModal showModal={this.state.showModal} closeModal={this.closeModal.bind(this)}/>
 		  <Navbar fluid inverse fixedTop collapseOnSelect>
 		    <Navbar.Header>
 		      <Navbar.Brand>

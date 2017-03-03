@@ -65,9 +65,8 @@ export class Home extends React.Component {
   }
 
   centerLocation(incomingLocation) {
-    console.log('About to Center Map from Home side');
-    console.log(incomingLocation);
     if(incomingLocation && incomingLocation.lat && incomingLocation.lng) {
+      console.log('Centering Map Around : ' + incomingLocation.lat + ', ' + incomingLocation.lng);
       this.setState({
         location : incomingLocation
       });
