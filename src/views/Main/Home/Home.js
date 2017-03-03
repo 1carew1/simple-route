@@ -67,6 +67,10 @@ export class Home extends React.Component {
   centerLocation(incomingLocation) {
     if(incomingLocation && incomingLocation.lat && incomingLocation.lng) {
       console.log('Centering Map Around : ' + incomingLocation.lat + ', ' + incomingLocation.lng);
+      localStorage.removeItem('markers');
+      let markers = [];
+      markers.push(incomingLocation);
+      localStorage.setItem('markers', JSON.stringify(markers));
       this.setState({
         location : incomingLocation
       });
@@ -77,12 +81,13 @@ export class Home extends React.Component {
   }
 
   render(){
-    const addresses = JSON.parse(localStorage.getItem('addressesNearMe') || '[]');
+    const markers = JSON.parse(localStorage.getItem('markers') || '[]');
+    localStorage.removeItem('markers');
     return (
     <div style={{height:'100vh', width:'100%'}}>
       <CustomNavbar centerLocation={this.centerLocation.bind(this)}/>
       <div style={{height:'100%', width:'100%'}}>
-              <Map center={this.state.location}/>
+          <Map center={this.state.location} markers={markers}/>
       </div>
     </div>
     )

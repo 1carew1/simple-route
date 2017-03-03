@@ -42,8 +42,8 @@ class FlyToLocationForm extends Component {
             const newCenter = addresses[0].location;
             if(newCenter) {
               console.log('New Lat Lng is : ' + newCenter.lat + ' ' + newCenter.lng);
-              this.props.centerLocation(newCenter);   
-              this.props.closeModal();    
+              this.props.closeModal();  
+              this.props.centerLocation(newCenter);     
             }            
         } else {
           console.log('Did not find an address from Google Maps');
@@ -66,7 +66,7 @@ class FlyToLocationForm extends Component {
         <FormGroup controlId="formInlineName">
           <ControlLabel>Location</ControlLabel>
           {' '}
-          <FormControl type="text" placeholder="Waterford Institue of Technology" onChange={this.handleChange.bind(this)} />
+          <FormControl autoFocus type="text" placeholder="Waterford Institue of Technology" onChange={this.handleChange.bind(this)} />
         </FormGroup>
         {' '}
         {' '}

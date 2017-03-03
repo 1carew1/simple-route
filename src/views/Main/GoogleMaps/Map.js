@@ -42,8 +42,8 @@ class Map extends Component {
           if(address !== undefined &&  address !== null) {
             marker={
                 position : {
-                   lat : address.location.lat,
-                   lng : address.location.lng
+                   lat : address.lat,
+                   lng : address.lng
                 },
                 address : {
                   formatted_address : address.formatted_address

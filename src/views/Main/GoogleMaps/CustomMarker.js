@@ -12,7 +12,6 @@ class CustomMarker extends Component {
           <Marker
 	            {...marker}
 	            position={marker.position}
-	            icon={MapMarkerIcon}
 	            defaultAnimation={2}
 	            key={this.props.id}>
 	            {
