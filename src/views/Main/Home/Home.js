@@ -70,6 +70,7 @@ export class Home extends React.Component {
       this.setState({
         location : incomingLocation
       });
+      //TODO : Make this also place a marker
     } else {
       console.log('Not a valid lat lng');
     }

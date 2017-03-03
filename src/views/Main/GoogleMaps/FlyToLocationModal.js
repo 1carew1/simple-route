@@ -5,15 +5,6 @@ import FlyToLocationForm from './FlyToLocationForm';
 
 class FlyToLocationModal extends Component {
 
-  constructor() {
-  	super();
-    this.state = { showModal: false };
-  }
-
-  closeModal() {
-    this.setState({ showModal: false });
-  }
-
   render() {
   	return (
 	    	<Modal show={this.props.showModal} onHide={this.props.closeModal} style={{marginTop:'120px'}}>
@@ -21,7 +12,7 @@ class FlyToLocationModal extends Component {
 	          	Fly to Location
 	          </Modal.Header>
 	          <Modal.Body >
-	          	<FlyToLocationForm />
+	          	<FlyToLocationForm centerLocation={this.props.centerLocation}/>
 	          </Modal.Body>
 	        </Modal>
   	);

@@ -28,11 +28,14 @@ class CustomNavbar extends Component {
     this.setState({ showModal: true });
   }
 
+  centerMapUsingLatLng(location) {
+  	this.props.centerLocation(location);
+  }
 
   centerMap() {
 	const location = JSON.parse(localStorage.getItem('currentLocation') || '{}');
 	if(location) {
-	   this.props.centerLocation(location);
+	   this.centerMapUsingLatLng(location);
 	}
   }
 
@@ -79,19 +82,9 @@ class CustomNavbar extends Component {
 		})
 	}
 
-	const popover = (
-      <Popover id="modal-popover" title="popover">
-        very popover. such engagement
-      </Popover>
-    );
-    const tooltip = (
-      <Tooltip id="modal-tooltip">
-        wow.
-      </Tooltip>
-    );
     return(
     	<div>
-    	  <FlyToLocationModal showModal={this.state.showModal} closeModal={this.closeModal.bind(this)}/>
+    	  <FlyToLocationModal showModal={this.state.showModal} closeModal={this.closeModal.bind(this)} centerLocation={this.centerMapUsingLatLng.bind(this)}/>
 		  <Navbar fluid inverse fixedTop collapseOnSelect>
 		    <Navbar.Header>
 		      <Navbar.Brand>
