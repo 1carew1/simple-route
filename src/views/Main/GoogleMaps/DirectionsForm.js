@@ -52,7 +52,7 @@ class DirectionsForm extends Component {
 	        {' '}
 	        {' '}
 	        <Button bsStyle="primary" onClick={this.obtainDirections.bind(this)}>
-	          Go
+	          Direct Me
 	        </Button>
 	      </Form>
   	);
