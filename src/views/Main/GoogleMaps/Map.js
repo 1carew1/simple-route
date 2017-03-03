@@ -63,11 +63,13 @@ class Map extends Component {
 
     let directionsRender = null
     if(this.props.directions) {
+      // Need to Externailse this and reset panel when it is finished
       directionsRender =  (
         <DirectionsRenderer
             options={{draggable:false}}
             directions={this.props.directions}
-            panel={document.getElementById('right-panel')} />
+            panel={document.getElementById('right-panel')}
+             />
         );
     }
 
@@ -80,6 +82,7 @@ class Map extends Component {
         defaultCenter={{ lat: 52.2373524, lng: -7.1071411 }}
         center={centerLocation}
         yesIWantToUseGoogleMapApiInternals={true}
+        onClick={function() {console.log('Google Maps Clicked');}}
         options={{streetViewControl:false, mapTypeControl : false, scrollwheel: true}}
       >
         { mapMarkers }
@@ -98,6 +101,7 @@ class Map extends Component {
                 <div style={{ height: '100%' }} />
               }
               onMapLoad={this.handleMapLoad}
+
             />
         </div>
       </div>  
