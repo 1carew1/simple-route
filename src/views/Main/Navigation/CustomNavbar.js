@@ -1,24 +1,42 @@
 import React, {Component} from 'react'
 import { Nav, Navbar, NavDropdown, MenuItem, NavItem} from 'react-bootstrap';
-import {Link} from 'react-router'
 import FlyToLocationForm from '../GoogleMaps/FlyToLocationForm';
+import DirectionsForm from '../GoogleMaps/DirectionsForm';
 import CustomModal from '../Modal/CustomModal';
 import {LinkContainer} from 'react-router-bootstrap';
 
 // create classes
+let modalBody = null;
+
 class CustomNavbar extends Component {
 
   constructor() {
   	super();
-    this.state = { showModal: false };
+    this.state = { showModal: false, modalName : '' };
   }
 
   closeModal() {
     this.setState({ showModal: false });
   }
 
+  openFlyToModal() {
+  	modalBody = (
+		<FlyToLocationForm centerLocation={this.centerMapUsingLatLng.bind(this)} closeModal={this.closeModal.bind(this)}/>
+	);
+	this.setState({ modalName: 'Fly to Location' });
+    this.openModal();
+  }
+
+  openDirectionsModal() {
+  	modalBody = (
+		<DirectionsForm closeModal={this.closeModal.bind(this)}/>
+	);
+	this.setState({ modalName: 'Directions' });
+  	this.openModal();
+  }
+
   openModal() {
-    this.setState({ showModal: true });
+  	this.setState({ showModal: true });
   }
 
   centerMapUsingLatLng(location) {
@@ -44,8 +62,8 @@ class CustomNavbar extends Component {
 	  {linkTo: "/logout", text: "Logout"},
 	  {disabled:mapOptionsDisabled, dropdown: true, text: "Map Options", links: [
 	    {text: "Centre Map", onClick: this.centerMap.bind(this)},
-	    {text: "Fly to Location", onClick: this.openModal.bind(this)},
-	    {text: "Get Directions", onClick: function(){console.log('Getting Directions')}}
+	    {text: "Fly to Location", onClick: this.openFlyToModal.bind(this)},
+	    {text: "Get Directions", onClick: this.openDirectionsModal.bind(this)}
 	  ]}
 	];
 	let navItems = null;
@@ -85,14 +103,9 @@ class CustomNavbar extends Component {
 			return linkItem;
 		})
 	}
-
-	const modalBody = (
-		<FlyToLocationForm centerLocation={this.centerMapUsingLatLng.bind(this)} closeModal={this.closeModal.bind(this)}/>
-	);
-
     return(
     	<div>
-    	  <CustomModal showModal={this.state.showModal} closeModal={this.closeModal.bind(this)} modalName={'Fly to Location'} modalBody={modalBody}/>
+    	  <CustomModal showModal={this.state.showModal} closeModal={this.closeModal.bind(this)} modalName={this.state.modalName} modalBody={modalBody}/>
 		  <Navbar fluid inverse fixedTop collapseOnSelect>
 		    <Navbar.Header>
 		      <Navbar.Brand>

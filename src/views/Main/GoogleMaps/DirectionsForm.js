@@ -1,33 +1,60 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import Button from 'react-bootstrap/lib/Button';
+import {Form , FormGroup, ControlLabel , FormControl  ,Button} from 'react-bootstrap';
+
 import GoogleMapsService from '../../../utils/GoogleMapsService';
 
 const googleMapsService = new GoogleMapsService();
 
 class DirectionsForm extends Component {
+  constructor() {
+    super();
+    this.state = { startAddress: '', endAddress: '' };
+  }
+
+
+  handleStartAddressChange(event){
+    this.setState({startAddress: event.target.value});
+  }
+
+  handleEndAddressChange(event){
+    this.setState({endAddress: event.target.value});
+  }
+
+  handleKeyPress(target) {
+      // If enter is pressed
+      if(target.charCode===13){
+              // Prevent the page from reloading
+              target.preventDefault();
+              this.obtainDirections(); 
+      }
+  }
 
 
   obtainDirections() {
-  	const startAddress = ReactDOM.findDOMNode(this.refs.startingAddress).value;
-  	const endAddress = ReactDOM.findDOMNode(this.refs.endAddress).value;
-  	googleMapsService.obtainDirections(startAddress,endAddress);
+  	googleMapsService.obtainDirections(this.state.startAddress, this.state.endAddress);
+  	this.props.closeModal(); 
   }
   render() {
   	return (
-  			<div>
-	  			<form> 
-				  <div className="form-group">
-				    <label htmlFor="startingAddress">Starting Address</label>
-				    <input type="text" className="form-control" id="startingAddress" ref="startingAddress" aria-describedby="startingAddress" placeholder="Enter Starting Address" />
-				  </div>
-				  <div className="form-group">
-				    <label htmlFor="endAddress">End Address</label>
-				    <input type="text" className="form-control" id="endAddress" ref="endAddress" aria-describedby="endAddress" placeholder="Enter End Address" />
-				  </div>
-				</form>
-  				<Button className="btn btn-primary" onClick={this.obtainDirections.bind(this)}>Direct me!</Button>
-			</div>
+	      <Form onKeyPress={this.handleKeyPress.bind(this)} >
+	        <FormGroup controlId="formInlineName">
+	          <ControlLabel>Starting Address</ControlLabel>
+	          {' '}
+	          <FormControl type="text" placeholder="Waterford Institue of Technology" onChange={this.handleStartAddressChange.bind(this)} />
+	        </FormGroup>
+	        {' '}
+	        {' '}
+	        <FormGroup controlId="formInlineName">
+	          <ControlLabel>End Address</ControlLabel>
+	          {' '}
+	          <FormControl type="text" placeholder="City Square" onChange={this.handleEndAddressChange.bind(this)} />
+	        </FormGroup>
+	        {' '}
+	        {' '}
+	        <Button bsStyle="primary" onClick={this.obtainDirections.bind(this)}>
+	          Go
+	        </Button>
+	      </Form>
   	);
   }
 }

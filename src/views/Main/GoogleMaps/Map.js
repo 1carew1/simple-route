@@ -53,8 +53,6 @@ class Map extends Component {
       // Do Nothing
     }
 
-    let directions = JSON.parse(localStorage.getItem('directions') || '[]');
-
     let centerLocation = this.props.center;
     if(!centerLocation) {
       centerLocation = { lat: 52.2373524, lng: -7.1071411 };
