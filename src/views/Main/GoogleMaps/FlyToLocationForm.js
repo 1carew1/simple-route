@@ -14,7 +14,7 @@ class FlyToLocationForm extends Component {
 
   handleKeyPress(target) {
       // If enter is pressed
-      if(target.charCode==13){
+      if(target.charCode===13){
               // Prevent the page from reloading
               target.preventDefault();
               this.goToLocation(); 

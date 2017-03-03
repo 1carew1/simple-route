@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import {Marker} from 'react-google-maps';
 
-
-import MapMarkerIcon from '../../../../assets/images/blackmapmarker.png';
-
 // Generate a custom Google maps markers
 class CustomMarker extends Component {
   render() {

@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
-import { Nav, Navbar, NavDropdown, MenuItem, NavItem, Modal, Button, OverlayTrigger, Popover, Tooltip } from 'react-bootstrap';
+import { Nav, Navbar, NavDropdown, MenuItem, NavItem} from 'react-bootstrap';
 import {Link} from 'react-router'
-import FlyToLocationModal from '../GoogleMaps/FlyToLocationModal';
+import FlyToLocationForm from '../GoogleMaps/FlyToLocationForm';
+import CustomModal from '../Modal/CustomModal';
+import {LinkContainer} from 'react-router-bootstrap';
 
 // create classes
 class CustomNavbar extends Component {
@@ -10,15 +12,6 @@ class CustomNavbar extends Component {
   	super();
     this.state = { showModal: false };
   }
-
-  generateLink(link) {
-  	let navItemName = link.text;
-	if(link.linkTo) {
-	    navItemName = <Link to={link.linkTo}>{link.text}</Link>;
-	}
-	return navItemName;
-  }
-
 
   closeModal() {
     this.setState({ showModal: false });
@@ -60,17 +53,28 @@ class CustomNavbar extends Component {
 		navItems = myNavBarData.links.map((link, i) => {
 			let linkItem = null;
 			if(!link.dropdown) {
-				let navItemName = this.generateLink(link);
 				linkItem = (
-					<NavItem key={i} eventKey={i} active={link.active} onClick={link.onClick}>{navItemName}</NavItem>
+					  <LinkContainer key={i} to={link.linkTo}>
+  						 <NavItem  eventKey={i} active={link.active} onClick={link.onClick}>{link.text}</NavItem>
+  						</LinkContainer>
+					
 				);
 			} else {	
 				//Its a DropDown Item
 				let dropDownItems = null;
 				dropDownItems = link.links.map((dropdownlink, j) => {
-					let dropDownNavItemName = this.generateLink(dropdownlink);
-					return (<MenuItem key={j} eventKey={i + '.' + j} active={dropdownlink.active} onClick={dropdownlink.onClick}>{dropDownNavItemName}</MenuItem>
-					);
+					if(dropdownlink.linkTo) {
+						return (
+							<LinkContainer key={j} to={dropdownlink.linkTo}>
+								<MenuItem key={j} eventKey={i + '.' + j} active={dropdownlink.active} onClick={dropdownlink.onClick}>{dropdownlink.text}</MenuItem>
+							</LinkContainer>
+						);
+					} else {
+						return (
+								<MenuItem key={j} eventKey={i + '.' + j} active={dropdownlink.active} onClick={dropdownlink.onClick}>{dropdownlink.text}</MenuItem>
+						);
+					}
+
 				}, i);
 				linkItem = (
 					 <NavDropdown key={i}  eventKey={i} title={link.text} id="basic-nav-dropdown" disabled={link.disabled}>
@@ -82,9 +86,13 @@ class CustomNavbar extends Component {
 		})
 	}
 
+	const modalBody = (
+		<FlyToLocationForm centerLocation={this.centerMapUsingLatLng.bind(this)} closeModal={this.closeModal.bind(this)}/>
+	);
+
     return(
     	<div>
-    	  <FlyToLocationModal showModal={this.state.showModal} closeModal={this.closeModal.bind(this)} centerLocation={this.centerMapUsingLatLng.bind(this)}/>
+    	  <CustomModal showModal={this.state.showModal} closeModal={this.closeModal.bind(this)} modalName={'Fly to Location'} modalBody={modalBody}/>
 		  <Navbar fluid inverse fixedTop collapseOnSelect>
 		    <Navbar.Header>
 		      <Navbar.Brand>
