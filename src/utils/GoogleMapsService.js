@@ -87,12 +87,11 @@ export default class GoogleMapsService {
             //Do nothing as it's already shorter
           }
         });
+
         // remove all routes from the result and put in the simplest one only!
-        console.log(result);
         result.routes = [];
         result.routes.push(simplestRoute);
         func(result);
-        console.log(result);
 
 
         let simplestRouteLeg = simplestRoute.legs[0];

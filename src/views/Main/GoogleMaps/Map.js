@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {withGoogleMap, GoogleMap, DirectionsRenderer} from 'react-google-maps';
 import CustomMarker from './CustomMarker';
 
+
+import './rightpanel.css';
+
 class Map extends Component {
   constructor() {
       super();
@@ -63,7 +66,8 @@ class Map extends Component {
       directionsRender =  (
         <DirectionsRenderer
             options={{draggable:false}}
-            directions={this.props.directions} />
+            directions={this.props.directions}
+            panel={document.getElementById('right-panel')} />
         );
     }
 
@@ -84,6 +88,7 @@ class Map extends Component {
     ));
     return (
       <div style={{ height: '100%', width: '100%' }}>
+      <div id='right-panel' ></div>
         <div style={{ height: '100%', width:'100%'}}>
             <GettingStartedGoogleMap
               containerElement={
