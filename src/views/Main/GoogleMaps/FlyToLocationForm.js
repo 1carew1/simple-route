@@ -42,10 +42,12 @@ class FlyToLocationForm extends Component {
             const newCenter = addresses[0].location;
             if(newCenter) {
               console.log('New Lat Lng is : ' + newCenter.lat + ' ' + newCenter.lng);
-              this.props.centerLocation(newCenter);       
+              this.props.centerLocation(newCenter);   
+              this.props.closeModal();    
             }            
         } else {
           console.log('Did not find an address from Google Maps');
+          alert('Invalid Address');
         }        
       } else {
         console.log('No addresses found');
@@ -56,7 +58,6 @@ class FlyToLocationForm extends Component {
       googleMapsService.obtainLatLngFromAddress(desiredAddress, flyToAddress);
     }
     findDesiredAddress(address);
-    this.props.closeModal();
   }
 
   render() {

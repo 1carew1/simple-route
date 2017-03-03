@@ -12,7 +12,7 @@ class FlyToLocationModal extends Component {
 	          	Fly to Location
 	          </Modal.Header>
 	          <Modal.Body >
-	          	<FlyToLocationForm centerLocation={this.props.centerLocation}/>
+	          	<FlyToLocationForm centerLocation={this.props.centerLocation} closeModal={this.props.closeModal}/>
 	          </Modal.Body>
 	        </Modal>
   	);
