@@ -60,7 +60,7 @@ class Map extends Component {
 
     let directionsRender = null
     if(this.props.directions) {
-      directionsRender = (
+      directionsRender =  (
         <DirectionsRenderer
             options={{draggable:false}}
             directions={this.props.directions} />

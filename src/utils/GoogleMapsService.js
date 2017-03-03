@@ -74,7 +74,6 @@ export default class GoogleMapsService {
     let directionsService = new window.google.maps.DirectionsService();
     directionsService.route(directionsFor, function(result, status) {
       if (status === 'OK' && result.routes) {
-        func(result);
         console.log('Routes :');
         let routes = result.routes;
         let simplestRoute = null;
@@ -88,6 +87,14 @@ export default class GoogleMapsService {
             //Do nothing as it's already shorter
           }
         });
+        // remove all routes from the result and put in the simplest one only!
+        console.log(result);
+        result.routes = [];
+        result.routes.push(simplestRoute);
+        func(result);
+        console.log(result);
+
+
         let simplestRouteLeg = simplestRoute.legs[0];
         console.log('The simplestRoute has ' + simplestRouteLeg.steps.length + ' turns and will take ' + simplestRouteLeg.duration_in_traffic.text + ' with traffic, the distance is ' + simplestRouteLeg.distance.text);
 
