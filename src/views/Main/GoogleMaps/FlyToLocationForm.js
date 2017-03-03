@@ -62,11 +62,11 @@ class FlyToLocationForm extends Component {
 
   render() {
   	return (
-      <Form onKeyPress={this.handleKeyPress.bind(this)}>
+      <Form onKeyPress={this.handleKeyPress.bind(this)} >
         <FormGroup controlId="formInlineName">
           <ControlLabel>Location</ControlLabel>
           {' '}
-          <FormControl autoFocus type="text" placeholder="Waterford Institue of Technology" onChange={this.handleChange.bind(this)} />
+          <FormControl type="text" placeholder="Waterford Institue of Technology" onChange={this.handleChange.bind(this)} />
         </FormGroup>
         {' '}
         {' '}
