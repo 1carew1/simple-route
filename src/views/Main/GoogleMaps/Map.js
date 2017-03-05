@@ -69,7 +69,9 @@ class Map extends Component {
             options={{draggable:false}}
             directions={this.props.directions}
             panel={document.getElementById('right-panel')}
-             />
+        >
+        <p>Anything</p>
+        </DirectionsRenderer>
         );
     }
 
