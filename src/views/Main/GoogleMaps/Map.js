@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import {withGoogleMap, GoogleMap, DirectionsRenderer} from 'react-google-maps';
 import CustomMarker from './CustomMarker';
 
-
-import './rightpanel.css';
-
 class Map extends Component {
   constructor() {
       super();
@@ -63,28 +60,39 @@ class Map extends Component {
 
 
 
-    let showRightPanel = false;
+    let rightPanelStyle = {
+      height : '0px',
+      width : '0px'
+    };
+
+    let rightPanel = document.getElementById("rightPanel");
+    if(rightPanel) {
+      rightPanel.innerHTML = "";
+    }
+    
 
     let directionsRender = null
     if(this.props.directions) {
-      showRightPanel = true;
+      rightPanelStyle= {
+        fontFamily: 'Roboto',
+        lineHeight: '30px',
+        paddingLeft: '10px',
+        background : 'white',
+        marginTop: '45px',
+        height: 'calc(100% - 45px)',
+        float: 'right',
+        width: '30%',
+        overflow: 'auto'
+      }
       // Need to Externailse this and reset panel when it is finished
       directionsRender =  (
         <DirectionsRenderer
             options={{draggable:false}}
             directions={this.props.directions}
-            panel={document.getElementById('right-panel')}
+            panel={rightPanel}
         >
         <p>Anything</p>
         </DirectionsRenderer>
-        );
-    } else {
-      showRightPanel = false;
-    }
-
-    let rightPanel = null;
-    if(showRightPanel) {
-      rightPanel = (<div id='right-panel' ></div>
         );
     }
 
@@ -106,7 +114,7 @@ class Map extends Component {
     ));
     return (
       <div style={{ height: '100%', width: '100%' }}>
-      ${rightPanel}
+      <div id='rightPanel' style={rightPanelStyle}></div>
         <div style={{ height: '100%', width:'100%'}}>
             <GettingStartedGoogleMap
               containerElement={
