@@ -61,8 +61,13 @@ class Map extends Component {
       centerLocation = { lat: 52.2373524, lng: -7.1071411 };
     }
 
+
+
+    let showRightPanel = false;
+
     let directionsRender = null
     if(this.props.directions) {
+      showRightPanel = true;
       // Need to Externailse this and reset panel when it is finished
       directionsRender =  (
         <DirectionsRenderer
@@ -72,6 +77,14 @@ class Map extends Component {
         >
         <p>Anything</p>
         </DirectionsRenderer>
+        );
+    } else {
+      showRightPanel = false;
+    }
+
+    let rightPanel = null;
+    if(showRightPanel) {
+      rightPanel = (<div id='right-panel' ></div>
         );
     }
 
@@ -93,7 +106,7 @@ class Map extends Component {
     ));
     return (
       <div style={{ height: '100%', width: '100%' }}>
-      <div id='right-panel' ></div>
+      ${rightPanel}
         <div style={{ height: '100%', width:'100%'}}>
             <GettingStartedGoogleMap
               containerElement={

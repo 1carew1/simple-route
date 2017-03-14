@@ -16,6 +16,11 @@
         line-height: 30px;
         padding-left: 10px;
         background : white;
+        margin-top: 45px;
+        height: calc(100% - 25px);
+        float: right;
+        width: 390px;
+        overflow: auto;
       }
 
       #right-panel select, #right-panel input {
@@ -29,12 +34,7 @@
       #right-panel i {
         font-size: 12px;
       }
-      #right-panel {
-        height: 100%;
-        float: right;
-        width: 390px;
-        overflow: auto;
-      }
+
       #map {
         margin-right: 400px;
       }
