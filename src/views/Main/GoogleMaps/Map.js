@@ -74,14 +74,13 @@ class Map extends Component {
     let directionsRender = null
     if(this.props.directions) {
       rightPanelStyle= {
-        fontFamily: 'Roboto',
         lineHeight: '30px',
         paddingLeft: '10px',
         background : 'white',
         marginTop: '45px',
         height: 'calc(100% - 45px)',
         float: 'right',
-        width: '30%',
+        width: '35%',
         overflow: 'auto'
       }
       // Need to Externailse this and reset panel when it is finished
