@@ -1,6 +1,7 @@
 import superagent from 'superagent';
+import googleConfig from '../../googleMapsAPIKey.json';
 
-const apiKey = 'AIzaSyCHqxdyNpGyEZJAIgXJP-lrQzabxk92GqQ';
+const apiKey = googleConfig.apiKey;
 const geoCodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
 const reverseGeoCodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
 

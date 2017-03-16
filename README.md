@@ -17,6 +17,22 @@ Ensure you have a firebaseConfig.json file in the root of this project with foll
     "messagingSenderId": "XXXXXXX"
 }
 
+Ensure you have a googleMapsAPIKey.json file in the root of this project with the following content :
+
+{
+  "apiKey" : "XXXXX"
+}
+
+- Side note - index.html, the API key will need to be changed here as well
+
+
+Ensure you have a  auth0Config.json file in the root of this project with following content using your own Keys + Links :
+
+{
+  "apiKey": "XXXXX",
+    "userUrl": "XXXXX"
+}
+
 ## Table of Contents
 
 - [Updating to New Releases](#updating-to-new-releases)

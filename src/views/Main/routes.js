@@ -1,13 +1,15 @@
-import React from 'react'
-import {Route, IndexRedirect} from 'react-router'
-import AuthService from '../../utils/AuthService'
-import Container from './Container'
-import Home from './Home/Home'
-import Login from './Login/Login'
-import About from './Info/About'
-import Profile from './Profile/Profile'
+import React from 'react';
+import {Route, IndexRedirect} from 'react-router';
+import AuthService from '../../utils/AuthService';
+import Container from './Container';
+import Home from './Home/Home';
+import Login from './Login/Login';
+import About from './Info/About';
+import Profile from './Profile/Profile';
 
-const auth = new AuthService('a5zFT3PXpUFAzBb8d5KA9uYV0NhCiuls', '1carew1.eu.auth0.com');
+import auth0Config from '../../../auth0Config.json';
+
+const auth = new AuthService(auth0Config.apiKey, auth0Config.userUrl);
 
 // onEnter callback to validate authentication in private routes
 const requireAuth = (nextState, replace) => {

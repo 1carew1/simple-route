@@ -8,63 +8,44 @@ import 'react-select/dist/react-select.css';
 
 import './jumbostyle.css';
 
-import firebase from 'firebase';
-import firebaseConfig from  '../../../../firebaseConfig.json';
+import FirebaseDatabaseService from '../../../utils/FirebaseDatabaseService';
 
-firebase.initializeApp(firebaseConfig);
-
-const database = firebase.database();
+const firebaseDatabaseService = new FirebaseDatabaseService();
 
 export class ProfileDetails extends React.Component {
   constructor() {
       super();
       this.state = {
-        dropDownValue : 'One',
-        testData : 1
+        dropDownValue : 'One'
       };
-
-      //TODO : Replace This with something useful
-      this.readUserData(1);
   }
 
   static propTypes = {
     profile: T.object,
   }
- 
- //Dummy Write
- writeUserData(userId, name, email, imageUrl) {
-  firebase.database().ref('test/' + userId).set({
-    username: name,
-    email: email,
-    profile_picture : imageUrl
-  });
- }
 
- // Dummy Read User Data
- readUserData(userId) {
-    const stupidString = 'stsfsdf ';
-    firebase.database().ref('/test/' + userId).once('value').then(function(snapshot) {
-      console.log(snapshot.val().username);
-      console.log(snapshot.val().email);
-    });
- }
+  onTransportPreferenceSelected(transportItem) {
+    if(transportItem && transportItem.value) {
+          const profile = this.props.profile;
+          if(profile) {
+            firebaseDatabaseService.updateUserTravelPreference(profile.user_id, transportItem.value);
+          }
 
-  onDropdownSelected(dropDownObject) {
-    if(dropDownObject && dropDownObject.value) {
-          this.writeUserData(1, 'colm', 'colmcarew2@gmail.com', dropDownObject.value);
-
-          console.log('Value Selected : ' + dropDownObject.value);
           this.setState({
-            dropDownValue : dropDownObject.value
+            dropDownValue : transportItem.value
           });
     }
   }
 
   render() {
+          //TODO : Replace This with something useful
+      firebaseDatabaseService.readUserData(this.props.profile);
     const { profile } = this.props;
     const options = [
-        { value: 'one', label: 'One' },
-        { value: 'two', label: 'Two' }
+        { value: 'BICYCLING', label: 'Cycle' },
+        { value: 'DRIVING', label: 'Drive' },
+        { value: 'TRANSIT', label: 'Transit' },
+        { value: 'WALKING', label: 'Walk' }
     ];
 
     return (
@@ -77,9 +58,8 @@ export class ProfileDetails extends React.Component {
             name="form-field-name"
             value={this.state.dropDownValue}
             options={options}
-            onChange={this.onDropdownSelected.bind(this)}
+            onChange={this.onTransportPreferenceSelected.bind(this)}
         />
-        <p>{this.state.testData}</p>
       </Jumbotron>
     )
   }

@@ -3,6 +3,12 @@
 # Firebase config
 firebaseConfig.json
 
+# Google API Key
+googleMapsAPIKey.json
+
+# Auth0 Config
+auth0Config.json
+
 # dependencies
 node_modules
 
