@@ -10,10 +10,10 @@ export default class FirebaseDatabaseService {
 
  //Write Initial User
  writeUserData(profile) {
-  firebase.database().ref('/test/' + profile.user_id).set({
+  database.ref('/user/' + profile.user_id).set({
     username: profile.name,
     email: profile.email,
-    travelTypePreference : 'DRIVING',
+    travelMode : 'DRIVING',
     avoidTolls : 'false',
     avoidHighways : 'false',
     unitSystem : 'METRIC'
@@ -22,9 +22,9 @@ export default class FirebaseDatabaseService {
 
 
  // Update the users travel preference i.e. walk, car, etc
- updateUserTravelPreference(userId, travelTypePreference) {
-  firebase.database().ref('/test/' + userId).update({
-    travelTypePreference: travelTypePreference
+ updateUserTravelMode(userId, travelMode) {
+  database.ref('/user/' + userId).update({
+    travelMode: travelMode
   });
  }
 
@@ -32,15 +32,16 @@ export default class FirebaseDatabaseService {
  // Read User Data
  readUserData(profile) {
  	if(profile) {
-	 	database.ref('/test/' + profile.user_id).once('value').then(function(snapshot) {
+ 		const createUserInfo = this.writeUserData;
+	 	database.ref('/user/' + profile.user_id).once('value').then(function(snapshot) {
 	    	if(snapshot && snapshot.val()) {
 		      console.log('User Logged In : ' + snapshot.val().username);
 	    	} else {
-	    	 // this.writeUserData(profile)
+	    	 //Create Default User Info
+	    	 createUserInfo(profile);
 	    	}
 	    });	
- 	}
-    
+ 	}   
  }
 }
 

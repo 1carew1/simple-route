@@ -28,7 +28,7 @@ export class ProfileDetails extends React.Component {
     if(transportItem && transportItem.value) {
           const profile = this.props.profile;
           if(profile) {
-            firebaseDatabaseService.updateUserTravelPreference(profile.user_id, transportItem.value);
+            firebaseDatabaseService.updateUserTravelMode(profile.user_id, transportItem.value);
           }
 
           this.setState({
