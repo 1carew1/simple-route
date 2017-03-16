@@ -1,13 +1,9 @@
-import React, { PropTypes as T } from 'react';
+import React from 'react';
 import {Image, Jumbotron} from 'react-bootstrap';
 
 import './jumbostyle.css';
 
 export class ProfileDetails extends React.Component {
-  static propTypes = {
-    profile: T.object
-  }
-
   render() {
     const { profile } = this.props;
     return (

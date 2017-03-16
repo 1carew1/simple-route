@@ -10,9 +10,17 @@ export default class FirebaseDatabaseService {
 
  //Write Initial User
  writeUserData(profile) {
+  let name = profile.name;
+  if(!name) {
+ 	name = '';
+  }
+  let email = profile.email;
+  if(!email) {
+  	email = '';
+  }
   database.ref('/user/' + profile.user_id).set({
-    username: profile.name,
-    email: profile.email,
+    username: name,
+    email: email,
     travelMode : 'DRIVING',
     avoidTolls : 'false',
     avoidHighways : 'false',
@@ -56,7 +64,7 @@ export default class FirebaseDatabaseService {
  		const createUserInfo = this.writeUserData;
 	 	database.ref('/user/' + profile.user_id).once('value').then(function(snapshot) {
 	    	if(snapshot && snapshot.val()) {
-		      console.log('User Logged In : ' + snapshot.val().username);
+		      //console.log('User Logged In : ' + snapshot.val().username);
 	    	} else {
 	    	 //Create Default User Info
 	    	 createUserInfo(profile);

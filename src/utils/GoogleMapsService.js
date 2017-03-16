@@ -100,7 +100,7 @@ export default class GoogleMapsService {
 
         simplestRouteLeg.steps.forEach(function(step) {
           directions.push(step.instructions + ' for ' + step.distance.text);
-          console.log(step.instructions + ' for ' + step.distance.text);
+          //console.log(step.instructions + ' for ' + step.distance.text);
         });
       } else {
         console.log('Did not get valid routes');

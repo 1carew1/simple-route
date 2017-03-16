@@ -1,4 +1,4 @@
-import React, { PropTypes as T } from 'react';
+import React from 'react';
 import {Jumbotron, ControlLabel, Checkbox} from 'react-bootstrap';
 
 import Select from 'react-select';
@@ -21,10 +21,6 @@ export class ProfileDetails extends React.Component {
         avoidTolls : false,
         avoidMotorWay : false
       };
-  }
-
-  static propTypes = {
-    profile: T.object,
   }
 
   onTransportPreferenceSelected(transportItem) {
@@ -69,8 +65,6 @@ export class ProfileDetails extends React.Component {
   }
 
   render() {
-    firebaseDatabaseService.readUserData(this.props.profile);
-    const { profile } = this.props;
     const travelModeOptions = [
         { value: 'BICYCLING', label: 'Cycle' },
         { value: 'DRIVING', label: 'Drive' },

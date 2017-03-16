@@ -4,7 +4,9 @@ import GoogleMapsService from '../../../utils/GoogleMapsService';
 import Map from '../GoogleMaps/Map';
 
 import CustomNavbar from '../Navigation/CustomNavbar';
+import FirebaseDatabaseService from '../../../utils/FirebaseDatabaseService';
 
+const firebaseDatabaseService = new FirebaseDatabaseService();
 
 const googleMapsService = new GoogleMapsService();
 let directions = null;
@@ -17,7 +19,9 @@ export class Home extends React.Component {
         location : null
       };
       props.auth.on('profile_updated', (newProfile) => {
-        this.setState({profile: newProfile})
+        this.setState({profile: newProfile});
+        //Read The User Data for Maps Preferences - if they havent logged in before
+        firebaseDatabaseService.readUserData(newProfile);
       });
     }
 
@@ -37,6 +41,7 @@ export class Home extends React.Component {
                 googleMapsService.obtainAddressesNearLatLng(currentLocation, this.storeAddressesInLocalStorage.bind(this));
             })
     }
+
   }
 
   storeAddressesInLocalStorage(addresses) {
