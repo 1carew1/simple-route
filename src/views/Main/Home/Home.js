@@ -1,5 +1,5 @@
-import React, { PropTypes as T } from 'react'
-import AuthService from '../../../utils/AuthService'
+import React, { PropTypes as T } from 'react';
+import AuthService from '../../../utils/AuthService';
 import GoogleMapsService from '../../../utils/GoogleMapsService';
 import Map from '../GoogleMaps/Map';
 
@@ -58,11 +58,6 @@ export class Home extends React.Component {
 
   static propTypes = {
     auth: T.instanceOf(AuthService)
-  }
-
-  logout(){
-    this.props.auth.logout()
-    this.context.router.push('/login');
   }
 
   centerLocation(incomingLocation) {
