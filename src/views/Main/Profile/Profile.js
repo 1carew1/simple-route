@@ -24,7 +24,7 @@ class About extends Component {
   	return (
   		<div>
   		  <CustomNavbar disableMapOptions={true}/>
-        <Jumbotron style={{textAlign : 'center'}}>
+        <Jumbotron style={{textAlign : 'center', marginTop : '28px'}}>
           <ProfileDetails profile={this.state.profile} />
        </Jumbotron>
       </div>

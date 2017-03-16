@@ -5,9 +5,9 @@ import CustomNavbar from '../Navigation/CustomNavbar';
 class About extends Component {
   render() {
   	return (
-  		<div style={{'textAlign': 'center'}}>
+  		<div>
   		  <CustomNavbar disableMapOptions={true}/>
-          <Jumbotron>
+          <Jumbotron style={{'textAlign': 'center'}}>
             <h2>Simple Route</h2>
             <img src={require("../../../../assets/images/simpleroute.png")} alt="simpleRoute" width="204" height="166" />
             <p style={{marginTop:'14px'}}>The purpose of simple route is primarily to give the user the easiest directions between two locations. Google Maps JS Api is used for this.</p>
