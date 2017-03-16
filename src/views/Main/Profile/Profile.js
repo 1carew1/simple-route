@@ -4,7 +4,6 @@ import ProfileDetails from './ProfileDetails';
 import ProfilePreferences from './ProfilePreferences';
 
 import AuthService from '../../../utils/AuthService';
-import './jumbostyle.css';
 
 class About extends Component {
   constructor(props, context) {
