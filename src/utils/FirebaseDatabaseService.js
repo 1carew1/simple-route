@@ -28,6 +28,27 @@ export default class FirebaseDatabaseService {
   });
  }
 
+  // Update the users units - metric or imperial
+ updateUserUnits(userId, unit) {
+  database.ref('/user/' + userId).update({
+    unitSystem: unit
+  });
+ }
+
+ // Update the user avoid motorway
+ updateUserAvoidMotorway(userId, avoid) {
+  database.ref('/user/' + userId).update({
+    avoidHighways: avoid
+  });
+ }
+
+ // Update the user avoid tolls
+ updateUserAvoidTolls(userId, avoid) {
+  database.ref('/user/' + userId).update({
+    avoidTolls: avoid
+  });
+ }
+
 
  // Read User Data
  readUserData(profile) {
