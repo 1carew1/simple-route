@@ -1,9 +1,10 @@
 import React, { Component, PropTypes as T } from 'react';
-import { Jumbotron } from 'react-bootstrap';
 import CustomNavbar from '../Navigation/CustomNavbar';
 import ProfileDetails from './ProfileDetails';
+import ProfilePreferences from './ProfilePreferences';
 
 import AuthService from '../../../utils/AuthService';
+import './jumbostyle.css';
 
 class About extends Component {
   constructor(props, context) {
@@ -24,9 +25,8 @@ class About extends Component {
   	return (
   		<div>
   		  <CustomNavbar disableMapOptions={true}/>
-        <Jumbotron style={{textAlign : 'center', marginTop : '28px'}}>
-          <ProfileDetails profile={this.state.profile} />
-       </Jumbotron>
+        <ProfileDetails profile={this.state.profile}/>
+        <ProfilePreferences profile={this.state.profile}/>
       </div>
   	);
   }
