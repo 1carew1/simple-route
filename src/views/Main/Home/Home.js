@@ -94,7 +94,7 @@ export class Home extends React.Component {
     localStorage.removeItem('markers');
     return (
     <div style={{height:'100vh', width:'100%'}}>
-      <CustomNavbar centerLocation={this.centerLocation.bind(this)} setDirections={this.setDirections.bind(this)}/>
+      <CustomNavbar centerLocation={this.centerLocation.bind(this)} setDirections={this.setDirections.bind(this)} auth={this.props.auth}/>
       <div style={{height:'100%', width:'100%'}}>
           <Map center={this.state.location} markers={markers} directions={directions}/>
       </div>

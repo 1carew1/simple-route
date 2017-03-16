@@ -18,7 +18,7 @@ class Map extends Component {
       let mapLoaded = this.state.mapLoaded
       if(!mapLoaded) {
         this.setState({ map: map, mapLoaded: true });
-        console.log("Map has been loaded");
+        //console.log("Map has been loaded");
       }
     }
   }
@@ -31,7 +31,7 @@ class Map extends Component {
   render() {
     let mapMarkers = null;
     if(this.props.markers) {
-      console.log('Trying to render ' + this.props.markers.length  + ' markers');
+      //console.log('Trying to render ' + this.props.markers.length  + ' markers');
       mapMarkers = this.props.markers.map((address, i) => {
           let marker={ };
           if(address !== undefined &&  address !== null) {

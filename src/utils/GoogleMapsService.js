@@ -49,7 +49,6 @@ export default class GoogleMapsService {
               return address;
           });
           if(addresses) {
-            console.log(addresses.length + ' addresses found');
             // Call the function passed in using the addresses paramater
             func(addresses);
           } else {
@@ -58,20 +57,49 @@ export default class GoogleMapsService {
        });
   }
 
-  obtainDirections(startAddress, endAddress, func){
-    let directions = [];
-    let directionsFor = {
-      origin: startAddress,
-      destination: endAddress,
+  generateMapOptions(options) {
+    let travelMode = 'DRIVING';
+    let unitSystem = window.google.maps.UnitSystem.METRIC;
+    let avoidTolls = false;
+    let avoidHighways = false;
+
+    if(options) {
+      if(options.travelMode) {
+        travelMode = options.travelMode;
+      }
+      if(options.unitSystem === 'IMPERIAL') {
+        unitSystem = window.google.maps.UnitSystem.IMPERIAL;
+      }
+      if(options.avoidTolls && options.avoidTolls === 'true') {
+        avoidTolls = true;
+      }
+      if(options.avoidHighways && options.avoidHighways === 'true') {
+        avoidHighways = true;
+      }
+    }
+    const directionsFor = {
       waypoints: [],
       provideRouteAlternatives: true,
-      travelMode: 'DRIVING',
+      travelMode: travelMode,
       drivingOptions: {
-        departureTime: new Date(/* now, or future date */),
+        departureTime: new Date(),
         trafficModel: 'pessimistic'
       },
-      unitSystem: window.google.maps.UnitSystem.METRIC
+      unitSystem: unitSystem,
+      avoidTolls : avoidTolls,
+      avoidHighways : avoidHighways
     };
+    return directionsFor;
+  }
+
+  //TODO : Add some logic so the user can pick which route: quickest, shortest, easiest
+  obtainDirectionsWithOptions(startAddress, endAddress, func, options) {
+    let directions = [];
+
+    let directionsFor = this.generateMapOptions(options);
+    directionsFor.origin = startAddress;
+    directionsFor.destination = endAddress;
+
     let directionsService = new window.google.maps.DirectionsService();
     directionsService.route(directionsFor, function(result, status) {
       if (status === 'OK' && result.routes) {
@@ -79,7 +107,7 @@ export default class GoogleMapsService {
         let routes = result.routes;
         let simplestRoute = null;
         routes.forEach(function(route) {
-          console.log('This route has ' + route.legs[0].steps.length + ' turns and will take ' + route.legs[0].duration_in_traffic.text + ' with a distance of ' + route.legs[0].distance.text);
+          console.log('This route has ' + route.legs[0].steps.length + ' turns and will take ' + route.legs[0].duration.text + ' with a distance of ' + route.legs[0].distance.text);
           if(!simplestRoute) {
             simplestRoute = route;
           } else if(route.legs[0].steps.length < simplestRoute.legs[0].steps.length) {
@@ -88,7 +116,6 @@ export default class GoogleMapsService {
             //Do nothing as it's already shorter
           }
         });
-
         // remove all routes from the result and put in the simplest one only!
         result.routes = [];
         result.routes.push(simplestRoute);
@@ -96,7 +123,7 @@ export default class GoogleMapsService {
 
 
         let simplestRouteLeg = simplestRoute.legs[0];
-        console.log('The simplestRoute has ' + simplestRouteLeg.steps.length + ' turns and will take ' + simplestRouteLeg.duration_in_traffic.text + ' with traffic, the distance is ' + simplestRouteLeg.distance.text);
+        console.log('The simplestRoute has ' + simplestRouteLeg.steps.length + ' turns and will take around' + simplestRouteLeg.duration.text + ', the distance is ' + simplestRouteLeg.distance.text);
 
         simplestRouteLeg.steps.forEach(function(step) {
           directions.push(step.instructions + ' for ' + step.distance.text);
@@ -105,6 +132,10 @@ export default class GoogleMapsService {
       } else {
         console.log('Did not get valid routes');
       }
-    });
+    });   
+  }
+
+  obtainDirections(startAddress, endAddress, func){
+    this.obtainDirectionsWithOptions(startAddress, endAddress, func, null);
   }
 }

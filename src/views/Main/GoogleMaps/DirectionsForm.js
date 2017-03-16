@@ -1,16 +1,31 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes as T  } from 'react';
 import {Form , FormGroup, ControlLabel , FormControl  ,Button} from 'react-bootstrap';
 
 import GoogleMapsService from '../../../utils/GoogleMapsService';
+import FirebaseDatabaseService from '../../../utils/FirebaseDatabaseService';
+import AuthService from '../../../utils/AuthService';
 
 const googleMapsService = new GoogleMapsService();
 
+const firebaseDatabaseService = new FirebaseDatabaseService();
+
 class DirectionsForm extends Component {
-  constructor() {
-    super();
-    this.state = { startAddress: '', endAddress: '' };
+  constructor(props, context) {
+      super(props, context);
+      // TODO : Bit messy how This form is given Auth, Home Passes Auth to CustomNavbar which passes the Auth into here
+      this.state = {
+        profile: props.auth.getProfile(),
+        startAddress: '',
+        endAddress: ''
+      };
+      props.auth.on('profile_updated', (newProfile) => {
+        this.setState({profile: newProfile})
+      });
   }
 
+  static propTypes = {
+    auth: T.instanceOf(AuthService)
+  }
 
   handleStartAddressChange(event){
     this.setState({startAddress: event.target.value});
@@ -31,8 +46,12 @@ class DirectionsForm extends Component {
 
 
   obtainDirections() {
-  	googleMapsService.obtainDirections(this.state.startAddress, this.state.endAddress, this.props.setDirections);
-  	this.props.closeModal(); 
+    let obtainDirectionsUsingUsersPreferences = (userData) => {
+      googleMapsService.obtainDirectionsWithOptions(this.state.startAddress, this.state.endAddress, this.props.setDirections, userData);
+      this.props.closeModal(); 
+    }
+    const profile = this.state.profile;
+    firebaseDatabaseService.readUserDataAndExecuteFunction(profile ,obtainDirectionsUsingUsersPreferences);
   }
   render() {
   	return (
