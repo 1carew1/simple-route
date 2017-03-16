@@ -72,5 +72,17 @@ export default class FirebaseDatabaseService {
 	    });	
  	}   
  }
+
+ readUserDataAndExecuteFunction(profile, incomingFunction) {
+ 	if(profile) {
+	 	database.ref('/user/' + profile.user_id).once('value').then(function(snapshot) {
+	    	if(snapshot && snapshot.val()) {
+	    	  // Execture the parameter function with whatever the values returned are
+		      incomingFunction(snapshot.val());
+	    	} 
+	    });	
+ 	}   
+ }
+
 }
 

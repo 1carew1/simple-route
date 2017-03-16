@@ -16,11 +16,25 @@ export class ProfileDetails extends React.Component {
   constructor() {
       super();
       this.state = {
-        travelModeOption : 'Drive',
-        unit : 'Metric',
+        travelModeOption : 'DRIVING',
+        unit : 'METRIC',
         avoidTolls : false,
         avoidMotorWay : false
       };
+  }
+
+  componentDidMount(){
+    // Get The User Preferences from DB
+    const profile = this.props.profile;
+    let updatePreferencesWithDBValues = (dbValues) => {
+      this.setState({
+        travelModeOption : dbValues.travelMode,
+        unit : dbValues.unitSystem,
+        avoidTolls : dbValues.avoidTolls,
+        avoidMotorWay : dbValues.avoidHighways
+      });
+    }
+    firebaseDatabaseService.readUserDataAndExecuteFunction(profile, updatePreferencesWithDBValues.bind(this));
   }
 
   onTransportPreferenceSelected(transportItem) {
@@ -29,7 +43,6 @@ export class ProfileDetails extends React.Component {
           if(profile) {
             firebaseDatabaseService.updateUserTravelMode(profile.user_id, transportItem.value);
           }
-
           this.setState({
             travelModeOption : transportItem.label
           });
@@ -66,14 +79,14 @@ export class ProfileDetails extends React.Component {
 
   render() {
     const travelModeOptions = [
-        { value: 'BICYCLING', label: 'Cycle' },
-        { value: 'DRIVING', label: 'Drive' },
-        { value: 'TRANSIT', label: 'Transit' },
-        { value: 'WALKING', label: 'Walk' }
+        { value: 'BICYCLING', label: 'BICYCLING' },
+        { value: 'DRIVING', label: 'DRIVING' },
+        { value: 'TRANSIT', label: 'TRANSIT' },
+        { value: 'WALKING', label: 'WALKING' }
     ];
     const unitOptions = [
-        { value: 'IMPERIAL', label: 'Imperial' },
-        { value: 'METRIC', label: 'Metric' }
+        { value: 'IMPERIAL', label: 'IMPERIAL' },
+        { value: 'METRIC', label: 'METRIC' }
     ];
     //TODO : Fix Travel Mode Not Displating Initially
 
@@ -84,7 +97,7 @@ export class ProfileDetails extends React.Component {
         <Checkbox checked={this.state.avoidTolls} onClick={this.onAvoidTollsClicked.bind(this)}>Avoid Tolls</Checkbox>
 
         <div style={{width:'20%', marginLeft:'40%', marginRight:'40%'}}>
-          <ControlLabel>Travel Mode : {this.state.travelModeOption}</ControlLabel>
+          <ControlLabel>Travel Mode</ControlLabel>
           <Select
               name="travel_mode_select"
               value={this.state.travelModeOption}
@@ -95,7 +108,7 @@ export class ProfileDetails extends React.Component {
         <br />
 
         <div style={{width:'20%', marginLeft:'40%', marginRight:'40%'}}>
-          <ControlLabel>Units : {this.state.unit}</ControlLabel>
+          <ControlLabel>Units</ControlLabel>
           <Select
               name="unit_select"
               value={this.state.unit}
