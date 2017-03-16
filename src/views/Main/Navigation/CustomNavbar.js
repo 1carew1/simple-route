@@ -59,6 +59,7 @@ class CustomNavbar extends Component {
 	myNavBarData.links = [
 	  {linkTo: "/home", text: "Home"},
 	  {linkTo: "/about", text: "About"},
+	  {linkTo: "/profile", text: "Profile"},
 	  {linkTo: "/logout", text: "Logout"},
 	  {disabled:mapOptionsDisabled, dropdown: true, text: "Map Options", links: [
 	    {text: "Centre Map", onClick: this.centerMap.bind(this)},
