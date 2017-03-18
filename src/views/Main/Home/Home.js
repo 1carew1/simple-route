@@ -47,17 +47,20 @@ export class Home extends React.Component {
   }
 
   obtainDirectionAddressFromUrl() {
-    console.log('Setting Directions');
-    //TODO : Making a Parameterised URL has introduced a bug of reload the page multiple times and the directions appear twice
     const fromLocation = this.props.params.fromLocation;
     const toLocation = this.props.params.toLocation;
     if(fromLocation && toLocation) {
+      this.setDirectionsOnMap(fromLocation, toLocation);
+    } 
+  }
+
+  setDirectionsOnMap(fromLocation, toLocation) {
+      console.log('Looking for direction from : ' + fromLocation + ', to : ' + toLocation);
       let obtainDirectionsUsingUsersPreferences = (userData) => {
          googleMapsService.obtainDirectionsWithOptions(fromLocation, toLocation, this.setDirections.bind(this), userData);
       }
       const profile = this.state.profile;
       firebaseDatabaseService.readUserDataAndExecuteFunction(profile ,obtainDirectionsUsingUsersPreferences);
-    } 
   }
 
   storeAddressesInLocalStorage(addresses) {
@@ -110,7 +113,7 @@ export class Home extends React.Component {
     localStorage.removeItem('markers');
     return (
     <div style={{height:'100vh', width:'100%'}}>
-      <CustomNavbar centerLocation={this.centerLocation.bind(this)} setDirectionsOnMap={this.obtainDirectionAddressFromUrl.bind(this)}/>
+      <CustomNavbar centerLocation={this.centerLocation.bind(this)} setDirectionsOnMap={this.setDirectionsOnMap.bind(this)}/>
       <div style={{height:'100%', width:'100%'}}>
           <Map center={this.state.location} markers={markers} directions={directions}/>
       </div>
