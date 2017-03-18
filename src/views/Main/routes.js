@@ -1,12 +1,12 @@
 import React from 'react';
-import {Route, IndexRedirect} from 'react-router';
+import {Router, browserHistory, Route, IndexRedirect} from 'react-router';
 import AuthService from '../../utils/AuthService';
 import Container from './Container';
 import Home from './Home/Home';
 import Login from './Login/Login';
 import About from './Info/About';
 import Profile from './Profile/Profile';
-import TestParameter from './TestParameter';
+import NotFound from './NotFound/NotFound';
 
 import auth0Config from '../../../auth0Config.json';
 
@@ -30,18 +30,17 @@ const logout = (nextState, replace) => {
 
 export const makeMainRoutes = () => {
   return (
-    <Route path="/" component={Container} auth={auth}>
-      <IndexRedirect to="/home" />
-      <Route path="home" component={Home} onEnter={requireAuth}>
-      <Route path="directions" component={TestParameter} onEnter={requireAuth} />
-        <Route path="directions/:from/:to" component={TestParameter} onEnter={requireAuth} />
-        <Route path="centre/:lat/:lng" component={TestParameter} onEnter={requireAuth} />
+     <Router history={browserHistory}>
+      <Route path="/" component={Container} auth={auth}>
+        <IndexRedirect to="/home" />
+        <Route path="home" component={Home} onEnter={requireAuth} />
+        <Route path="profile" component={Profile} onEnter={requireAuth} />
+        <Route path="about" component={About} />
+        <Route path="login" component={Login} />
+        <Route path="logout" component={Login} onEnter={logout} />
+        <Route path="*" component={NotFound} />
       </Route>
-      <Route path="profile" component={Profile} onEnter={requireAuth} />
-      <Route path="about" component={About} />
-      <Route path="login" component={Login} />
-      <Route path="logout" component={Login} onEnter={logout} />
-    </Route>
+    </Router>
   )
 }
 
