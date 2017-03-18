@@ -22,8 +22,8 @@ export default class FirebaseDatabaseService {
     username: name,
     email: email,
     travelMode : 'DRIVING',
-    avoidTolls : 'false',
-    avoidHighways : 'false',
+    avoidTolls : false,
+    avoidHighways : false,
     unitSystem : 'METRIC'
   });
  }
