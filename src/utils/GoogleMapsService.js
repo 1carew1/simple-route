@@ -1,5 +1,5 @@
 import superagent from 'superagent';
-import googleConfig from '../../googleMapsAPIKey.json';
+import googleConfig from '../../config/googleMapsAPIKey.json';
 
 const apiKey = googleConfig.apiKey;
 const geoCodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';

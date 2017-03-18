@@ -8,7 +8,7 @@ import About from './Info/About';
 import Profile from './Profile/Profile';
 import NotFound from './NotFound/NotFound';
 
-import auth0Config from '../../../auth0Config.json';
+import auth0Config from '../../../config/auth0Config.json';
 
 const auth = new AuthService(auth0Config.apiKey, auth0Config.userUrl);
 
