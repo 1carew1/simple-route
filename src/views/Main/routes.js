@@ -32,12 +32,15 @@ export const makeMainRoutes = () => {
   return (
     <Route path="/" component={Container} auth={auth}>
       <IndexRedirect to="/home" />
-      <Route path="home" component={Home} onEnter={requireAuth} />
+      <Route path="home" component={Home} onEnter={requireAuth}>
+      <Route path="directions" component={TestParameter} onEnter={requireAuth} />
+        <Route path="directions/:from/:to" component={TestParameter} onEnter={requireAuth} />
+        <Route path="centre/:lat/:lng" component={TestParameter} onEnter={requireAuth} />
+      </Route>
       <Route path="profile" component={Profile} onEnter={requireAuth} />
       <Route path="about" component={About} />
       <Route path="login" component={Login} />
       <Route path="logout" component={Login} onEnter={logout} />
-      <Route path="test/:from/:to" component={TestParameter} />
     </Route>
   )
 }

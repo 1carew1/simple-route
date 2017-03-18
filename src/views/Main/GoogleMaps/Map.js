@@ -23,6 +23,10 @@ class Map extends Component {
     }
   }
 
+  handleMapClick(event) {
+    console.log(event.latLng.lat() + ', ' + event.latLng.lng());
+  }
+
   componentDidMount() {
    // Any logic for Did Mount
   }
@@ -104,7 +108,7 @@ class Map extends Component {
         defaultCenter={{ lat: 52.2373524, lng: -7.1071411 }}
         center={centerLocation}
         yesIWantToUseGoogleMapApiInternals={true}
-        onClick={function() {console.log('Google Maps Clicked');}}
+        onClick={this.handleMapClick}
         options={{streetViewControl:false, mapTypeControl : false, scrollwheel: true}}
       >
         { mapMarkers }
