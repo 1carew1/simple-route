@@ -6,21 +6,8 @@ class Map extends Component {
   constructor() {
       super();
       this.state = {
-        map: null, 
-        mapLoaded: false,
         centerLocation : { lat: -25.363882, lng: 131.044922 }
       };
-  }
-  handleMapLoad = this.handleMapLoad.bind(this);
-  // Handle the loading of the map and get the map object
-  handleMapLoad(map) {
-    if (map) {
-      let mapLoaded = this.state.mapLoaded
-      if(!mapLoaded) {
-        this.setState({ map: map, mapLoaded: true });
-        //console.log("Map has been loaded");
-      }
-    }
   }
 
   handleMapClick(event) {
@@ -115,7 +102,7 @@ class Map extends Component {
         { directionsRender }
       </GoogleMap>
     ));
-    
+
     return (
       <div style={{ height: '100%', width: '100%' }}>
       <div id='rightPanel' style={rightPanelStyle}></div>
@@ -127,8 +114,6 @@ class Map extends Component {
               mapElement={
                 <div style={{ height: '100%' }} />
               }
-              onMapLoad={this.handleMapLoad}
-
             />
         </div>
       </div>  
