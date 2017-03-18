@@ -104,7 +104,9 @@ export default class FirebaseDatabaseService {
     dbRef.orderByChild("user_id").equalTo(profile.user_id).limitToLast(numberOfEntries).once('value').then(function(snapshot) {
         let listOfResults = [];
         for (var value in snapshot.val()) {
-          listOfResults.push(snapshot.val()[value]);
+          if(snapshot.val().hasOwnProperty(value)) {
+            listOfResults.push(snapshot.val()[value]); 
+          }
         }
         functionToRunOnCompletion(listOfResults);
     });

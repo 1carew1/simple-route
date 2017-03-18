@@ -10,31 +10,22 @@ let someList = null;
 export class ProfileDirections extends React.Component {
 
   componentDidMount(){
-    let directionResults = [];
     let functionToRunOnResults = (results) => {
-      console.log(results);
-      directionResults.push(results);
+
+      if(results) {
+       someList = results.map((value, index) => {
+          return <li key={index}>{value.start_address} - TO - {value.end_address} - On - {value.date_searched}</li>;
+        });      
+      } 
+      this.setState({});
     }
-    firebaseDatabaseService.retrieveLastXDirectionsOfUser(this.props.profile, 10, functionToRunOnResults);
-
-
-    if(directionResults) {
-      directionResults.map((value, index) => {
-        return <li>{value.start_address}</li>;
-      });      
-    }  
+    firebaseDatabaseService.retrieveLastXDirectionsOfUser(this.props.profile, 10, functionToRunOnResults.bind(this)); 
   }
 
   render() {
-    const { profile } = this.props;
-
-
-
     return (
       <Jumbotron className="centerJumbo">
           <h3>Recently Searched Directions :</h3>
-          <p><strong>Name: </strong> {profile.name}</p>
-          <p><strong>Email: </strong> {profile.email}</p>
           <ul>{someList}</ul>
       </Jumbotron>
     )
