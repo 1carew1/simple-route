@@ -12,12 +12,12 @@ const googleMapsService = new GoogleMapsService();
 let directions = null;
 
 export class Home extends React.Component {
+
     constructor(props, context) {
       super(props, context);
       this.state = {
         profile: props.auth.getProfile(),
-        location : null,
-        directionsLoaded : false
+        location : null
       };
       props.auth.on('profile_updated', (newProfile) => {
         this.setState({profile: newProfile});
@@ -43,26 +43,21 @@ export class Home extends React.Component {
             })
     }
 
+    this.obtainDirectionAddressFromUrl();
+  }
+
+  obtainDirectionAddressFromUrl() {
+    console.log('Setting Directions');
     //TODO : Making a Parameterised URL has introduced a bug of reload the page multiple times and the directions appear twice
     const fromLocation = this.props.params.fromLocation;
     const toLocation = this.props.params.toLocation;
     if(fromLocation && toLocation) {
-      this.setState({
-        directionsLoaded : true
-      });
       let obtainDirectionsUsingUsersPreferences = (userData) => {
          googleMapsService.obtainDirectionsWithOptions(fromLocation, toLocation, this.setDirections.bind(this), userData);
       }
       const profile = this.state.profile;
       firebaseDatabaseService.readUserDataAndExecuteFunction(profile ,obtainDirectionsUsingUsersPreferences);
-    } else {
-      if(this.state.directionsLoaded) {
-         this.setState({
-          directionsLoaded : false
-        });       
-      }
-    }
-
+    } 
   }
 
   storeAddressesInLocalStorage(addresses) {
@@ -115,7 +110,7 @@ export class Home extends React.Component {
     localStorage.removeItem('markers');
     return (
     <div style={{height:'100vh', width:'100%'}}>
-      <CustomNavbar centerLocation={this.centerLocation.bind(this)}/>
+      <CustomNavbar centerLocation={this.centerLocation.bind(this)} setDirectionsOnMap={this.obtainDirectionAddressFromUrl.bind(this)}/>
       <div style={{height:'100%', width:'100%'}}>
           <Map center={this.state.location} markers={markers} directions={directions}/>
       </div>
