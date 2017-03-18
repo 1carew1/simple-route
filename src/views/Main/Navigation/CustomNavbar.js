@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { Nav, Navbar, NavDropdown, MenuItem, NavItem} from 'react-bootstrap';
+import {browserHistory} from 'react-router';
 import FlyToLocationForm from '../GoogleMaps/FlyToLocationForm';
 import DirectionsForm from '../GoogleMaps/DirectionsForm';
 import CustomModal from '../Modal/CustomModal';
@@ -29,7 +30,7 @@ class CustomNavbar extends Component {
 
   openDirectionsModal() {
   	modalBody = (
-		<DirectionsForm closeModal={this.closeModal.bind(this)} map={this.props.map} setDirections={this.props.setDirections} auth={this.props.auth}/>
+		<DirectionsForm closeModal={this.closeModal.bind(this)} map={this.props.map}/>
 	);
 	this.setState({ modalName: 'Directions' });
   	this.openModal();
@@ -44,6 +45,7 @@ class CustomNavbar extends Component {
   }
 
   centerMap() {
+  	browserHistory.push('/home');
 	const location = JSON.parse(localStorage.getItem('currentLocation') || '{}');
 	if(location) {
 	   this.centerMapUsingLatLng(location);

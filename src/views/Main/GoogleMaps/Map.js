@@ -115,6 +115,7 @@ class Map extends Component {
         { directionsRender }
       </GoogleMap>
     ));
+    
     return (
       <div style={{ height: '100%', width: '100%' }}>
       <div id='rightPanel' style={rightPanelStyle}></div>

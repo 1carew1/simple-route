@@ -90,11 +90,23 @@ export class Home extends React.Component {
 
 
   render(){
+    //TODO : Making a Parameterised URL has introduced a bug of reload the page multiple times and the directions appear twice
+    const fromLocation = this.props.params.fromLocation;
+    const toLocation = this.props.params.toLocation;
+    if(fromLocation && toLocation) {
+      let obtainDirectionsUsingUsersPreferences = (userData) => {
+         googleMapsService.obtainDirectionsWithOptions(fromLocation, toLocation, this.setDirections.bind(this), userData);
+      }
+      const profile = this.state.profile;
+      firebaseDatabaseService.readUserDataAndExecuteFunction(profile ,obtainDirectionsUsingUsersPreferences);
+    }
+
+
     const markers = JSON.parse(localStorage.getItem('markers') || '[]');
     localStorage.removeItem('markers');
     return (
     <div style={{height:'100vh', width:'100%'}}>
-      <CustomNavbar centerLocation={this.centerLocation.bind(this)} setDirections={this.setDirections.bind(this)} auth={this.props.auth}/>
+      <CustomNavbar centerLocation={this.centerLocation.bind(this)}/>
       <div style={{height:'100%', width:'100%'}}>
           <Map center={this.state.location} markers={markers} directions={directions}/>
       </div>

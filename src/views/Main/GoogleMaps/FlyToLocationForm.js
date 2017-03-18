@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Form , FormGroup, ControlLabel , FormControl  ,Button} from 'react-bootstrap';
+import {browserHistory} from 'react-router';
 
 import GoogleMapsService from '../../../utils/GoogleMapsService';
 
@@ -27,6 +28,7 @@ class FlyToLocationForm extends Component {
   }
 
   goToLocation(){
+    browserHistory.push('/home');
     const address = this.state.address;
     console.log('Going to location : ' + address);
         // Take in a list of addresses and goes to the first one

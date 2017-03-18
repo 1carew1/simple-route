@@ -33,7 +33,9 @@ export const makeMainRoutes = () => {
      <Router history={browserHistory}>
       <Route path="/" component={Container} auth={auth}>
         <IndexRedirect to="/home" />
-        <Route path="home" component={Home} onEnter={requireAuth} />
+        <Route path="home" component={Home} onEnter={requireAuth} >
+           <Route path="/home/directions/:fromLocation/:toLocation" />
+        </Route>
         <Route path="profile" component={Profile} onEnter={requireAuth} />
         <Route path="about" component={About} />
         <Route path="login" component={Login} />
