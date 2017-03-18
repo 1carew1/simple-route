@@ -54,6 +54,15 @@ export class Home extends React.Component {
     } 
   }
 
+
+  setDirections(incomingdirections) {
+    directions = incomingdirections;
+    const profile = this.state.profile;
+    firebaseDatabaseService.storeDirectionsInDB(profile, incomingdirections);
+    this.setState({});
+    directions = null;
+  }
+
   setDirectionsOnMap(fromLocation, toLocation) {
       console.log('Looking for direction from : ' + fromLocation + ', to : ' + toLocation);
       let obtainDirectionsUsingUsersPreferences = (userData) => {
@@ -99,13 +108,6 @@ export class Home extends React.Component {
       console.log('Not a valid lat lng');
     }
   }
-
-  setDirections(incomingdirections) {
-    directions = incomingdirections;
-    this.setState({});
-    directions = null;
-  }
-
 
 
   render(){

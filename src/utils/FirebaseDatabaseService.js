@@ -84,5 +84,33 @@ export default class FirebaseDatabaseService {
  	}   
  }
 
+ storeDirectionsInDB(profile, directions) {
+  if(profile && directions) {
+    let directionsObject = directions.routes[0].legs[0];
+    let objectDirectionsToPush = {};
+
+    objectDirectionsToPush.user_id = profile.user_id;
+    objectDirectionsToPush.date_searched = (new Date()).toISOString();
+    objectDirectionsToPush.start_address = directionsObject.start_address;
+    objectDirectionsToPush.end_address = directionsObject.end_address;
+    let ref = database.ref('/directions/');
+    ref.push(objectDirectionsToPush);
+  }
+ }
+
+ retrieveLastXDirectionsOfUser(profile, numberOfEntries, functionToRunOnCompletion) {
+  if(profile && numberOfEntries) {
+    let dbRef = database.ref('/directions/');
+    dbRef.orderByChild("user_id").equalTo(profile.user_id).limitToLast(numberOfEntries).once('value').then(function(snapshot) {
+        let listOfResults = [];
+        for (var value in snapshot.val()) {
+          listOfResults.push(snapshot.val()[value]);
+        }
+        functionToRunOnCompletion(listOfResults);
+    });
+
+  }
+ }
+
 }
 
