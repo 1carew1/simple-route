@@ -6,6 +6,7 @@ import Home from './Home/Home';
 import Login from './Login/Login';
 import About from './Info/About';
 import Profile from './Profile/Profile';
+import TestParameter from './TestParameter';
 
 import auth0Config from '../../../auth0Config.json';
 
@@ -36,6 +37,7 @@ export const makeMainRoutes = () => {
       <Route path="about" component={About} />
       <Route path="login" component={Login} />
       <Route path="logout" component={Login} onEnter={logout} />
+      <Route path="test/:from/:to" component={TestParameter} />
     </Route>
   )
 }
