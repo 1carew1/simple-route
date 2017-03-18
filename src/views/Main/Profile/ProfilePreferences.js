@@ -88,15 +88,14 @@ export class ProfileDetails extends React.Component {
         { value: 'IMPERIAL', label: 'IMPERIAL' },
         { value: 'METRIC', label: 'METRIC' }
     ];
-    //TODO : Fix Travel Mode Not Displating Initially
 
     return (
-      <Jumbotron className="centerJumbo">
+      <Jumbotron className="centerJumbo" >
         <h2>Preferences</h2>
-        <Checkbox checked={this.state.avoidMotorWay} onClick={this.onAvoidMotorwayClicked.bind(this)}>Avoid Motorways/HighWays</Checkbox>
-        <Checkbox checked={this.state.avoidTolls} onClick={this.onAvoidTollsClicked.bind(this)}>Avoid Tolls</Checkbox>
+        <div style={{ textAlign : 'left', width:'20%', marginLeft:'40%', marginRight:'40%'}}>
+          <Checkbox checked={this.state.avoidMotorWay} onClick={this.onAvoidMotorwayClicked.bind(this)}>Avoid Motorways/HighWays</Checkbox>
+          <Checkbox checked={this.state.avoidTolls} onClick={this.onAvoidTollsClicked.bind(this)}>Avoid Tolls</Checkbox>
 
-        <div style={{width:'20%', marginLeft:'40%', marginRight:'40%'}}>
           <ControlLabel>Travel Mode</ControlLabel>
           <Select
               name="travel_mode_select"
@@ -104,10 +103,8 @@ export class ProfileDetails extends React.Component {
               options={travelModeOptions}
               onChange={this.onTransportPreferenceSelected.bind(this)}
           />
-        </div>
-        <br />
+          <br />
 
-        <div style={{width:'20%', marginLeft:'40%', marginRight:'40%'}}>
           <ControlLabel>Units</ControlLabel>
           <Select
               name="unit_select"
