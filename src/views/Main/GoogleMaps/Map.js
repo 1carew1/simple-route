@@ -103,6 +103,8 @@ class Map extends Component {
       </GoogleMap>
     ));
 
+    console.log('Tracker Just to see how many times the Maps Loads');
+
     return (
       <div style={{ height: '100%', width: '100%' }}>
       <div id='rightPanel' style={rightPanelStyle}></div>

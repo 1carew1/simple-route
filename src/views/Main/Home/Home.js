@@ -16,7 +16,8 @@ export class Home extends React.Component {
       super(props, context);
       this.state = {
         profile: props.auth.getProfile(),
-        location : null
+        location : null,
+        directionsLoaded : false
       };
       props.auth.on('profile_updated', (newProfile) => {
         this.setState({profile: newProfile});
@@ -40,6 +41,26 @@ export class Home extends React.Component {
                 // Use google maps service to communicate with Google Maps Api
                 googleMapsService.obtainAddressesNearLatLng(currentLocation, this.storeAddressesInLocalStorage.bind(this));
             })
+    }
+
+    //TODO : Making a Parameterised URL has introduced a bug of reload the page multiple times and the directions appear twice
+    const fromLocation = this.props.params.fromLocation;
+    const toLocation = this.props.params.toLocation;
+    if(fromLocation && toLocation) {
+      this.setState({
+        directionsLoaded : true
+      });
+      let obtainDirectionsUsingUsersPreferences = (userData) => {
+         googleMapsService.obtainDirectionsWithOptions(fromLocation, toLocation, this.setDirections.bind(this), userData);
+      }
+      const profile = this.state.profile;
+      firebaseDatabaseService.readUserDataAndExecuteFunction(profile ,obtainDirectionsUsingUsersPreferences);
+    } else {
+      if(this.state.directionsLoaded) {
+         this.setState({
+          directionsLoaded : false
+        });       
+      }
     }
 
   }
@@ -90,18 +111,6 @@ export class Home extends React.Component {
 
 
   render(){
-    //TODO : Making a Parameterised URL has introduced a bug of reload the page multiple times and the directions appear twice
-    const fromLocation = this.props.params.fromLocation;
-    const toLocation = this.props.params.toLocation;
-    if(fromLocation && toLocation) {
-      let obtainDirectionsUsingUsersPreferences = (userData) => {
-         googleMapsService.obtainDirectionsWithOptions(fromLocation, toLocation, this.setDirections.bind(this), userData);
-      }
-      const profile = this.state.profile;
-      firebaseDatabaseService.readUserDataAndExecuteFunction(profile ,obtainDirectionsUsingUsersPreferences);
-    }
-
-
     const markers = JSON.parse(localStorage.getItem('markers') || '[]');
     localStorage.removeItem('markers');
     return (
