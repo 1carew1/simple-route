@@ -130,6 +130,7 @@ export default class GoogleMapsService {
           //console.log(step.instructions + ' for ' + step.distance.text);
         });
       } else {
+        alert('No Valid routes for : ' + startAddress + ', to : ' + endAddress );
         console.log('Did not get valid routes');
       }
     });   
