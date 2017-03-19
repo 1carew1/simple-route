@@ -18,9 +18,17 @@ export default class FirebaseDatabaseService {
   if(!email) {
   	email = '';
   }
+  let provider = null;
+  if(profile.identities[0]) {
+    provider = profile.identities[0].provider;;
+  }
+  if(!provider) {
+    provider = 'unknown';
+  }
   database.ref('/user/' + profile.user_id).set({
     username: name,
     email: email,
+    provider : provider,
     travelMode : 'DRIVING',
     avoidTolls : false,
     avoidHighways : false,
