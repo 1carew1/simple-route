@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {browserHistory} from 'react-router';
 import makeRoutes from './routes';
+import App from './App';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
-import App from './App';
 
 const routes = makeRoutes()
 
