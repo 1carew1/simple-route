@@ -1,8 +1,10 @@
 The purpose of this React App is to fullfil the requirements set out by the Assignment in the Enterprise Web Development Module for Msc. in Communication Software
 
-Google Maps Tutorial : https://www.youtube.com/watch?v=N1J7Q1qJPQM
+Google Maps React Tutorial : https://www.youtube.com/watch?v=N1J7Q1qJPQM
 
 This project was initially created with [Create React App](https://github.com/facebookincubator/create-react-app).
+
+Please see the file SimpleRouteEntWebDev.pdf in the root of this project for more information of its functionality and how to set it up.
 
 Ensure you have a firebaseConfig.json file in the config folder of this project with following content using your own Keys + Links :
 

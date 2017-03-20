@@ -52,7 +52,7 @@ class CustomNavbar extends Component {
 	}
   }
 
-  render() {
+  generateNavigationOptions() {
   	// set data
   	let mapOptionsDisabled = this.props.disableMapOptions;
 
@@ -69,7 +69,12 @@ class CustomNavbar extends Component {
 	    {text: "Get Directions", onClick: this.openDirectionsModal.bind(this)}
 	  ]}
 	];
-	let navItems = null;
+	return myNavBarData;  	
+  }
+
+  generateNavigationItems() {
+  	let myNavBarData = this.generateNavigationOptions();
+  	let navItems = null;
 	if(myNavBarData.links) {
 		navItems = myNavBarData.links.map((link, i) => {
 			let linkItem = null;
@@ -106,6 +111,11 @@ class CustomNavbar extends Component {
 			return linkItem;
 		})
 	}
+	return navItems;
+  }
+
+  render() {
+  	let navItems = this.generateNavigationItems();
     return(
     	<div>
     	  <CustomModal showModal={this.state.showModal} closeModal={this.closeModal.bind(this)} modalName={this.state.modalName} modalBody={modalBody}/>

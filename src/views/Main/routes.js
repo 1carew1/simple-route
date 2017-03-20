@@ -26,8 +26,6 @@ const logout = (nextState, replace) => {
   }
 }
 
-//TODO : Add routes so that map directions are linkable, similar with fly to and centre
-
 export const makeMainRoutes = () => {
   return (
      <Router history={browserHistory}>
