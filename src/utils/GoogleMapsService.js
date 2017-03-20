@@ -70,10 +70,10 @@ export default class GoogleMapsService {
       if(options.unitSystem === 'IMPERIAL') {
         unitSystem = window.google.maps.UnitSystem.IMPERIAL;
       }
-      if(options.avoidTolls && options.avoidTolls === 'true') {
+      if(options.avoidTolls) {
         avoidTolls = true;
       }
-      if(options.avoidHighways && options.avoidHighways === 'true') {
+      if(options.avoidHighways) {
         avoidHighways = true;
       }
     }
