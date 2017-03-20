@@ -3,23 +3,12 @@ import {withGoogleMap, GoogleMap, DirectionsRenderer} from 'react-google-maps';
 import CustomMarker from './CustomMarker';
 
 class Map extends Component {
-  constructor() {
-      super();
-      this.state = {
-        centerLocation : { lat: -25.363882, lng: 131.044922 }
-      };
-  }
 
   handleMapClick(event) {
     console.log(event.latLng.lat() + ', ' + event.latLng.lng());
   }
 
-  componentDidMount() {
-   // Any logic for Did Mount
-  }
-
-  //TODO : Way too much logic in Render Method!!
-  render() {
+  generateMapMarkers() {
     let mapMarkers = null;
     if(this.props.markers) {
       //console.log('Trying to render ' + this.props.markers.length  + ' markers');
@@ -40,54 +29,43 @@ class Map extends Component {
             <CustomMarker  marker={marker} key={i}/>
           )
       });      
-    } else {
-      // Do Nothing
     }
+    return mapMarkers;
+  }
 
-    let centerLocation = this.props.center;
-    if(!centerLocation) {
-      centerLocation = { lat: 52.2373524, lng: -7.1071411 };
-    }
-
-
-
-    let rightPanelStyle = {
-      height : '0px',
-      width : '0px'
-    };
-
+  generateDirections() {
+    // This is a bit messy and not very React but I couldn't figure out another way of doing this
     let rightPanel = document.getElementById("rightPanel");
     if(rightPanel) {
       rightPanel.innerHTML = "";
     }
     
-
     let directionsRender = null
     if(this.props.directions) {
-      rightPanelStyle= {
-        lineHeight: '30px',
-        paddingLeft: '10px',
-        background : 'white',
-        marginTop: '45px',
-        height: 'calc(100% - 45px)',
-        float: 'right',
-        width: '35%',
-        overflow: 'auto'
-      }
-      // Need to Externailse this and reset panel when it is finished
       directionsRender =  (
         <DirectionsRenderer
             options={{draggable:false}}
             directions={this.props.directions}
             panel={rightPanel}
-        >
-        <p>Anything</p>
-        </DirectionsRenderer>
+        />
         );
     }
+    return directionsRender;
+  }
 
-    // Wrap all `react-google-maps` components with `withGoogleMap` HOC
-    // and name it GettingStartedGoogleMap
+  generateCentreLocation() {
+    let centerLocation = this.props.center;
+    if(!centerLocation) {
+      centerLocation = { lat: 52.2373524, lng: -7.1071411 };
+    }
+    return centerLocation;
+  }
+
+  generateGoogleMap() {
+    const centerLocation = this.generateCentreLocation();
+    const mapMarkers = this.generateMapMarkers();
+    const directionsRender = this.generateDirections();
+
     const GettingStartedGoogleMap = withGoogleMap(props => (
       <GoogleMap
         ref={props.onMapLoad}
@@ -101,7 +79,34 @@ class Map extends Component {
         { mapMarkers }
         { directionsRender }
       </GoogleMap>
-    ));
+    )); 
+    return GettingStartedGoogleMap;   
+  }
+
+  // Generate the style of the panel that displays the directions
+  generateRightPanelStyle() {
+    let rightPanelStyle = {
+      height : '0px',
+      width : '0px'
+    };
+    if(this.generateDirections()) {
+      rightPanelStyle= {
+        lineHeight: '30px',
+        paddingLeft: '10px',
+        background : 'white',
+        marginTop: '45px',
+        height: 'calc(100% - 45px)',
+        float: 'right',
+        width: '35%',
+        overflow: 'auto'
+      }
+    }
+    return rightPanelStyle;  
+  }
+
+  render() {
+    const rightPanelStyle = this.generateRightPanelStyle();
+    const GettingStartedGoogleMap = this.generateGoogleMap();
 
     return (
       <div style={{ height: '100%', width: '100%' }}>

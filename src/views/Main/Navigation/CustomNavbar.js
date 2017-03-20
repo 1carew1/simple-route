@@ -115,7 +115,7 @@ class CustomNavbar extends Component {
   }
 
   render() {
-  	let navItems = this.generateNavigationItems();
+  	const navItems = this.generateNavigationItems();
     return(
     	<div>
     	  <CustomModal showModal={this.state.showModal} closeModal={this.closeModal.bind(this)} modalName={this.state.modalName} modalBody={modalBody}/>

@@ -13,7 +13,7 @@ let directions = null;
 
 export class Home extends React.Component {
 
-    constructor(props, context) {
+  constructor(props, context) {
       super(props, context);
       this.state = {
         profile: props.auth.getProfile(),
@@ -24,9 +24,17 @@ export class Home extends React.Component {
         //Read The User Data for Maps Preferences - if they havent logged in before
         firebaseDatabaseService.readUserData(newProfile);
       });
-    }
+  }
 
-    componentDidMount() {
+  static contextTypes = {
+    router: T.object
+  }
+
+  static propTypes = {
+    auth: T.instanceOf(AuthService)
+  }
+
+  componentDidMount() {
     // Get Current Location
     if (navigator && navigator.geolocation) {
            navigator.geolocation.getCurrentPosition((pos) => {
@@ -83,14 +91,6 @@ export class Home extends React.Component {
         console.log('No addresses to store');
       }
 
-  }
-
-  static contextTypes = {
-    router: T.object
-  }
-
-  static propTypes = {
-    auth: T.instanceOf(AuthService)
   }
 
   centerLocation(incomingLocation) {

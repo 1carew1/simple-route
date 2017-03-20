@@ -12,7 +12,7 @@ class CustomMarker extends Component {
 	            defaultAnimation={2}
 	            key={this.props.id}>
 	            {
-	            	// TODO : Add logic for custom infor window
+	            	// TODO : Add logic for custom info window
 	              /*  <CustomInfoWindow  content={marker.address.formatted_address}/>*/
 	            }
           </Marker>
