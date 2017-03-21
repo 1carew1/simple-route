@@ -32,6 +32,6 @@ Ensure you have a  auth0Config.json file in the config folder  of this project w
   "userUrl": "XXXXX"
 }
 
+![][overallDataModel]
 
-
-[overallDataModel] : ./readmeResources/SimpleRouteReactDataModel.png
+[overallDataModel]: ./readmeResources/SimpleRouteReactDataModel.png
