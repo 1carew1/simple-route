@@ -34,7 +34,7 @@ Ensure you have a googleMapsAPIKey.json file in the config folder  of this proje
   "apiKey" : "XXXXX"
 }
 
-- Side note - index.html, which is located in the public folder, the API key will need to be changed here as well as using react-google-maps there was no way around having the Google Maps JS script with the API Key in this file.
+- Side note - index.html, which is located in the public folder, the API key will need to be changed here as there was no way around having the Google Maps JS script with the API Key in this file.
 
 
 Ensure you have a  auth0Config.json file in the config folder  of this project with following content using your own Keys + Links :
@@ -69,19 +69,25 @@ The directions table is used to store the searched user directions, it contains 
 ![Data Model][dataModel]
 
 Example Entry in User Table as is in Firebase :
-avoidHighways: false
-avoidTolls: false
-email: "colmcarew2@gmail.com"
-provider: "google-oauth2"
-travelMode: "DRIVING"
-unitSystem: "METRIC"
-username: "Colm C"
+
+{
+	avoidHighways: false,
+	avoidTolls: false,
+	email: "colmcarew2@gmail.com",
+	provider: "google-oauth2",
+	travelMode: "DRIVING",
+	unitSystem: "METRIC",
+	username: "Colm C"
+}
 
 Example Entry in the Directions Table as is in Firebase :
-date_searched: "2017-03-20T22:29:51.558Z"
-end_address: "Dublin Airport, Dublin, Ireland"
-start_address: "Wexford"
-user_id: "google-oauth2|XXXXXXXX"
+
+{
+	date_searched: "2017-03-20T22:29:51.558Z",
+	end_address: "Dublin Airport, Dublin, Ireland",
+	start_address: "Wexford",
+	user_id: "google-oauth2|XXXXXXXX"
+}
 
 Again this is very basic data. A nice feature for furture development would be to store saftey information regarding neighbourhoods and areas such that the user could opt to get directions the safest way possible. Ideally the user would also be able to add data into safety information saying whether a neighbourhood was safe or not. Another nice feature would be to track the user's location and store them in a seperate table so the user would be able to see where they have been and also if anyone was using their account when they should not have been.
 
@@ -108,7 +114,25 @@ There is no model for the about page as the about page is simply a single Bootst
 
 ## UI Design.
 
-. . . . . Screenshots of app's views (see example below) with appropriate captions (user regeneration and login views, if implemented, can be omitted) . . . . . . . 
+![][loginScreen]
+
+![][loginMenu]
+
+![][homeScreenMap]
+
+![][flyToLocation]
+
+![][directionsForm]
+
+![][mapWithDirections]
+
+![][profileBasicInfo]
+
+![][preferences]
+
+![][directionsTable]
+
+![][aboutPage]
 
 ## Routing.
 + /login - login page
@@ -126,7 +150,7 @@ User registration and Authentication is handled by Auth0 which is an SSO solutio
 The backend database is handled by Firebase which is an Application Infrastructure. It is similar in ways to Auth0 but was chosen to be used as the database as an Android App (with the same name) is being developed after this SPA and the Android App uses firebase so ideally the two Apps sharing the same user data (watch this space). 
 
 ## Independent learning.
-Google Maps is one of the main independent learning points as it is integrating with a 3rd part API - Google Maps + Google Maps Services. The same can be said for Auth0 and Firebase as neither are covered in the notes and are both also 3rd party APIs. Firebase required some indexing of the user id in the directions table to make querying faster.
+Google Maps is one of the main independent learning points as it is integrating with a 3rd party API - Google Maps + Google Maps Services. The same can be said for Auth0 and Firebase as neither are covered in the notes and are both also 3rd party APIs. Firebase required some indexing of the user id in the directions table to make querying faster.
 
 For more information please see the file SimpleRouteEntWebDev.pdf in the root of this project.
 
@@ -135,3 +159,13 @@ For more information please see the file SimpleRouteEntWebDev.pdf in the root of
 [homeModel]: ./readmeResources/SimpleRouteReactHomeModel.png
 [mainModel]: ./readmeResources/SimpleRouteReactMainModel.png
 [profileModel]: ./readmeResources/SimpleRouteReactProfileModel.png
+[homeScreenMap]: ./readmeResources/homeScreenMap.png
+[loginMenu]: ./readmeResources/loginMenu.png
+[loginScreen]: ./readmeResources/loginScreen.png
+[profileBasicInfo]: ./readmeResources/profileBasicInfo.png
+[mapWithDirections]: ./readmeResources/mapWithDirections.png
+[flyToLocation]: ./readmeResources/flyToLocation.png
+[directionsForm]: ./readmeResources/getDirectionForm.png
+[aboutPage]: ./readmeResources/aboutPage.png
+[directionsTable]: ./readmeResources/directionTable.png
+[preferences]: ./readmeResources/preferences.png
