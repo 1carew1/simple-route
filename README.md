@@ -1,20 +1,19 @@
-Google Maps React Tutorial : https://www.youtube.com/watch?v=N1J7Q1qJPQM
-
 # Enterprise Web Development Assignment 1 - ReactJS app.
 
 Name: Colm Carew
 
 ## Overview.
-...... A statement of the app concept and objectives (about a half-page) ........
+Simple Route is a Web Application written using the React JavaScript Library. The core idea of the application is to; using a Map view, create a Single Page Applications (SPA) which gives the user the easiest directions to their desired locations. In creating this solution the goal is also to exhibit some of the React concepts learned throughout the React lectures of the Enterprise Web Development module.
 
 
- . . . . . List of user features (excluding user registration and authentication) . . . . 
+ . . . . . Feature List . . . . 
  
- + Feature 1
- + Feature 2
- + Feature 3
- + etc
- + etc
+ + Centring the map on the user's current location + placing a marker
+ + Flying to a location/address specified by the user and placing a marker there
+ + Directions from one location to another giving the simplest route obtained from Google Direction Services (simplest is defined by the lowest number of turns)
+ + Storing the user's preferences such that the user can pick the units (Imperial or Metric), the mode of transport (Car, Walk etc.), the option of avoiding tolls and the option of avoiding motorways/highways
+ + Storing of the user's searched directions and displaying the most recent 10 searched in descending order of recency (most recent first) and providing a link to generate the directions again
+ + A paramaterised URL which allows the user to share their searched directions
 
 ## Installation requirements.
 Please see the file SimpleRouteEntWebDev.pdf in the root of this project for more information of its functionality and how to set it up.
@@ -44,14 +43,20 @@ Ensure you have a  auth0Config.json file in the config folder  of this project w
   "apiKey": "XXXXX",
   "userUrl": "XXXXX"
 }
+
+Once completed run 'npm install' in the root of the project.
+Once all packages are installed run 'npm start'
+
 . . . .  List of software used to develop the app . . . . . . . 
++ create-react-app tool
 + ReactJS v15.4.2
 + Bootstrap 3
-+ create-react-app tool
-+ etc
-+ etc 
-
-. . . . . . Also, explain (to a third party) what steps one must take to run your app after cloning it from the repository, e.g. any non-standard software installation; any environment setup; how to start app; where to view app in browser . . . . . . . At its simplest this may just be: npm install + npm start
++ React Google Maps 6
++ Superagent 3
++ React Select 1
++ React Router 2
++ Firebase 3
++ Auth0 Lock 10
 
 ## Data Model Design.
 
@@ -80,12 +85,10 @@ Use meaningful sample data. Briefly explain any non-trivial issues.
 . . . . . Screenshots of app's views (see example below) with appropriate captions (user regeneration and login views, if implemented, can be omitted) . . . . . . . 
 
 ## Routing.
-. . . . List each route supported and state the associated view . . . . . 
-
 + /login - login page
 + /about - about page
 + /home - home page of app - the Map
-+ /home/directions/:fromLocation/:toLocation - Paramaterised URL, (:fromLocation) is the starting address and (:toLocation) is the end address
++ /home/directions/:fromLocation/:toLocation - Paramaterised URL, (:fromLocation) is the starting address and (:toLocation) is the end address - returns a Map with directions based on the user's preferences
 + /profile - logged in user's profile
 + /logout - logout of app and directed back to login back
 
@@ -94,8 +97,9 @@ Use meaningful sample data. Briefly explain any non-trivial issues.
 . . . . . Briefly explain any non-standard features, functional or non-functional (e.g. user registration, authentication) developed for the app . . . . . .  
 
 ## Independent learning.
+Google Maps React Tutorial : https://www.youtube.com/watch?v=N1J7Q1qJPQM
 
-. . . . . State the non-standard aspects of Angular (or other related technologies) that you researched and applied in this assignment . . . . .  
+Auth0
 
 
 [dataModel]: ./readmeResources/SimpleRouteReactDataModel.png
