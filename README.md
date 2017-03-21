@@ -114,6 +114,7 @@ There is no model for the about page as the about page is simply a single Bootst
 
 ## UI Design.
 
+#+ATTR_HTML: :style margin-left: auto; margin-right: auto;
 ![][loginScreen]
 
 ![][loginMenu]
