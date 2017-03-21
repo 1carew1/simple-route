@@ -31,3 +31,7 @@ Ensure you have a  auth0Config.json file in the config folder  of this project w
   "apiKey": "XXXXX",
   "userUrl": "XXXXX"
 }
+
+
+
+[overallDataModel] : ./readmeResources/SimpleRouteReactDataModel.png
