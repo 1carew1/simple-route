@@ -62,7 +62,9 @@ Once all packages are installed run 'npm start'
 
 Diagram of app's data model (see example below) AND/OR a sample of the test data used (JSON or equivalent).
 
-![][dataModel]
+<div style="text-align:center" markdown="1">
+![Data Model][dataModel]
+</div>
 
 Use meaningful sample data. Briefly explain any non-trivial issues.
 
