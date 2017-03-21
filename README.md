@@ -114,10 +114,13 @@ There is no model for the about page as the about page is simply a single Bootst
 
 ## UI Design.
 
-#+ATTR_HTML: :style margin-left: auto; margin-right: auto;
 ![][loginScreen]
 
+The login screen gives the Icon of the Application and a button which starts the Auth0 Lock Authenticaion pop up.
+
 ![][loginMenu]
+
+This is the Auth0 Login Menu with all the available options for logging in and also gives the ability to sign up an email and password.
 
 ![][homeScreenMap]
 
