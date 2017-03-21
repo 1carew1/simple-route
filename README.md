@@ -2,12 +2,12 @@
 
 Name: Colm Carew
 
-## Overview.
+## Overview
 Simple Route is a Web Application written using the React JavaScript Library. The core idea of the application is to; using a Map view, create a Single Page Applications (SPA) which gives the user the easiest directions to their desired locations. In creating this solution the goal is also to exhibit some of the React concepts learned throughout the React lectures of the Enterprise Web Development module.
 
 
- . . . . . Feature List . . . . 
- 
+### Feature List
+  
  + Centring the map on the user's current location + placing a marker
  + Flying to a location/address specified by the user and placing a marker there
  + Directions from one location to another giving the simplest route obtained from Google Direction Services (simplest is defined by the lowest number of turns)
@@ -47,7 +47,9 @@ Ensure you have a  auth0Config.json file in the config folder  of this project w
 Once completed run 'npm install' in the root of the project.
 Once all packages are installed run 'npm start'
 
-. . . .  List of software used to develop the app . . . . . . . 
+### List of Software + Technologies Used
++ Node 6.10.0
++ npm 3.10.10
 + create-react-app tool
 + ReactJS v15.4.2
 + Bootstrap 3
@@ -62,9 +64,7 @@ Once all packages are installed run 'npm start'
 
 Diagram of app's data model (see example below) AND/OR a sample of the test data used (JSON or equivalent).
 
-<div style="text-align:center" markdown="1">
 ![Data Model][dataModel]
-</div>
 
 Use meaningful sample data. Briefly explain any non-trivial issues.
 
@@ -72,10 +72,12 @@ Use meaningful sample data. Briefly explain any non-trivial issues.
 
 ### Main Component Model
 
+The main components model is made up of Login, Home, Profile and About. Login is of course the login page. Home is the main part of the application where the map resides. Profile is the User's profile and About is a simple about page of the Application. Each component underneath the Login (Home, Profile etc.) use the same Navigation Bar.
 ![][mainModel]
 
 ### Home Component Model
 
+Underneath the Home component there is the Custom Navbar (shared by most main pages) and the Google Map. Inside Google Map there is Google Maps itself as well as a Custom Map Marker. As for the Custom Navbar there are links to the Home Page, Profile Page, About Page and a Logout option. If the user is in the Home page then there are also Map Options available. These Map Options are 'Centre Map' which centres the map at the user's current location (if allowed by browser) and plots a marker. There is 'Fly to Location' which bring up a Single Input Field Form within a Custom Modal that the user enters an address they wish to fly to. This places a marker at that address. Finally there is 'Get Directions' this is another form displated by the Modal which allows the user to get directions between two addresses.
 ![][homeModel]
 
 ### Profile Component Model
@@ -93,15 +95,16 @@ Use meaningful sample data. Briefly explain any non-trivial issues.
 + /home/directions/:fromLocation/:toLocation - Paramaterised URL, (:fromLocation) is the starting address and (:toLocation) is the end address - returns a Map with directions based on the user's preferences
 + /profile - logged in user's profile
 + /logout - logout of app and directed back to login back
++ Anything else results in the not found page
 
 ## Extra features
 
-. . . . . Briefly explain any non-standard features, functional or non-functional (e.g. user registration, authentication) developed for the app . . . . . .  
+User registration and Authentication is handled by Auth0 which is an SSO solution. In this App it is used to handle the Login via Google, Facebook, Twitter or Auth0 (basic email/password).
+
+The backend database is handled by Firebase which is an Application Infrastructure. It is similar in ways to Auth0 but was chosen to be used as the database as an Android App (with the same name) is being developed after this SPA and the Android App uses firebase so ideally the two Apps sharing the same user data (watch this space). 
 
 ## Independent learning.
-Google Maps React Tutorial : https://www.youtube.com/watch?v=N1J7Q1qJPQM
-
-Auth0
+Google Maps is one of the main independent learning points as it is integrating with a 3rd part API - Google Maps + Google Maps Services. The same can be said for Auth0 and Firebase as neither are covered in the notes and are both also 3rd party APIs.
 
 
 [dataModel]: ./readmeResources/SimpleRouteReactDataModel.png
