@@ -78,11 +78,16 @@ The main components model is made up of Login, Home, Profile and About. Login is
 ### Home Component Model
 
 Underneath the Home component there is the Custom Navbar (shared by most main pages) and the Google Map. Inside Google Map there is Google Maps itself as well as a Custom Map Marker. As for the Custom Navbar there are links to the Home Page, Profile Page, About Page and a Logout option. If the user is in the Home page then there are also Map Options available. These Map Options are 'Centre Map' which centres the map at the user's current location (if allowed by browser) and plots a marker. There is 'Fly to Location' which bring up a Single Input Field Form within a Custom Modal that the user enters an address they wish to fly to. This places a marker at that address. Finally there is 'Get Directions' this is another form displated by the Modal which allows the user to get directions between two addresses.
+
 ![][homeModel]
 
 ### Profile Component Model
 
+The profile component is used to track user preference information and display their most recent direction searches. The Custom Navbar in this case is the same as in Home however Map Options are disabled. Profile Details are essentially a small table containing the user's thumbnail, name and email. Profile Preferences and Profile Directions each use Firebase for database storage and retrieval. Profile Preferences contains the user's preferences, that is the unit they want the directions in, the transport type (car, cycle etc.), whether to avoid tolls or not and whether to avoid highways/motorways or not. Profile Directions displays the last 10 directions the user searched, in a table format and provides a link to generate the directions once again (it will take whatever the current preferences are into consideration when calculating the directions).
+
 ![][profileModel]
+
+There is no modal for the about page as the about page is simply a single Bootstrap Jumbotron displaying some basic information about the application.
 
 ## UI Design.
 
@@ -105,6 +110,8 @@ The backend database is handled by Firebase which is an Application Infrastructu
 
 ## Independent learning.
 Google Maps is one of the main independent learning points as it is integrating with a 3rd part API - Google Maps + Google Maps Services. The same can be said for Auth0 and Firebase as neither are covered in the notes and are both also 3rd party APIs.
+
+For more information please see the file SimpleRouteEntWebDev.pdf in the root of this project.
 
 
 [dataModel]: ./readmeResources/SimpleRouteReactDataModel.png
