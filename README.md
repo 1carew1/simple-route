@@ -62,11 +62,28 @@ Once all packages are installed run 'npm start'
 
 ## Data Model Design.
 
-Diagram of app's data model (see example below) AND/OR a sample of the test data used (JSON or equivalent).
+Overall the data model is quite simple. The User's preferences are stored in a user table with the user id being the key of the table. The user table contains all preferences mentioned in the profile as well as the username, email and authentication provider of the user.
+
+The directions table is used to store the searched user directions, it contains a key pointing back to the user table and has the start address, end address and date searched.
 
 ![Data Model][dataModel]
 
-Use meaningful sample data. Briefly explain any non-trivial issues.
+Example Entry in User Table as is in Firebase :
+avoidHighways: false
+avoidTolls: false
+email: "colmcarew2@gmail.com"
+provider: "google-oauth2"
+travelMode: "DRIVING"
+unitSystem: "METRIC"
+username: "Colm C"
+
+Example Entry in the Directions Table as is in Firebase :
+date_searched: "2017-03-20T22:29:51.558Z"
+end_address: "Dublin Airport, Dublin, Ireland"
+start_address: "Wexford"
+user_id: "google-oauth2|XXXXXXXX"
+
+Again this is very basic data. A nice feature for furture development would be to store saftey information regarding neighbourhoods and areas such that the user could opt to get directions the safest way possible. Ideally the user would also be able to add data into safety information saying whether a neighbourhood was safe or not. Another nice feature would be to track the user's location and store them in a seperate table so the user would be able to see where they have been and also if anyone was using their account when they should not have been.
 
 ## App Component Design.
 
@@ -87,7 +104,7 @@ The profile component is used to track user preference information and display t
 
 ![][profileModel]
 
-There is no modal for the about page as the about page is simply a single Bootstrap Jumbotron displaying some basic information about the application.
+There is no model for the about page as the about page is simply a single Bootstrap Jumbotron displaying some basic information about the application.
 
 ## UI Design.
 
@@ -109,7 +126,7 @@ User registration and Authentication is handled by Auth0 which is an SSO solutio
 The backend database is handled by Firebase which is an Application Infrastructure. It is similar in ways to Auth0 but was chosen to be used as the database as an Android App (with the same name) is being developed after this SPA and the Android App uses firebase so ideally the two Apps sharing the same user data (watch this space). 
 
 ## Independent learning.
-Google Maps is one of the main independent learning points as it is integrating with a 3rd part API - Google Maps + Google Maps Services. The same can be said for Auth0 and Firebase as neither are covered in the notes and are both also 3rd party APIs.
+Google Maps is one of the main independent learning points as it is integrating with a 3rd part API - Google Maps + Google Maps Services. The same can be said for Auth0 and Firebase as neither are covered in the notes and are both also 3rd party APIs. Firebase required some indexing of the user id in the directions table to make querying faster.
 
 For more information please see the file SimpleRouteEntWebDev.pdf in the root of this project.
 
