@@ -1,9 +1,22 @@
-The purpose of this React App is to fullfil the requirements set out by the Assignment in the Enterprise Web Development Module for Msc. in Communication Software
-
 Google Maps React Tutorial : https://www.youtube.com/watch?v=N1J7Q1qJPQM
 
-This project was initially created with [Create React App](https://github.com/facebookincubator/create-react-app).
+# Enterprise Web Development Assignment 1 - ReactJS app.
 
+Name: Colm Carew
+
+## Overview.
+...... A statement of the app concept and objectives (about a half-page) ........
+
+
+ . . . . . List of user features (excluding user registration and authentication) . . . . 
+ 
+ + Feature 1
+ + Feature 2
+ + Feature 3
+ + etc
+ + etc
+
+## Installation requirements.
 Please see the file SimpleRouteEntWebDev.pdf in the root of this project for more information of its functionality and how to set it up.
 
 Ensure you have a firebaseConfig.json file in the config folder of this project with following content using your own Keys + Links :
@@ -31,24 +44,6 @@ Ensure you have a  auth0Config.json file in the config folder  of this project w
   "apiKey": "XXXXX",
   "userUrl": "XXXXX"
 }
-
-# Assignment 1 - ReactJS app.
-
-Name: ... your name ...
-
-## Overview.
-...... A statement of the app concept and objectives (about a half-page) ........
-
-
- . . . . . List of user features (excluding user registration and authentication) . . . . 
- 
- + Feature 1
- + Feature 2
- + Feature 3
- + etc
- + etc
-
-## Installation requirements.
 . . . .  List of software used to develop the app . . . . . . . 
 + ReactJS v15.4.2
 + Bootstrap 3
@@ -68,11 +63,15 @@ Use meaningful sample data. Briefly explain any non-trivial issues.
 
 ## App Component Design.
 
-A diagram showing the app's hierarchical component design (see example below). 
+### Main Component Model
 
 ![][mainModel]
 
+### Home Component Model
+
 ![][homeModel]
+
+### Profile Component Model
 
 ![][profileModel]
 
@@ -80,15 +79,15 @@ A diagram showing the app's hierarchical component design (see example below).
 
 . . . . . Screenshots of app's views (see example below) with appropriate captions (user regeneration and login views, if implemented, can be omitted) . . . . . . . 
 
-![][image3]
-
 ## Routing.
 . . . . List each route supported and state the associated view . . . . . 
 
-+ /foos - displays all published foos
-+ /foos/:id - detail view of a particular foo (:id)
-+ etc
-+ etc
++ /login - login page
++ /about - about page
++ /home - home page of app - the Map
++ /home/directions/:fromLocation/:toLocation - Paramaterised URL, (:fromLocation) is the starting address and (:toLocation) is the end address
++ /profile - logged in user's profile
++ /logout - logout of app and directed back to login back
 
 ## Extra features
 
