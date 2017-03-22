@@ -124,19 +124,35 @@ This is the Auth0 Login Menu with all the available options for logging in and a
 
 ![][homeScreenMap]
 
+Once the user is authenticated they are brought to the home screen. The home screen displays a near full screen map as well as a navigation bar. The map was chosen to be full screen as it gives a more stock feel than if the map was in a smaller segment.
+
 ![][flyToLocation]
+
+When Map Options is selected from the Navbar followed by Fly to Location the following screen is rendered. This is a Modal that is being displayed and the content of the Modal is the passed in form which in this case is the Fly to Location form. When an address is entered the user will fly to this location on the map with a marker put at the address. If there is no valid location then an alert box will pop up alerting the user they entered an invalid address (alternatively they entered and address Google does not have).
 
 ![][directionsForm]
 
+When Map Options is selected from the Navbar followed by 'Get Directions' the following screen is rendered. Directions also use the Modal as clicking the 'Get Directions' option passes in the Directions Form to the modal and displays the modal. If incorrect locations are searched or there is no route between the two locations an alert box pops up alerting the user. When valid addresses are entered however the simplest route between the two points will be plotted on the map and the directions will appear on the right hand side of the page. Again the simplest route is defined as the route with the lowest number of turns.
+
 ![][mapWithDirections]
+
+Once valid directions are searched for the resulting screen is similar to above. The directions appear on the right hand side of the page. If the user navigates away from the page the right panel will disappear. Note this page generates a paramaterised URL which can be shared so other user's may get directions. Note in this case the directions are calculated based on the user's preferences. The reason it was chosen this way is that not everyone will be driving or cyclying etc.
 
 ![][profileBasicInfo]
 
+The profile page is navigated to by clicking Profile in the Navbar. The page contains the Navbar and is broken into sections. The first section of the page is quite basic, giving the user's profile photo of whatever provider they signed up with, the user's name and their email.
+
 ![][preferences]
+
+Preferences are underneath the basic information. Each of the options available are used in calculating the user’s directions. The values are stored in a Firebase database table titled ‘user’. Travel Mode and Units are each dropdowns. All 4 available options are set to default as above and if the user clicks on one it is automatically updated in the Firebase Database. Note when the Profile page loads the default values will be present but the user’s actual preferences should load by the time they click on one.
 
 ![][directionsTable]
 
+Directions table is underneath preferences. This is a table generated from the user’s most recent 10 searched directions with the number on the left hand side of the table having a link which will bring up the directions via the parameterised URL when clicked. These are stored in the ‘directions’ table in the Firebase database. This table may take a second to load when the user goes to the profile page. This is just a React component re-render and not an entire page re-render. This is due to the latency of reading the data from a database.
+
 ![][aboutPage]
+
+The about page is accessed by clicking the About link in the Navbar. Overall it is a simple page which has the Navbar as well as a brief summary of the purpose of the application as well as it's Github link.
 
 ## Routing.
 + /login - login page
